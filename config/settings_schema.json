@@ -1,0 +1,91 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Fashion Store",
+    "theme_version": "1.0.0",
+    "theme_author": "Shopify",
+    "theme_documentation_url": "https://help.shopify.com/manual/online-store/themes",
+    "theme_support_url": "https://support.shopify.com/"
+  },
+  {
+    "name": "t:general.layout",
+    "settings": [
+      {
+        "type": "select",
+        "id": "max_page_width",
+        "label": "t:labels.page_width",
+        "options": [
+          {
+            "value": "90rem",
+            "label": "t:options.page_width.narrow"
+          },
+          {
+            "value": "110rem",
+            "label": "t:options.page_width.wide"
+          }
+        ],
+        "default": "90rem"
+      },
+      {
+        "type": "range",
+        "id": "min_page_margin",
+        "min": 10,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "t:labels.page_margin",
+        "default": 20
+      }
+    ]
+  },
+  {
+    "name": "t:general.colors",
+    "settings": [
+      {
+        "type": "color",
+        "id": "background_color",
+        "default": "#FAF8F4",
+        "label": "t:labels.page_background",
+        "info": "t:info.background_color"
+      },
+      {
+        "type": "color",
+        "id": "foreground_color",
+        "default": "#221510",
+        "label": "t:labels.text_color",
+        "info": "t:info.foreground_color"
+      },
+      {
+        "type": "color",
+        "id": "panel_color",
+        "default": "#E0DFDB",
+        "label": "t:labels.panel",
+        "info": "t:info.panel_color"
+      },
+      {
+        "type": "color",
+        "id": "accent_color",
+        "default": "#C8AA8E",
+        "label": "t:labels.accent",
+        "info": "t:info.accent_color"
+      },
+      {
+        "type": "color",
+        "id": "border_color",
+        "default": "#8D735C",
+        "label": "t:labels.border",
+        "info": "t:info.border_color"
+      },
+      {
+        "type": "range",
+        "id": "input_corner_radius",
+        "min": 0,
+        "max": 10,
+        "step": 1,
+        "unit": "px",
+        "label": "t:labels.input_corner_radius",
+        "default": 4
+      }
+    ]
+  }
+]

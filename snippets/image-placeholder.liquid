@@ -1,0 +1,85 @@
+{% doc %}
+  Renders a plain placeholder box where an image is missing. Uses the theme's
+  border colour, with a simple outline picture icon so it reads as "image".
+
+  In the theme editor only, the box also shows the recommended image shape and
+  size, so the store owner knows what to create for that spot.
+
+  @param {string} [class] - Optional class added to the placeholder box
+  @param {string} [ratio] - Shape of the spot: '4 / 5', '1 / 1', '3 / 4' or '3 / 2'
+  @param {boolean} [small] - Recommend a smaller image, for tiles and cards
+
+  @example
+  {% render 'image-placeholder' %}
+  {% render 'image-placeholder', class: 'hero__placeholder', ratio: '4 / 5' %}
+  {% render 'image-placeholder', ratio: '4 / 5', small: true %}
+{% enddoc %}
+
+{% liquid
+  assign hint = ''
+  if request.design_mode and ratio != blank
+    case ratio
+      when '4 / 5'
+        assign hint_size = '1600 × 2000'
+        if small
+          assign hint_size = '1200 × 1500'
+        endif
+      when '1 / 1'
+        assign hint_size = '1600 × 1600'
+        if small
+          assign hint_size = '1200 × 1200'
+        endif
+      when '3 / 4'
+        assign hint_size = '1500 × 2000'
+        if small
+          assign hint_size = '1200 × 1600'
+        endif
+      when '3 / 2'
+        assign hint_size = '1600 × 1067'
+        if small
+          assign hint_size = '1200 × 800'
+        endif
+    endcase
+
+    if hint_size
+      assign hint = ratio | remove: ' ' | replace: '/', ':' | append: ' · ' | append: hint_size | append: ' px'
+    endif
+  endif
+%}
+
+<div class="image-placeholder {{ class }}" aria-hidden="true">
+  <svg class="image-placeholder__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
+    <rect x="6" y="9" width="36" height="30" rx="2" stroke="currentColor" stroke-width="1.5" />
+    <circle cx="17" cy="19" r="3.5" stroke="currentColor" stroke-width="1.5" />
+    <path d="m6 33 10-9 8 7 6-5 12 10" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
+  </svg>
+  {% if hint != blank %}
+    <span class="image-placeholder__hint">{{ hint }}</span>
+  {% endif %}
+</div>
+
+{% stylesheet %}
+  .image-placeholder {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background-color: var(--color-border);
+    color: var(--color-background);
+  }
+
+  .image-placeholder__icon {
+    width: min(4rem, 30%);
+    opacity: 0.6;
+  }
+
+  .image-placeholder__hint {
+    padding: 0 0.5rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+    text-align: center;
+  }
+{% endstylesheet %}

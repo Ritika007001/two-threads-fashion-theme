@@ -1,0 +1,271 @@
+{% comment %}
+  Content page, such as About, Shipping or Returns: the page title and the
+  text written in Shopify admin. With "Show contact form" on (used by the
+  page.contact template), a contact form follows the text.
+
+  https://shopify.dev/docs/storefronts/themes/architecture/templates/page
+{% endcomment %}
+
+<div class="content-page {{ section.settings.width }}">
+  {% if section.settings.show_title %}
+    <h1 class="content-page__title content-page__title--{{ section.settings.title_alignment }}">
+      {{- page.title | escape -}}
+    </h1>
+  {% else %}
+    <h1 class="visually-hidden">{{ page.title | escape }}</h1>
+  {% endif %}
+
+  {% if page.content != blank %}
+    <div class="content-page__body rte">
+      {{ page.content }}
+    </div>
+  {% endif %}
+
+  {% if section.settings.show_contact_form %}
+    <section class="contact" aria-labelledby="ContactTitle">
+      <h2 id="ContactTitle" class="contact__title">
+        {%- if section.settings.contact_heading != blank -%}
+          {{- section.settings.contact_heading | escape -}}
+        {%- else -%}
+          {{- 'contact.heading' | t -}}
+        {%- endif -%}
+      </h2>
+
+      {% form 'contact', id: 'ContactForm', class: 'contact__form' %}
+        {% if form.posted_successfully? %}
+          <p class="contact__message contact__message--success" role="status">{{ 'contact.success' | t }}</p>
+        {% endif %}
+
+        {% if form.errors %}
+          <div class="contact__message" role="alert">{{ form.errors | default_errors }}</div>
+        {% endif %}
+
+        <div class="contact__fields">
+          <div class="contact__field">
+            <label for="ContactName">{{ 'contact.name' | t }}</label>
+            <input
+              id="ContactName"
+              type="text"
+              name="contact[name]"
+              value="{% if form.name %}{{ form.name | escape }}{% elsif customer %}{{ customer.name | escape }}{% endif %}"
+              autocomplete="name"
+            >
+          </div>
+
+          <div class="contact__field">
+            <label for="ContactEmail">
+              {{ 'contact.email' | t }}
+              <span aria-hidden="true">*</span>
+              <span class="visually-hidden">({{ 'contact.required' | t }})</span>
+            </label>
+            <input
+              id="ContactEmail"
+              type="email"
+              name="contact[email]"
+              value="{% if form.email %}{{ form.email | escape }}{% elsif customer %}{{ customer.email | escape }}{% endif %}"
+              autocomplete="email"
+              required
+              {% if form.errors contains 'email' %}
+                aria-invalid="true"
+              {% endif %}
+            >
+          </div>
+
+          <div class="contact__field contact__field--full">
+            <label for="ContactPhone">
+              {{ 'contact.phone' | t }}
+              <span class="contact__optional">({{ 'contact.optional' | t }})</span>
+            </label>
+            <input
+              id="ContactPhone"
+              type="tel"
+              name="contact[phone]"
+              value="{{ form.phone | escape }}"
+              autocomplete="tel"
+            >
+          </div>
+
+          <div class="contact__field contact__field--full">
+            <label for="ContactBody">
+              {{ 'contact.body' | t }}
+              <span aria-hidden="true">*</span>
+              <span class="visually-hidden">({{ 'contact.required' | t }})</span>
+            </label>
+            <textarea id="ContactBody" name="contact[body]" rows="6" required>{{ form.body | escape }}</textarea>
+          </div>
+        </div>
+
+        <button type="submit" class="button">
+          {%- if section.settings.contact_button_label != blank -%}
+            {{- section.settings.contact_button_label | escape -}}
+          {%- else -%}
+            {{- 'contact.send' | t -}}
+          {%- endif -%}
+        </button>
+      {% endform %}
+    </section>
+  {% endif %}
+</div>
+
+{% stylesheet %}
+  .content-page {
+    padding-block: 2.5rem 1rem;
+  }
+
+  .content-page__title,
+  .content-page__body,
+  .contact {
+    max-width: var(--content-page-width);
+    margin-inline: auto;
+  }
+
+  .content-page--narrow {
+    --content-page-width: 44rem;
+  }
+
+  .content-page--wide {
+    --content-page-width: 64rem;
+  }
+
+  .content-page__title {
+    margin-bottom: 2rem;
+    font-size: clamp(2.25rem, 5vw, 3.5rem);
+    line-height: 1.08;
+  }
+
+  .content-page__title--center {
+    text-align: center;
+  }
+
+  .contact {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .contact__title {
+    margin-bottom: 1.5rem;
+    font-size: 1.75rem;
+  }
+
+  .contact__form {
+    display: grid;
+    gap: 1.5rem;
+    justify-items: start;
+  }
+
+  .contact__fields {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    width: 100%;
+  }
+
+  .contact__field--full {
+    grid-column: 1 / -1;
+  }
+
+  .contact__field label {
+    display: block;
+    margin-bottom: 0.375rem;
+    font-size: 0.875rem;
+  }
+
+  .contact__optional {
+    opacity: 0.7;
+  }
+
+  .contact__field input,
+  .contact__field textarea {
+    width: 100%;
+    min-height: 2.75rem;
+    padding: 0.625rem 0.875rem;
+    border: 1px solid var(--color-border);
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+  }
+
+  .contact__field textarea {
+    resize: vertical;
+  }
+
+  .contact__message {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    border: 1px solid var(--color-border);
+  }
+
+  .contact__message--success {
+    background-color: var(--color-panel);
+  }
+
+  @media (max-width: 749px) {
+    .content-page {
+      padding-top: 1.5rem;
+    }
+
+    .contact__fields {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:general.page",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_title",
+      "label": "t:labels.show_page_title",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "title_alignment",
+      "label": "t:labels.title_alignment",
+      "options": [
+        { "value": "left", "label": "t:options.alignment.left" },
+        { "value": "center", "label": "t:options.alignment.center" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "t:labels.text_width",
+      "options": [
+        { "value": "content-page--narrow", "label": "t:options.text_width.narrow" },
+        { "value": "content-page--wide", "label": "t:options.text_width.wide" }
+      ],
+      "default": "content-page--narrow"
+    },
+    {
+      "type": "header",
+      "content": "t:labels.contact_form"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_contact_form",
+      "label": "t:labels.show_contact_form",
+      "info": "t:info.contact_form",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "contact_heading",
+      "label": "t:labels.heading",
+      "default": "Send us a message"
+    },
+    {
+      "type": "text",
+      "id": "contact_button_label",
+      "label": "t:labels.button_label",
+      "default": "Send message"
+    }
+  ],
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  }
+}
+{% endschema %}

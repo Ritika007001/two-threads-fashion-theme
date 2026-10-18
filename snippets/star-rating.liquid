@@ -1,0 +1,43 @@
+{% doc %}
+  Renders five stars filled to a rating out of 5, in the current text colour.
+  Screen readers hear the rating as text instead of the stars.
+
+  @param {number} rating - Rating out of 5, for example 4.8
+  @param {string} [class] - Optional class added to the stars
+
+  @example
+  {% render 'star-rating', rating: 4.8 %}
+  {% render 'star-rating', rating: review.rating, class: 'product-reviews__stars' %}
+{% enddoc %}
+
+{% assign star_percent = rating | times: 20 %}
+
+<span
+  class="star-rating {{ class }}"
+  style="--rating-percent: {{ star_percent }}%;"
+  role="img"
+  aria-label="{{ 'product.rating' | t: rating: rating }}"
+></span>
+
+{% stylesheet %}
+  .star-rating {
+    position: relative;
+    display: inline-block;
+    line-height: 1;
+    letter-spacing: 0.1em;
+    white-space: nowrap;
+  }
+
+  .star-rating::before {
+    content: '★★★★★';
+    color: color-mix(in srgb, currentColor 20%, transparent);
+  }
+
+  .star-rating::after {
+    content: '★★★★★';
+    position: absolute;
+    inset: 0;
+    width: var(--rating-percent);
+    overflow: hidden;
+  }
+{% endstylesheet %}

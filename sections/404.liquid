@@ -1,0 +1,209 @@
+{% comment %}
+  "Page not found" page: a friendly message, a search box, buttons back to
+  the shop and optional product suggestions.
+
+  https://shopify.dev/docs/storefronts/themes/architecture/templates/404
+{% endcomment %}
+
+<div class="not-found">
+  <div class="not-found__message">
+    <p class="not-found__code" aria-hidden="true">404</p>
+    <h1 class="not-found__title">
+      {%- if section.settings.heading != blank -%}
+        {{- section.settings.heading | escape -}}
+      {%- else -%}
+        {{- '404.title' | t -}}
+      {%- endif -%}
+    </h1>
+    {% if section.settings.text != blank %}
+      <p class="not-found__text">{{ section.settings.text | escape }}</p>
+    {% endif %}
+
+    {% if section.settings.show_search %}
+      <form class="not-found__search" action="{{ routes.search_url }}" method="get" role="search">
+        <label class="visually-hidden" for="NotFoundSearch">{{ 'search.label' | t }}</label>
+        <input
+          id="NotFoundSearch"
+          type="search"
+          name="q"
+          placeholder="{{ 'search.placeholder' | t }}"
+          autocomplete="off"
+        >
+        <input type="hidden" name="options[prefix]" value="last">
+        <button type="submit" class="button">{{ 'search.submit' | t }}</button>
+      </form>
+    {% endif %}
+
+    <div class="not-found__actions">
+      {% if section.settings.button_label != blank %}
+        <a class="button" href="{{ section.settings.button_link | default: routes.all_products_collection_url }}">
+          {{- section.settings.button_label | escape -}}
+        </a>
+      {% endif %}
+      <a class="button button--outline" href="{{ routes.root_url }}">{{ '404.home' | t }}</a>
+    </div>
+  </div>
+
+  {% liquid
+    assign suggestions = section.settings.suggestions_collection
+    if suggestions == blank
+      assign suggestions = collections.all
+    endif
+    assign suggestion_limit = section.settings.suggestions_count
+  %}
+  {% if suggestion_limit > 0 and suggestions.products_count > 0 %}
+    <section class="not-found__suggestions" aria-labelledby="NotFoundSuggestions">
+      <h2 id="NotFoundSuggestions" class="section-heading">
+        {%- if section.settings.suggestions_heading != blank -%}
+          {{- section.settings.suggestions_heading | escape -}}
+        {%- else -%}
+          {{- '404.suggestions_heading' | t -}}
+        {%- endif -%}
+      </h2>
+      <ul class="card-grid" role="list" style="--columns: 4;">
+        {% for product in suggestions.products limit: suggestion_limit %}
+          <li>{% render 'product-card', product: product %}</li>
+        {% endfor %}
+      </ul>
+    </section>
+  {% endif %}
+</div>
+
+{% stylesheet %}
+  .not-found {
+    padding-block: 3rem 1rem;
+  }
+
+  .not-found__message {
+    display: grid;
+    gap: 1.25rem;
+    justify-items: center;
+    max-width: 38rem;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .not-found__code {
+    font-family: var(--font-heading--family);
+    font-size: clamp(5rem, 16vw, 9rem);
+    line-height: 1;
+    color: var(--color-border);
+  }
+
+  .not-found__title {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    line-height: 1.15;
+  }
+
+  .not-found__text {
+    line-height: 1.6;
+  }
+
+  .not-found__search {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    width: 100%;
+    max-width: 30rem;
+    margin-top: 0.5rem;
+  }
+
+  .not-found__search input {
+    flex: 1 1 14rem;
+    min-width: 0;
+    min-height: 3rem;
+    padding: 0 1rem;
+    border: 1px solid var(--color-border);
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+  }
+
+  .not-found__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+  }
+
+  .not-found__suggestions {
+    margin-top: 4rem;
+  }
+
+  .not-found__suggestions .section-heading {
+    margin-bottom: 1.5rem;
+  }
+
+  @media (max-width: 749px) {
+    .not-found {
+      padding-top: 2rem;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:general.404",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "t:labels.heading",
+      "default": "We can't find that page."
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "t:labels.text",
+      "default": "It may have moved, or the address might have a small typo. Try a search, or head back to the shop."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_search",
+      "label": "t:labels.show_search_box",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "t:labels.button_label",
+      "default": "Shop all products"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "t:labels.link",
+      "default": "/collections/all"
+    },
+    {
+      "type": "header",
+      "content": "t:labels.suggestions"
+    },
+    {
+      "type": "range",
+      "id": "suggestions_count",
+      "label": "t:labels.suggestions_count",
+      "info": "t:info.suggestions_count_404",
+      "min": 0,
+      "max": 8,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "text",
+      "id": "suggestions_heading",
+      "label": "t:labels.heading",
+      "default": "Popular right now"
+    },
+    {
+      "type": "collection",
+      "id": "suggestions_collection",
+      "label": "t:general.collection",
+      "info": "t:info.featured_collection"
+    }
+  ],
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  }
+}
+{% endschema %}

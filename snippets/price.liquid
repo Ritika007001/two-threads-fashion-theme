@@ -1,0 +1,50 @@
+{% doc %}
+  Renders a variant's price. When the variant has a higher compare-at price,
+  the old price is shown crossed out next to the sale price.
+
+  The compare-at part is always rendered (hidden when not on sale) so that
+  scripts can switch variants without rebuilding the markup.
+
+  @param {variant} variant - The variant whose price is shown
+  @param {string} [class] - Optional class added to the price wrapper
+
+  @example
+  {% render 'price', variant: product.selected_or_first_available_variant %}
+{% enddoc %}
+
+{% liquid
+  assign on_sale = false
+  if variant.compare_at_price > variant.price
+    assign on_sale = true
+  endif
+%}
+
+<div class="price {{ class }}{% if on_sale %} price--on-sale{% endif %}" data-price>
+  <span class="visually-hidden" data-price-sale-label {% unless on_sale %}hidden{% endunless %}>
+    {{- 'product.sale_price' | t -}}
+  </span>
+  <span class="price__current" data-price-current>{{ variant.price | money }}</span>
+  <span class="price__compare-wrapper" data-price-compare-wrapper {% unless on_sale %}hidden{% endunless %}>
+    <span class="visually-hidden">{{ 'product.regular_price' | t }}</span>
+    <s class="price__compare" data-price-compare>
+      {%- if on_sale -%}{{ variant.compare_at_price | money }}{%- endif -%}
+    </s>
+  </span>
+</div>
+
+{% stylesheet %}
+  .price {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.25rem 0.75rem;
+  }
+
+  .price__compare {
+    opacity: 0.7;
+  }
+
+  .price [hidden] {
+    display: none;
+  }
+{% endstylesheet %}

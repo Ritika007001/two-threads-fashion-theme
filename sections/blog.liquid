@@ -1,0 +1,313 @@
+{% comment %}
+  Journal page: heading, optional intro, tag filter, an optional large first
+  post, a grid of journal cards and page links.
+
+  https://shopify.dev/docs/storefronts/themes/architecture/templates/blog
+{% endcomment %}
+
+{% liquid
+  assign ratio = section.settings.image_ratio
+  assign filtering = false
+  if current_tags.size > 0
+    assign filtering = true
+  endif
+%}
+
+<div class="journal-page">
+  <header class="journal-page__header">
+    <h1 class="journal-page__title">{{ blog.title | escape }}</h1>
+    {% if section.settings.intro != blank %}
+      <div class="journal-page__intro">{{ section.settings.intro }}</div>
+    {% endif %}
+  </header>
+
+  {% if section.settings.show_tag_filter and blog.all_tags.size > 0 %}
+    <nav class="journal-page__tags" aria-label="{{ 'blog.tags_label' | t }}">
+      <ul class="journal-page__tag-list" role="list">
+        <li>
+          <a
+            class="journal-page__tag{% unless filtering %} is-active{% endunless %}"
+            href="{{ blog.url }}"
+            {% unless filtering %}
+              aria-current="page"
+            {% endunless %}
+          >
+            {{- 'blog.all_tags' | t -}}
+          </a>
+        </li>
+        {% for tag in blog.all_tags %}
+          {% liquid
+            assign tag_active = false
+            if current_tags contains tag
+              assign tag_active = true
+            endif
+          %}
+          <li>
+            <a
+              class="journal-page__tag{% if tag_active %} is-active{% endif %}"
+              href="{{ blog.url }}/tagged/{{ tag | handle }}"
+              {% if tag_active %}
+                aria-current="page"
+              {% endif %}
+            >
+              {{- tag | escape -}}
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    </nav>
+  {% endif %}
+
+  {% paginate blog.articles by section.settings.posts_per_page %}
+    {% if blog.articles.size > 0 %}
+      {% liquid
+        assign show_featured = false
+        if section.settings.show_featured and paginate.current_page == 1 and filtering == false
+          assign show_featured = true
+        endif
+        assign grid_offset = 0
+        if show_featured
+          assign grid_offset = 1
+        endif
+      %}
+
+      {% if show_featured %}
+        <div class="journal-page__featured">
+          {% render 'article-card',
+            article: blog.articles.first,
+            blog_url: blog.url,
+            size: 'large',
+            ratio: ratio,
+            heading_level: 'h2',
+            show_date: section.settings.show_date,
+            show_author: section.settings.show_author,
+            show_reading_time: section.settings.show_reading_time,
+            show_tags: section.settings.show_tags,
+            show_excerpt: section.settings.show_excerpt
+          %}
+        </div>
+      {% endif %}
+
+      {% if blog.articles.size > grid_offset %}
+        <ul class="journal-page__grid" role="list" style="--columns: {{ section.settings.columns }};">
+          {% for article in blog.articles offset: grid_offset %}
+            <li>
+              {% render 'article-card',
+                article: article,
+                blog_url: blog.url,
+                ratio: ratio,
+                heading_level: 'h2',
+                show_date: section.settings.show_date,
+                show_author: section.settings.show_author,
+                show_reading_time: section.settings.show_reading_time,
+                show_tags: section.settings.show_tags,
+                show_excerpt: section.settings.show_excerpt
+              %}
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+
+      {% render 'pagination', paginate: paginate %}
+    {% elsif filtering %}
+      <div class="empty-state">
+        <p class="empty-state__title">{{ 'blog.tag_empty' | t }}</p>
+        <a class="button" href="{{ blog.url }}">{{ 'blog.see_all' | t }}</a>
+      </div>
+    {% else %}
+      <div class="empty-state">
+        <p class="empty-state__title">{{ 'blog.empty' | t }}</p>
+        <a class="button" href="{{ routes.all_products_collection_url }}">{{ 'blog.back_to_shop' | t }}</a>
+      </div>
+    {% endif %}
+  {% endpaginate %}
+</div>
+
+{% stylesheet %}
+  .journal-page {
+    padding-block: 2.5rem 1rem;
+  }
+
+  .journal-page__header {
+    max-width: 44rem;
+    margin-bottom: 2rem;
+  }
+
+  .journal-page__title {
+    font-size: clamp(2.25rem, 5vw, 3.5rem);
+    line-height: 1.05;
+  }
+
+  .journal-page__intro {
+    margin-top: 1rem;
+    font-size: 1.0625rem;
+    line-height: 1.6;
+  }
+
+  .journal-page__tags {
+    margin-bottom: 2.5rem;
+  }
+
+  .journal-page__tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .journal-page__tag {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.5rem;
+    padding: 0 1rem;
+    border: 1px solid var(--color-foreground);
+    border-radius: 2rem;
+    color: inherit;
+    font-size: 0.875rem;
+    text-decoration: none;
+  }
+
+  .journal-page__tag:hover {
+    background-color: var(--color-panel);
+  }
+
+  .journal-page__tag.is-active {
+    background-color: var(--color-foreground);
+    color: var(--color-background);
+  }
+
+  .journal-page__featured {
+    margin-bottom: 3.5rem;
+    padding-bottom: 3.5rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .journal-page__grid {
+    display: grid;
+    grid-template-columns: repeat(var(--columns, 3), minmax(0, 1fr));
+    gap: 3rem 1.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  @media (max-width: 989px) {
+    .journal-page__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 749px) {
+    .journal-page {
+      padding-top: 1.5rem;
+    }
+
+    .journal-page__grid {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 2.5rem;
+    }
+
+    .journal-page__featured {
+      margin-bottom: 2.5rem;
+      padding-bottom: 2.5rem;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:general.blog",
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "intro",
+      "label": "t:labels.intro"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_tag_filter",
+      "label": "t:labels.show_tag_filter",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_featured",
+      "label": "t:labels.show_featured_post",
+      "info": "t:info.featured_post",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "t:labels.post_grid"
+    },
+    {
+      "type": "range",
+      "id": "posts_per_page",
+      "label": "t:labels.posts_per_page",
+      "min": 6,
+      "max": 24,
+      "step": 3,
+      "default": 9
+    },
+    {
+      "type": "range",
+      "id": "columns",
+      "label": "t:labels.columns_desktop",
+      "min": 2,
+      "max": 3,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "label": "t:labels.image_ratio",
+      "options": [
+        { "value": "3 / 2", "label": "t:options.image_ratio.landscape" },
+        { "value": "4 / 5", "label": "t:options.image_ratio.portrait" },
+        { "value": "1 / 1", "label": "t:options.image_ratio.square" }
+      ],
+      "default": "3 / 2"
+    },
+    {
+      "type": "header",
+      "content": "t:labels.post_details"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_tags",
+      "label": "t:labels.show_tags",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_date",
+      "label": "t:labels.show_date",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_author",
+      "label": "t:labels.show_author",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_reading_time",
+      "label": "t:labels.show_reading_time",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_excerpt",
+      "label": "t:labels.show_excerpt",
+      "default": true
+    }
+  ],
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  }
+}
+{% endschema %}

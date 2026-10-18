@@ -1,0 +1,435 @@
+{% comment %}
+  Store footer, shared across all pages through the footer section group.
+
+  Content comes from blocks the merchant can add, remove and reorder:
+  link columns, a newsletter sign up and store details. The bottom row shows
+  payment icons and the copyright line.
+{% endcomment %}
+
+<footer class="site-footer full-width">
+  <div class="site-footer__inner">
+    {% if section.blocks.size > 0 %}
+      <div class="site-footer__blocks">
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'links' %}
+              <div class="site-footer__block" {{ block.shopify_attributes }}>
+                {% if block.settings.heading != blank %}
+                  <h2 class="site-footer__heading">{{ block.settings.heading | escape }}</h2>
+                {% endif %}
+
+                <ul class="site-footer__links" role="list">
+                  {% for i in (1..5) %}
+                    {% liquid
+                      assign label_key = 'label_' | append: i
+                      assign link_key = 'link_' | append: i
+                      assign label = block.settings[label_key]
+                      assign link = block.settings[link_key]
+                    %}
+                    {% if label != blank %}
+                      {% if link != blank %}
+                        <li>
+                          <a
+                            href="{{ link }}"
+                            {% if link == request.path %}
+                              aria-current="page"
+                            {% endif %}
+                          >
+                            {{- label | escape -}}
+                          </a>
+                        </li>
+                      {% elsif request.design_mode %}
+                        {% # In the theme editor, show links whose page doesn't exist yet. %}
+                        <li><span class="site-footer__link--empty">{{ label | escape }}</span></li>
+                      {% endif %}
+                    {% endif %}
+                  {% endfor %}
+                </ul>
+              </div>
+
+            {% when 'newsletter' %}
+              <div class="site-footer__block site-footer__block--newsletter" {{ block.shopify_attributes }}>
+                {% if block.settings.heading != blank %}
+                  <h2 class="site-footer__heading">{{ block.settings.heading | escape }}</h2>
+                {% endif %}
+
+                {% if block.settings.text != blank %}
+                  <div class="site-footer__text">{{ block.settings.text }}</div>
+                {% endif %}
+
+                {% assign form_id = 'FooterNewsletter-' | append: block.id %}
+                {% form 'customer', id: form_id, class: 'site-footer__newsletter' %}
+                  <input type="hidden" name="contact[tags]" value="newsletter">
+
+                  {% if form.posted_successfully? %}
+                    <p class="site-footer__form-message" role="status">{{ 'footer.newsletter_success' | t }}</p>
+                  {% else %}
+                    <div class="site-footer__field">
+                      <label class="visually-hidden" for="{{ form_id }}-email">
+                        {{- 'footer.newsletter_email' | t -}}
+                      </label>
+                      <input
+                        id="{{ form_id }}-email"
+                        type="email"
+                        name="contact[email]"
+                        autocomplete="email"
+                        placeholder="{{ 'footer.newsletter_email' | t }}"
+                        required
+                        {% if form.errors %}
+                          aria-invalid="true"
+                          aria-describedby="{{ form_id }}-error"
+                        {% endif %}
+                      >
+                      <button type="submit" class="site-footer__button">
+                        {{- 'footer.newsletter_subscribe' | t -}}
+                      </button>
+                    </div>
+
+                    {% if form.errors %}
+                      <div id="{{ form_id }}-error" class="site-footer__form-message" role="alert">
+                        {{ form.errors | default_errors }}
+                      </div>
+                    {% endif %}
+                  {% endif %}
+                {% endform %}
+              </div>
+
+            {% when 'store_details' %}
+              <div class="site-footer__block" {{ block.shopify_attributes }}>
+                {% if block.settings.heading != blank %}
+                  <h2 class="site-footer__heading">{{ block.settings.heading | escape }}</h2>
+                {% endif %}
+
+                {% if block.settings.details != blank %}
+                  <div class="site-footer__text">{{ block.settings.details }}</div>
+                {% endif %}
+              </div>
+          {% endcase %}
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <div class="site-footer__bottom">
+      {% assign current_year = 'now' | date: '%Y' %}
+      <p class="site-footer__copyright">
+        {{ 'footer.copyright' | t: year: current_year, shop_name: shop.name }}
+      </p>
+
+      {% if section.settings.show_payment_icons %}
+        {% if shop.enabled_payment_types.size > 0 %}
+          <ul class="site-footer__payment" role="list">
+            <li class="visually-hidden">{{ 'footer.payment_methods' | t }}</li>
+            {% for type in shop.enabled_payment_types %}
+              <li>{{ type | payment_type_svg_tag: class: 'site-footer__payment-icon' }}</li>
+            {% endfor %}
+          </ul>
+        {% elsif request.design_mode %}
+          {% # Placeholder shown only in the theme editor until payment methods are set up in Shopify. %}
+          <div class="site-footer__payment site-footer__payment--placeholder">
+            <span class="site-footer__payment-placeholder" aria-hidden="true"></span>
+            <span class="site-footer__payment-placeholder" aria-hidden="true"></span>
+            <span class="site-footer__payment-placeholder" aria-hidden="true"></span>
+            <span class="site-footer__payment-placeholder" aria-hidden="true"></span>
+            <span class="site-footer__payment-note">{{ 'footer.payment_placeholder' | t }}</span>
+          </div>
+        {% endif %}
+      {% endif %}
+    </div>
+  </div>
+</footer>
+
+{% stylesheet %}
+  .site-footer {
+    display: grid;
+    grid-template-columns: var(--content-grid);
+    margin-top: 4rem;
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .site-footer__inner {
+    grid-column: 2;
+    padding: 3rem 0 2rem;
+  }
+
+  .site-footer__blocks {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(12rem, 100%), 1fr));
+    gap: 2.5rem 2rem;
+    padding-bottom: 2.5rem;
+  }
+
+  .site-footer__block--newsletter {
+    grid-column: span 2;
+  }
+
+  .site-footer__heading {
+    margin-bottom: 1rem;
+    font-size: 1.125rem;
+  }
+
+  .site-footer a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .site-footer a:hover,
+  .site-footer a[aria-current='page'] {
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  .site-footer__links {
+    display: grid;
+    gap: 0.75rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .site-footer__link--empty {
+    opacity: 0.5;
+  }
+
+  .site-footer__text {
+    line-height: 1.6;
+  }
+
+  .site-footer__text > * + * {
+    margin-top: 0.75rem;
+  }
+
+  .site-footer__newsletter {
+    margin-top: 1rem;
+  }
+
+  .site-footer__field {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    max-width: 28rem;
+  }
+
+  .site-footer__field input {
+    flex: 1 1 12rem;
+    min-width: 0;
+    min-height: 2.75rem;
+    padding: 0 1rem;
+    border: 1px solid var(--color-border);
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+  }
+
+  .site-footer__button {
+    min-height: 2.75rem;
+    padding: 0 1.5rem;
+    border: 1px solid var(--color-foreground);
+    border-radius: var(--style-border-radius-inputs);
+    background-color: var(--color-foreground);
+    color: var(--color-background);
+    font: inherit;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  .site-footer__form-message {
+    margin-top: 0.75rem;
+  }
+
+  .site-footer__bottom {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-border);
+    font-size: 0.875rem;
+  }
+
+  .site-footer__payment {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .site-footer__payment-icon {
+    width: 2.375rem;
+    height: 1.5rem;
+  }
+
+  .site-footer__payment--placeholder {
+    justify-content: flex-end;
+    max-width: 22rem;
+    text-align: end;
+  }
+
+  .site-footer__payment-placeholder {
+    width: 2.375rem;
+    height: 1.5rem;
+    border: 1px dashed var(--color-border);
+    border-radius: 0.25rem;
+  }
+
+  .site-footer__payment-note {
+    flex-basis: 100%;
+    opacity: 0.7;
+  }
+
+  @media (max-width: 749px) {
+    .site-footer__block--newsletter {
+      grid-column: 1 / -1;
+    }
+
+    .site-footer__bottom {
+      flex-direction: column-reverse;
+      align-items: flex-start;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:general.footer",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_payment_icons",
+      "label": "t:labels.show_payment_icons",
+      "info": "t:info.payment_icons",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "links",
+      "name": "t:general.link_column",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "t:labels.heading",
+          "default": "Shop"
+        },
+        {
+          "type": "header",
+          "content": "t:labels.link_1"
+        },
+        {
+          "type": "text",
+          "id": "label_1",
+          "label": "t:labels.link_label"
+        },
+        {
+          "type": "url",
+          "id": "link_1",
+          "label": "t:labels.link"
+        },
+        {
+          "type": "header",
+          "content": "t:labels.link_2"
+        },
+        {
+          "type": "text",
+          "id": "label_2",
+          "label": "t:labels.link_label"
+        },
+        {
+          "type": "url",
+          "id": "link_2",
+          "label": "t:labels.link"
+        },
+        {
+          "type": "header",
+          "content": "t:labels.link_3"
+        },
+        {
+          "type": "text",
+          "id": "label_3",
+          "label": "t:labels.link_label"
+        },
+        {
+          "type": "url",
+          "id": "link_3",
+          "label": "t:labels.link"
+        },
+        {
+          "type": "header",
+          "content": "t:labels.link_4"
+        },
+        {
+          "type": "text",
+          "id": "label_4",
+          "label": "t:labels.link_label"
+        },
+        {
+          "type": "url",
+          "id": "link_4",
+          "label": "t:labels.link"
+        },
+        {
+          "type": "header",
+          "content": "t:labels.link_5"
+        },
+        {
+          "type": "text",
+          "id": "label_5",
+          "label": "t:labels.link_label"
+        },
+        {
+          "type": "url",
+          "id": "link_5",
+          "label": "t:labels.link"
+        }
+      ]
+    },
+    {
+      "type": "newsletter",
+      "name": "t:general.newsletter",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "t:labels.heading",
+          "default": "Join our newsletter"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "t:labels.text",
+          "default": "<p>New arrivals, journal stories and early access to sales.</p>"
+        },
+        {
+          "type": "paragraph",
+          "content": "t:info.newsletter"
+        }
+      ]
+    },
+    {
+      "type": "store_details",
+      "name": "t:general.store_details",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "t:labels.heading",
+          "default": "Visit us"
+        },
+        {
+          "type": "richtext",
+          "id": "details",
+          "label": "t:labels.store_details",
+          "default": "<p>Add your store address, opening hours and contact email here.</p>"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

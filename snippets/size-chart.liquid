@@ -1,0 +1,466 @@
+{% doc %}
+  Renders a size chart as a pop-up dialog, built from a "size_chart" block of
+  the product section.
+
+  The block's rows setting holds one table row per line, with cells separated
+  by "|". The first line is the heading row. The first cell of each other row
+  is the size name (for example "M"), which is used to highlight the size the
+  shopper has selected.
+
+  Columns whose heading mentions bust, chest, waist or hip get a measurement
+  box above the table. When the shopper types their measurements, the closest
+  size is highlighted and selected on the product form. Shoppers can also
+  change any value in the table for their visit; changes aren't saved.
+
+  @param {object} chart - The size_chart block whose settings hold the chart
+  @param {string} dialog_id - Unique id for the dialog element
+
+  @example
+  {% render 'size-chart', chart: size_chart_block, dialog_id: 'SizeChart-main' %}
+{% enddoc %}
+
+{% liquid
+  assign selected_label = 'product.size_guide_selected' | t
+
+  # Keep only non-empty lines, so the first line is always the heading row.
+  assign raw_lines = chart.settings.rows | newline_to_br | split: '<br />'
+  assign clean_rows = ''
+  for raw_line in raw_lines
+    assign raw_line = raw_line | strip
+    if raw_line != blank
+      assign clean_rows = clean_rows | append: raw_line | append: '~~row~~'
+    endif
+  endfor
+  assign lines = clean_rows | split: '~~row~~'
+  assign header_cells = lines.first | split: '|'
+
+  # Columns the shopper can match against with their own measurements.
+  assign measure_columns = ''
+  for cell in header_cells
+    if forloop.first
+      continue
+    endif
+    assign header_key = cell | downcase
+    if header_key contains 'bust' or header_key contains 'chest' or header_key contains 'waist' or header_key contains 'hip'
+      assign measure_columns = measure_columns | append: forloop.index0 | append: ','
+    endif
+  endfor
+  assign measure_columns = measure_columns | split: ','
+
+  assign result_template = 'product.size_finder.result' | t: size: '[size]'
+%}
+
+<dialog
+  id="{{ dialog_id }}"
+  class="size-chart"
+  aria-labelledby="{{ dialog_id }}-title"
+  scroll-lock
+  data-size-chart
+>
+  <div class="size-chart__header">
+    <h2 id="{{ dialog_id }}-title" class="size-chart__title">
+      {%- if chart.settings.title != blank -%}
+        {{- chart.settings.title | escape -}}
+      {%- else -%}
+        {{- 'product.size_guide' | t -}}
+      {%- endif -%}
+    </h2>
+    <button type="button" class="size-chart__close" data-size-chart-close>
+      {{- 'icon-close.svg' | inline_asset_content -}}
+      <span class="visually-hidden">{{ 'product.size_guide_close' | t }}</span>
+    </button>
+  </div>
+
+  <size-finder data-result-template="{{ result_template | escape }}">
+    {% if measure_columns.size > 0 %}
+      {% # Matching needs JavaScript, so the boxes stay hidden until the script shows them. %}
+      <div class="size-chart__finder" data-size-finder-form hidden>
+        <h3 class="size-chart__finder-title">{{ 'product.size_finder.title' | t }}</h3>
+        <p class="size-chart__finder-intro">{{ 'product.size_finder.intro' | t }}</p>
+        <div class="size-chart__finder-fields">
+          {% for column_index in measure_columns %}
+            {% liquid
+              assign column_number = column_index | plus: 0
+              assign measure_label = header_cells[column_number] | strip
+              assign measure_id = dialog_id | append: '-measure-' | append: column_number
+            %}
+            <div class="size-chart__field">
+              <label class="size-chart__field-label" for="{{ measure_id }}">{{ measure_label | escape }}</label>
+              <input
+                id="{{ measure_id }}"
+                class="size-chart__field-input"
+                type="text"
+                inputmode="decimal"
+                autocomplete="off"
+                data-measurement="{{ column_number }}"
+              >
+            </div>
+          {% endfor %}
+        </div>
+        <p class="size-chart__result" role="status" data-size-finder-result></p>
+      </div>
+    {% endif %}
+
+    <div class="size-chart__table-wrapper">
+      <table class="size-chart__table">
+        <thead>
+          <tr>
+            {% for cell in header_cells %}
+              <th scope="col">{{ cell | strip | escape }}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for line in lines offset: 1 %}
+            {% assign cells = line | split: '|' %}
+            {% assign size_name = cells.first | strip %}
+            <tr data-size-row="{{ size_name | escape }}">
+              {% for cell in cells %}
+                {% if forloop.first %}
+                  <th scope="row">
+                    {{- cell | strip | escape -}}
+                    <span class="visually-hidden" data-size-row-selected hidden>
+                      {{- ', ' | append: selected_label -}}
+                    </span>
+                    <span class="size-chart__match" data-best-match hidden>{{ 'product.size_finder.best_match' | t }}</span>
+                  </th>
+                {% else %}
+                  {% assign column_label = header_cells[forloop.index0] | strip %}
+                  <td>
+                    <input
+                      class="size-chart__cell"
+                      type="text"
+                      value="{{ cell | strip | escape }}"
+                      aria-label="{{ 'product.size_finder.cell_label' | t: measurement: column_label, size: size_name }}"
+                      autocomplete="off"
+                      data-size-cell="{{ forloop.index0 }}"
+                    >
+                  </td>
+                {% endif %}
+              {% endfor %}
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <p class="size-chart__edit-hint">{{ 'product.size_finder.edit_hint' | t }}</p>
+    </div>
+  </size-finder>
+
+  {% if chart.settings.note != blank %}
+    <p class="size-chart__note">{{ chart.settings.note | escape | newline_to_br }}</p>
+  {% endif %}
+</dialog>
+
+{% stylesheet %}
+  .size-chart {
+    --size-chart-background: var(--product-background, var(--color-background));
+    --size-chart-text: var(--product-text-color, var(--color-foreground));
+    --size-chart-button: var(--product-button-color, var(--color-accent));
+    --size-chart-line: color-mix(in srgb, var(--size-chart-text) 15%, transparent);
+
+    /* The theme's reset removes margins; modal dialogs need auto margins to be centred. */
+    margin: auto;
+    width: min(42rem, calc(100vw - 2rem));
+    max-height: calc(100svh - 2rem);
+    padding: 0;
+    border: 1px solid var(--size-chart-line);
+    background-color: var(--size-chart-background);
+    color: var(--size-chart-text);
+  }
+
+  .size-chart::backdrop {
+    background-color: rgb(43 43 43 / 0.5);
+  }
+
+  .size-chart__header {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem 1rem 1rem 1.5rem;
+    background-color: var(--size-chart-background);
+    border-bottom: 1px solid var(--size-chart-line);
+  }
+
+  .size-chart__title {
+    font-size: 1.375rem;
+  }
+
+  .size-chart__close {
+    --icon-stroke-width: 1.5;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border: 0;
+    background: none;
+    color: inherit;
+    cursor: pointer;
+  }
+
+  .size-chart__close svg {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  size-finder {
+    display: block;
+  }
+
+  .size-chart__finder {
+    display: grid;
+    gap: 0.75rem;
+    margin: 1.5rem 1.5rem 0;
+    padding: 1.25rem;
+    border: 1px solid var(--size-chart-line);
+  }
+
+  .size-chart__finder[hidden] {
+    display: none;
+  }
+
+  .size-chart__finder-title {
+    font-family: var(--font-primary--family);
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
+  .size-chart__finder-intro {
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+
+  .size-chart__finder-fields {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+    gap: 0.75rem;
+  }
+
+  .size-chart__field {
+    display: grid;
+    gap: 0.375rem;
+  }
+
+  .size-chart__field-label {
+    font-size: 0.8125rem;
+  }
+
+  .size-chart__field-input {
+    min-height: 2.75rem;
+    padding: 0 0.75rem;
+    border: 1px solid color-mix(in srgb, var(--size-chart-text) 35%, transparent);
+    border-radius: var(--style-border-radius-inputs);
+    background-color: #fff;
+    color: inherit;
+    font: inherit;
+  }
+
+  .size-chart__result {
+    min-height: 1.5em;
+    font-size: 0.9375rem;
+    font-weight: 600;
+  }
+
+  .size-chart__table-wrapper {
+    overflow-x: auto;
+    padding: 1.5rem;
+  }
+
+  .size-chart__table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9375rem;
+  }
+
+  .size-chart__table th,
+  .size-chart__table td {
+    padding: 0.375rem 0.75rem;
+    border-bottom: 1px solid var(--size-chart-line);
+    text-align: start;
+    white-space: nowrap;
+  }
+
+  .size-chart__table thead th {
+    padding-block: 0.625rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .size-chart__table tr.is-selected {
+    background-color: color-mix(in srgb, var(--size-chart-button) 15%, transparent);
+  }
+
+  .size-chart__table tr.is-match th {
+    font-weight: 700;
+  }
+
+  .size-chart__match {
+    margin-inline-start: 0.5rem;
+    padding: 0.125rem 0.5rem;
+    background-color: var(--size-chart-button);
+    color: #fff;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .size-chart__cell {
+    width: 5rem;
+    min-height: 2.25rem;
+    padding: 0 0.375rem;
+    border: 1px dashed transparent;
+    border-radius: var(--style-border-radius-inputs);
+    background: none;
+    color: inherit;
+    font: inherit;
+  }
+
+  .size-chart__cell:hover {
+    border-color: color-mix(in srgb, var(--size-chart-text) 35%, transparent);
+  }
+
+  .size-chart__cell:focus {
+    border-style: solid;
+    border-color: var(--size-chart-text);
+    background-color: #fff;
+  }
+
+  .size-chart__edit-hint {
+    margin-top: 0.75rem;
+    font-size: 0.8125rem;
+    color: color-mix(in srgb, var(--size-chart-text) 75%, var(--size-chart-background));
+  }
+
+  .size-chart__note {
+    padding: 0 1.5rem 1.5rem;
+    font-size: 0.875rem;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 749px) {
+    .size-chart__header {
+      padding-inline-start: 1rem;
+    }
+
+    .size-chart__finder {
+      margin: 1rem 1rem 0;
+      padding: 1rem;
+    }
+
+    .size-chart__table-wrapper {
+      padding: 1rem 0.5rem;
+    }
+
+    .size-chart__table {
+      font-size: 0.875rem;
+    }
+
+    .size-chart__table th,
+    .size-chart__table td {
+      padding: 0.375rem 0.375rem;
+    }
+
+    .size-chart__table thead th {
+      font-size: 0.6875rem;
+      letter-spacing: 0.02em;
+    }
+
+    .size-chart__cell {
+      width: 4rem;
+    }
+
+    .size-chart__edit-hint {
+      padding-inline: 0.5rem;
+    }
+
+    .size-chart__note {
+      padding: 0 1rem 1rem;
+    }
+  }
+{% endstylesheet %}
+
+{% javascript %}
+  // Reads "88", "88.5", "88,5" or a range such as "80-84" as [min, max]. Returns null for text.
+  function sizeChartRange(text) {
+    const numbers = String(text).match(/\d+(?:[.,]\d+)?/g);
+    if (!numbers) return null;
+    const values = numbers.map((number) => parseFloat(number.replace(',', '.')));
+    return [Math.min(...values), Math.max(...values)];
+  }
+
+  class SizeFinder extends HTMLElement {
+    connectedCallback() {
+      const form = this.querySelector('[data-size-finder-form]');
+      if (form) form.hidden = false;
+
+      this.addEventListener('input', (event) => {
+        if (event.target.matches('[data-measurement], [data-size-cell]')) this.findSize();
+      });
+    }
+
+    // Finds the row closest to the shopper's measurements: the smallest total distance
+    // outside each size's value or range. On a tie the smaller size wins.
+    findSize() {
+      const wanted = Array.from(this.querySelectorAll('[data-measurement]'))
+        .map((input) => ({ column: input.dataset.measurement, value: sizeChartRange(input.value) }))
+        .filter((measurement) => measurement.value);
+
+      let best = null;
+      if (wanted.length) {
+        this.querySelectorAll('[data-size-row]').forEach((row) => {
+          let distance = 0;
+          let compared = 0;
+          wanted.forEach(({ column, value }) => {
+            const cell = row.querySelector(`[data-size-cell="${column}"]`);
+            const range = cell ? sizeChartRange(cell.value) : null;
+            if (!range) return;
+            compared += 1;
+            if (value[0] < range[0]) distance += range[0] - value[0];
+            if (value[0] > range[1]) distance += value[0] - range[1];
+          });
+          if (compared && (!best || distance < best.distance)) best = { row, distance };
+        });
+      }
+
+      this.querySelectorAll('[data-size-row]').forEach((row) => {
+        const isMatch = Boolean(best) && row === best.row;
+        row.classList.toggle('is-match', isMatch);
+        const tag = row.querySelector('[data-best-match]');
+        if (tag) tag.hidden = !isMatch;
+      });
+
+      const result = this.querySelector('[data-size-finder-result]');
+      if (!best) {
+        if (result) result.textContent = '';
+        return;
+      }
+
+      const size = best.row.dataset.sizeRow;
+      if (result) result.textContent = this.dataset.resultTemplate.replace('[size]', size);
+      this.selectSize(size);
+    }
+
+    // Selects the matching size button on the product form, which updates the price and the add to cart button.
+    selectSize(size) {
+      const productInfo = this.closest('product-info');
+      if (!productInfo) return;
+      const wanted = size.trim().toLowerCase();
+      const input = Array.from(productInfo.querySelectorAll('[data-size-option] [data-option-input]')).find(
+        (option) => option.value.trim().toLowerCase() === wanted
+      );
+      if (!input || input.checked) return;
+      input.checked = true;
+      input.dispatchEvent(new Event('change', { bubbles: true }));
+    }
+  }
+
+  if (!customElements.get('size-finder')) customElements.define('size-finder', SizeFinder);
+{% endjavascript %}

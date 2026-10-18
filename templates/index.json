@@ -1,0 +1,78 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "heading": "New arrivals",
+        "heading_color": "#2B2B2B",
+        "button_label": "Shop now",
+        "button_link": "shopify://collections/all",
+        "button_color": "#6F6C5D"
+      }
+    },
+    "collection_list": {
+      "type": "collection-list",
+      "blocks": {
+        "category_tops": { "type": "category", "settings": { "collection": "tops", "label": "Tops" } },
+        "category_outerwear": { "type": "category", "settings": { "collection": "outerwear", "label": "Outerwear" } },
+        "category_dresses": { "type": "category", "settings": { "collection": "dresses", "label": "Dresses" } },
+        "category_bottoms": { "type": "category", "settings": { "collection": "bottoms", "label": "Bottoms" } }
+      },
+      "block_order": ["category_tops", "category_outerwear", "category_dresses", "category_bottoms"],
+      "settings": {
+        "heading": "Shop by category",
+        "columns": 4,
+        "image_ratio": "4 / 5",
+        "background_color": "#FAFAF8",
+        "title_color": "#2B2B2B"
+      }
+    },
+    "featured_collection": {
+      "type": "featured-collection",
+      "settings": {
+        "heading": "Featured pieces",
+        "products_to_show": 8,
+        "columns": 4,
+        "image_ratio": "4 / 5",
+        "show_view_all": true
+      }
+    },
+    "image_with_text": {
+      "type": "image-with-text",
+      "settings": {
+        "image_position": "image-with-text--image-left",
+        "background": "image-with-text--panel",
+        "heading": "Made slowly, worn often",
+        "text": "<p>Tell shoppers who you are and what you care about: where your pieces are made, the fabrics you choose and why. A few honest sentences go a long way.</p>",
+        "link_label": "Read our story"
+      }
+    },
+    "featured_journal": {
+      "type": "featured-journal",
+      "settings": {
+        "heading": "From the journal",
+        "post_count": 3,
+        "columns": 3,
+        "show_tags": true,
+        "show_date": true,
+        "show_excerpt": true
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "collection_list",
+    "featured_collection",
+    "image_with_text",
+    "featured_journal"
+  ]
+}

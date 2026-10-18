@@ -1,0 +1,323 @@
+{% comment %}
+  Store header, shared across all pages through the header section group.
+
+  Shows the store name, the main menu (one "link" block per menu item),
+  and search, account and cart icons. On small screens the menu moves into
+  a drawer opened by the menu button. No JavaScript is needed: the drawer
+  is a native <details> element.
+{% endcomment %}
+
+{% liquid
+  assign logo_text = section.settings.logo_text | strip
+  if logo_text == blank
+    assign logo_text = shop.name
+  endif
+%}
+
+{% capture menu_items %}
+  {% for block in section.blocks %}
+    {% if block.settings.link != blank %}
+      <li {{ block.shopify_attributes }}>
+        <a
+          class="site-header__link"
+          href="{{ block.settings.link }}"
+          {% if block.settings.link == request.path %}
+            aria-current="page"
+          {% endif %}
+        >
+          {{- block.settings.label | escape -}}
+        </a>
+      </li>
+    {% elsif request.design_mode %}
+      {% # In the theme editor, show items whose page doesn't exist yet so they can still be selected. %}
+      <li {{ block.shopify_attributes }}>
+        <span class="site-header__link site-header__link--empty">{{ block.settings.label | escape }}</span>
+      </li>
+    {% endif %}
+  {% endfor %}
+{% endcapture %}
+
+<a class="skip-link" href="#MainContent">{{ 'header.skip_to_content' | t }}</a>
+
+<header class="site-header full-width">
+  <div class="site-header__inner">
+    {% if section.blocks.size > 0 %}
+      <details class="site-header__drawer" scroll-lock>
+        <summary class="site-header__icon site-header__drawer-toggle">
+          <span class="site-header__drawer-open" aria-hidden="true">
+            {{- 'icon-menu.svg' | inline_asset_content -}}
+          </span>
+          <span class="site-header__drawer-close" aria-hidden="true">
+            {{- 'icon-close.svg' | inline_asset_content -}}
+          </span>
+          <span class="visually-hidden">{{ 'header.menu' | t }}</span>
+        </summary>
+
+        <nav class="site-header__drawer-nav" aria-label="{{ 'header.main_menu' | t }}">
+          <ul class="site-header__drawer-list" role="list">
+            {{ menu_items }}
+          </ul>
+        </nav>
+      </details>
+    {% endif %}
+
+    <a class="site-header__logo" href="{{ routes.root_url }}">{{ logo_text | escape }}</a>
+
+    {% if section.blocks.size > 0 %}
+      <nav class="site-header__nav" aria-label="{{ 'header.main_menu' | t }}">
+        <ul class="site-header__list" role="list">
+          {{ menu_items }}
+        </ul>
+      </nav>
+    {% endif %}
+
+    <div class="site-header__icons">
+      {% if section.settings.show_search %}
+        <a class="site-header__icon" href="{{ routes.search_url }}">
+          {{- 'icon-search.svg' | inline_asset_content -}}
+          <span class="visually-hidden">{{ 'header.search' | t }}</span>
+        </a>
+      {% endif %}
+
+      {% if shop.customer_accounts_enabled %}
+        <a class="site-header__icon" href="{{ routes.account_url }}">
+          {{- 'icon-account.svg' | inline_asset_content -}}
+          <span class="visually-hidden">{{ 'header.account' | t }}</span>
+        </a>
+      {% endif %}
+
+      <a class="site-header__icon site-header__cart" href="{{ routes.cart_url }}">
+        {{- 'icon-cart.svg' | inline_asset_content -}}
+        <span class="visually-hidden">
+          {{- 'header.cart' | t }}, {{ 'header.cart_count' | t: count: cart.item_count -}}
+        </span>
+        {% if cart.item_count > 0 %}
+          <span class="site-header__cart-count" aria-hidden="true">
+            {%- if cart.item_count > 99 -%}99+{%- else -%}{{ cart.item_count }}{%- endif -%}
+          </span>
+        {% endif %}
+      </a>
+    </div>
+  </div>
+</header>
+
+{% stylesheet %}
+  .site-header {
+    --icon-stroke-width: 1.5;
+
+    display: grid;
+    grid-template-columns: var(--content-grid);
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .site-header__inner {
+    grid-column: 2;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    min-height: 4.5rem;
+  }
+
+  .site-header a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .site-header__logo {
+    font-family: var(--font-heading--family);
+    font-size: 1.5rem;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+    overflow-wrap: anywhere;
+  }
+
+  .site-header__nav {
+    flex: 1;
+  }
+
+  .site-header__list,
+  .site-header__drawer-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .site-header__list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem 2rem;
+  }
+
+  .site-header__link {
+    display: inline-block;
+    padding: 0.5rem 0;
+    font-size: 0.875rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-bottom: 1px solid transparent;
+  }
+
+  .site-header__link:hover,
+  .site-header__link[aria-current='page'] {
+    border-bottom-color: currentcolor;
+  }
+
+  .site-header__link--empty {
+    opacity: 0.5;
+  }
+
+  .site-header__icons {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    margin-inline-start: auto;
+  }
+
+  .site-header__nav + .site-header__icons {
+    margin-inline-start: 0;
+  }
+
+  .site-header__icon {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    cursor: pointer;
+  }
+
+  .site-header__icon svg {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .site-header__cart-count {
+    position: absolute;
+    top: 0.25rem;
+    right: 0.125rem;
+    min-width: 1.125rem;
+    height: 1.125rem;
+    padding: 0 0.25rem;
+    border-radius: 1rem;
+    background-color: var(--color-foreground);
+    color: var(--color-background);
+    font-size: 0.6875rem;
+    line-height: 1.125rem;
+    text-align: center;
+  }
+
+  /* Mobile drawer */
+  .site-header__drawer {
+    display: none;
+  }
+
+  .site-header__drawer-toggle {
+    list-style: none;
+    margin-inline-start: -0.625rem;
+  }
+
+  .site-header__drawer-toggle::-webkit-details-marker {
+    display: none;
+  }
+
+  .site-header__drawer-close,
+  .site-header__drawer[open] .site-header__drawer-open {
+    display: none;
+  }
+
+  .site-header__drawer[open] .site-header__drawer-close {
+    display: block;
+  }
+
+  .site-header__drawer-nav {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    height: calc(100svh - 100%);
+    overflow-y: auto;
+    padding: 1rem var(--page-margin) 2rem;
+    background-color: var(--color-background);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .site-header__drawer-list .site-header__link {
+    display: block;
+    padding: 1rem 0;
+    font-size: 1rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  @media (max-width: 749px) {
+    .site-header__inner {
+      gap: 0.5rem;
+      min-height: 3.75rem;
+    }
+
+    .site-header__drawer {
+      display: block;
+    }
+
+    .site-header__nav {
+      display: none;
+    }
+
+    .site-header__nav + .site-header__icons {
+      margin-inline-start: auto;
+    }
+
+    .site-header__logo {
+      font-size: 1.25rem;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:general.header",
+  "max_blocks": 8,
+  "settings": [
+    {
+      "type": "text",
+      "id": "logo_text",
+      "label": "t:labels.logo_text",
+      "info": "t:info.logo_text",
+      "default": "Your store name"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_search",
+      "label": "t:labels.show_search",
+      "default": true
+    },
+    {
+      "type": "paragraph",
+      "content": "t:info.header_icons"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "link",
+      "name": "t:general.menu_link",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "t:labels.link_label",
+          "default": "Menu item"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "t:labels.link"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,240 @@
+{
+  "404": {
+    "title": "We can't find that page.",
+    "home": "Go to the home page",
+    "suggestions_heading": "Popular right now"
+  },
+  "blog": {
+    "tags_label": "Filter stories by topic",
+    "all_tags": "All",
+    "empty": "No stories here yet. Check back soon.",
+    "tag_empty": "No stories with this tag yet.",
+    "see_all": "See all stories",
+    "back_to_shop": "Back to the shop",
+    "by_author": "by {{ author }}",
+    "reading_time": "{{ minutes }} min read",
+    "copy_link": "Copy link",
+    "link_copied": "Link copied",
+    "post_navigation": "More posts",
+    "previous_post": "Previous post",
+    "next_post": "Next post",
+    "more_heading": "More from the journal",
+    "comments_count": {
+      "one": "{{ count }} comment",
+      "other": "{{ count }} comments"
+    },
+    "no_comments": "No comments yet. Be the first to share a thought.",
+    "comment_form_title": "Leave a comment",
+    "comment_name": "Name",
+    "comment_email": "Email",
+    "comment_body": "Comment",
+    "comment_submit": "Post comment",
+    "comment_moderation_note": "Comments are read before they appear. Your email address won't be shown.",
+    "comment_moderated": "Thanks! Your comment will appear once it's been approved.",
+    "comment_posted": "Thanks! Your comment has been posted."
+  },
+  "cart": {
+    "title": "Your cart",
+    "item_count": {
+      "one": "{{ count }} item",
+      "other": "{{ count }} items"
+    },
+    "quantity_for": "Quantity for {{ title }}",
+    "decrease": "One less {{ title }}",
+    "increase": "One more {{ title }}",
+    "remove": "Remove",
+    "line_total": "Total for this item",
+    "update": "Update cart",
+    "continue": "Continue shopping",
+    "summary": "Order summary",
+    "subtotal": "Subtotal",
+    "taxes_note": "Shipping and taxes are worked out at checkout.",
+    "note_label": "Anything we should know about your order?",
+    "checkout": "Checkout",
+    "shipping": "Shipping",
+    "shipping_at_checkout": "Calculated at checkout",
+    "total": "Total",
+    "option_colour": "Colour: {{ value }}",
+    "option_size": "Size: {{ value }}",
+    "sample_note": "Sample item, shown in the theme editor only while the cart is empty. Shoppers always see their own cart.",
+    "empty_heading": "Your cart is empty for now.",
+    "suggestions_heading": "You might like"
+  },
+  "facets": {
+    "filter": "Filter",
+    "sort_by": "Sort by",
+    "apply": "Apply",
+    "clear_all": "Clear all",
+    "remove_filter": "Remove filter",
+    "close": "Close filters",
+    "price_from": "From",
+    "price_to": "To",
+    "sort_newest": "Newest",
+    "sort_price_low": "Price, low to high",
+    "sort_price_high": "Price, high to low"
+  },
+  "footer": {
+    "copyright": "© {{ year }} {{ shop_name }}",
+    "newsletter_email": "Email address",
+    "newsletter_subscribe": "Subscribe",
+    "newsletter_success": "Thanks for subscribing.",
+    "payment_methods": "Payment methods",
+    "payment_placeholder": "Payment icons appear here once payments are set up in Shopify. Shoppers don't see this note."
+  },
+  "header": {
+    "skip_to_content": "Skip to content",
+    "menu": "Menu",
+    "main_menu": "Main menu",
+    "search": "Search",
+    "account": "Account",
+    "cart": "Cart",
+    "cart_count": {
+      "one": "{{ count }} item",
+      "other": "{{ count }} items"
+    }
+  },
+  "contact": {
+    "heading": "Send us a message",
+    "name": "Name",
+    "email": "Email",
+    "phone": "Phone number",
+    "body": "Message",
+    "optional": "optional",
+    "required": "required",
+    "send": "Send message",
+    "success": "Thanks for getting in touch. We'll reply as soon as we can."
+  },
+  "customers": {
+    "login": {
+      "email": "Email",
+      "password": "Password",
+      "submit": "Sign in",
+      "title": "Login"
+    }
+  },
+  "collection": {
+    "product_count": {
+      "one": "{{ count }} product",
+      "other": "{{ count }} products"
+    },
+    "empty_title": "Nothing here just yet.",
+    "empty_text": "New pieces are on their way.",
+    "browse_all": "Browse all products",
+    "no_matches": "No pieces match these filters.",
+    "clear_filters": "Clear all filters",
+    "sample_note": "Sample filters and products, shown in the theme editor only while this collection is empty. Shoppers always see the real collection.",
+    "sample_size": "Size",
+    "sample_colour": "Colour",
+    "sample_price": "Price"
+  },
+  "collections": {
+    "title": "Collections",
+    "empty": "There are no collections to show yet."
+  },
+  "gift_card": {
+    "add_to_apple_wallet": "Add to Apple Wallet",
+    "card": "Gift card",
+    "expired": "This gift card has expired",
+    "expires_on": "Expires on {{ expires_on }}",
+    "use_at_checkout": "Use this gift card at checkout"
+  },
+  "home": {
+    "view_all": "View all",
+    "view_journal": "Visit the journal",
+    "from_price": "From {{ price }}",
+    "placeholder_product": "Product name",
+    "placeholder_category": "Category",
+    "placeholder_article": "Journal post title",
+    "placeholder_excerpt": "A short introduction to the post will appear here.",
+    "placeholder_tag": "Tag"
+  },
+  "pagination": {
+    "label": "Pages",
+    "previous": "Previous",
+    "next": "Next",
+    "page": "Page {{ number }}"
+  },
+  "password": {
+    "title": "Opening soon",
+    "signup_button": "Notify me",
+    "signup_success": "Thank you. We'll be in touch when we open.",
+    "entry_toggle": "Have a password? Enter the store",
+    "password": "Store password",
+    "enter": "Enter"
+  },
+  "product": {
+    "add_to_cart": "Add to cart",
+    "sold_out": "Sold out",
+    "unavailable": "Unavailable",
+    "sale_price": "Sale price",
+    "regular_price": "Regular price",
+    "gallery": "Product images",
+    "show_image": "Show image {{ index }}",
+    "rating": "Rated {{ rating }} out of 5 stars",
+    "review_count": {
+      "one": "{{ count }} review",
+      "other": "{{ count }} reviews"
+    },
+    "tax_included": "Prices include VAT",
+    "market_label": "Country/region",
+    "market_update": "Update",
+    "market_editor_note": "The market selector appears here once you sell to more than one country or region. Shoppers don't see this note.",
+    "quantity": "Quantity",
+    "quantity_decrease": "Decrease quantity",
+    "quantity_increase": "Increase quantity",
+    "sticky_bar": "Quick add to cart",
+    "size_guide": "Size guide",
+    "size_guide_close": "Close size guide",
+    "size_guide_selected": "your selected size",
+    "size_chart_default": "all other countries (default chart)",
+    "size_chart_editor_note": "Size chart \"{{ title }}\" shows for: {{ countries }}.",
+    "size_chart_active": "Showing now.",
+    "size_chart_preview": "Preview chart",
+    "size_finder": {
+      "title": "Find your size",
+      "intro": "Enter your measurements and we'll highlight the closest size and select it for you.",
+      "result": "Closest size: {{ size }}. We've selected it for you.",
+      "best_match": "Best match",
+      "cell_label": "{{ measurement }} for size {{ size }}",
+      "edit_hint": "You can change any value in the table, for example to compare with clothes you already own. Changes are only for this visit."
+    }
+  },
+  "product_reviews": {
+    "out_of": "out of 5",
+    "based_on": {
+      "one": "Based on {{ count }} review",
+      "other": "Based on {{ count }} reviews"
+    },
+    "stars": {
+      "one": "{{ count }} star",
+      "other": "{{ count }} stars"
+    },
+    "write_review": "Write a review",
+    "sort_label": "Sort by",
+    "sort_recent": "Most recent",
+    "sort_highest": "Highest rating",
+    "sort_lowest": "Lowest rating",
+    "filter_label": "Filter by",
+    "filter_all": "All topics",
+    "verified": "Verified buyer",
+    "helpful": "Helpful",
+    "size_bought": "Size bought: {{ size }}",
+    "no_results": "No reviews match this topic yet."
+  },
+  "search": {
+    "title": "Search",
+    "label": "Search the store",
+    "placeholder": "Search for pieces, stories or pages",
+    "submit": "Search",
+    "prompt": "What are you looking for?",
+    "results_count": {
+      "one": "{{ count }} result for “{{ terms }}”",
+      "other": "{{ count }} results for “{{ terms }}”"
+    },
+    "no_results": "Nothing found for “{{ terms }}”.",
+    "no_results_hint": "Try a different word or check the spelling.",
+    "other_results": "Pages and journal posts",
+    "type_article": "Journal",
+    "type_page": "Page"
+  }
+}

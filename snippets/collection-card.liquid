@@ -1,0 +1,114 @@
+{% doc %}
+  Renders a collection tile: image (or a placeholder box), name and an arrow,
+  linking to the collection. Without a collection the tile is not a link, so
+  layouts can show a named placeholder tile.
+
+  @param {collection} [collection] - The collection the tile links to
+  @param {image} [image] - Optional image that replaces the collection's own
+  @param {string} [label] - Optional name that replaces the collection's title
+  @param {string} [ratio] - Image shape, for example '4 / 5'. Defaults to '4 / 5'
+  @param {boolean} [show_description] - Show a short version of the collection description
+  @param {string} [heading_level] - Heading tag for the name. Defaults to 'h3'
+
+  @example
+  {% render 'collection-card', collection: collection %}
+  {% render 'collection-card', collection: block.settings.collection, image: block.settings.image, label: block.settings.label %}
+{% enddoc %}
+
+{% liquid
+  assign ratio = ratio | default: '4 / 5'
+  assign heading_level = heading_level | default: 'h3'
+  assign tile_image = image | default: collection.featured_image
+  assign tile_label = label | default: collection.title
+  if tile_label == blank
+    assign tile_label = 'home.placeholder_category' | t
+  endif
+  if collection != blank
+    assign tile_tag = 'a'
+  else
+    assign tile_tag = 'div'
+  endif
+%}
+
+<{{ tile_tag }}
+  class="collection-tile__link"
+  style="--card-ratio: {{ ratio }};"
+  {% if collection != blank %}
+    href="{{ collection.url }}"
+  {% endif %}
+>
+  <div class="collection-tile__media">
+    {% if tile_image != blank %}
+      {{
+        tile_image
+        | image_url: width: 1200
+        | image_tag:
+          widths: '300, 450, 600, 800, 1000, 1200',
+          sizes: '(min-width: 990px) 33vw, (min-width: 750px) 50vw, 70vw',
+          loading: 'lazy',
+          class: 'collection-tile__image'
+      }}
+    {% else %}
+      {% render 'image-placeholder', ratio: ratio, small: true %}
+    {% endif %}
+  </div>
+
+  <{{ heading_level }} class="collection-tile__title">
+    {{- tile_label | escape -}}
+    {%- if collection != blank -%}
+      <span class="collection-tile__arrow" aria-hidden="true"> →</span>
+    {%- endif -%}
+  </{{ heading_level }}>
+
+  {% if show_description and collection.description != blank %}
+    <p class="collection-tile__description">{{ collection.description | strip_html | truncatewords: 18 }}</p>
+  {% endif %}
+</{{ tile_tag }}>
+
+{% stylesheet %}
+  .collection-tile__link {
+    display: grid;
+    gap: 0.875rem;
+    align-content: start;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .collection-tile__media {
+    aspect-ratio: var(--card-ratio);
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+  }
+
+  .collection-tile__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+
+  a.collection-tile__link:hover .collection-tile__image {
+    transform: scale(1.03);
+  }
+
+  a.collection-tile__link:hover .collection-tile__title {
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  .collection-tile__title {
+    font-size: 1.25rem;
+  }
+
+  .collection-tile__description {
+    font-size: 0.9375rem;
+    line-height: 1.5;
+    opacity: 0.85;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .collection-tile__image {
+      transition: none;
+    }
+  }
+{% endstylesheet %}

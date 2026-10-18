@@ -1,0 +1,645 @@
+{% comment %}
+  Ratings and reviews for the product page: the average rating, a bar chart
+  of star counts, a "Write a review" button and a list of reviews that can be
+  sorted and filtered by topic.
+
+  Uses sample content from the theme editor for now: the star counts are
+  section settings and each review is a block. A reviews app can replace them
+  later. The average and the total are worked out from the star counts, so
+  they always match the bar chart.
+{% endcomment %}
+
+{% liquid
+  assign review_total = 0
+  assign rating_sum = 0
+  for star in (1..5)
+    assign star_value = 6 | minus: star
+    assign setting_id = 'count_' | append: star_value
+    assign star_count = section.settings[setting_id] | default: 0
+    assign review_total = review_total | plus: star_count
+    assign rating_sum = star_count | times: star_value | plus: rating_sum
+  endfor
+
+  assign average_rating = 0
+  if review_total > 0
+    assign average_rating = rating_sum | times: 1.0 | divided_by: review_total | round: 1
+  endif
+
+  assign write_review_url = section.settings.write_review_link
+  if write_review_url == blank
+    assign write_review_url = routes.root_url | append: '/pages/contact' | replace: '//', '/'
+  endif
+
+  assign filter_topics = section.settings.filter_topics | split: ','
+%}
+
+<product-reviews
+  class="product-reviews full-width"
+  id="Reviews-{{ section.id }}"
+  style="
+    --reviews-background: {{ section.settings.background_color }};
+    --reviews-text-color: {{ section.settings.text_color }};
+    --reviews-button-color: {{ section.settings.button_color }};
+  "
+>
+  <div class="product-reviews__inner">
+    {% if section.settings.heading != blank %}
+      <h2 class="section-heading product-reviews__heading">{{ section.settings.heading | escape }}</h2>
+    {% endif %}
+
+    <div class="product-reviews__layout">
+      <div class="product-reviews__summary">
+        <p class="product-reviews__average">
+          <span class="product-reviews__average-value">{{ average_rating }}</span>
+          <span class="product-reviews__average-scale">{{ 'product_reviews.out_of' | t }}</span>
+        </p>
+        {% render 'star-rating', rating: average_rating, class: 'product-reviews__summary-stars' %}
+        <p class="product-reviews__based-on">{{ 'product_reviews.based_on' | t: count: review_total }}</p>
+
+        <ul class="product-reviews__bars" role="list">
+          {% for star in (1..5) %}
+            {% liquid
+              assign star_value = 6 | minus: star
+              assign setting_id = 'count_' | append: star_value
+              assign star_count = section.settings[setting_id] | default: 0
+              assign star_percent = 0
+              if review_total > 0
+                assign star_percent = star_count | times: 100.0 | divided_by: review_total | round: 1
+              endif
+            %}
+            <li class="product-reviews__bar-row">
+              <span class="product-reviews__bar-label">{{ 'product_reviews.stars' | t: count: star_value }}</span>
+              <span class="product-reviews__bar" aria-hidden="true">
+                <span class="product-reviews__bar-fill" style="width: {{ star_percent }}%;"></span>
+              </span>
+              <span class="product-reviews__bar-count">
+                <span aria-hidden="true">{{ star_count }}</span>
+                <span class="visually-hidden">{{ 'product.review_count' | t: count: star_count }}</span>
+              </span>
+            </li>
+          {% endfor %}
+        </ul>
+
+        <a class="button product-reviews__write" href="{{ write_review_url }}">
+          {{- 'product_reviews.write_review' | t -}}
+        </a>
+      </div>
+
+      <div class="product-reviews__main">
+        {% # Sorting and filtering need JavaScript, so the controls stay hidden until the script shows them. %}
+        <div class="product-reviews__toolbar" data-reviews-toolbar hidden>
+          <div class="product-reviews__control">
+            <label class="product-reviews__control-label" for="ReviewsSort-{{ section.id }}">
+              {{- 'product_reviews.sort_label' | t -}}
+            </label>
+            <select id="ReviewsSort-{{ section.id }}" class="product-reviews__select" data-reviews-sort>
+              <option value="recent">{{ 'product_reviews.sort_recent' | t }}</option>
+              <option value="highest">{{ 'product_reviews.sort_highest' | t }}</option>
+              <option value="lowest">{{ 'product_reviews.sort_lowest' | t }}</option>
+            </select>
+          </div>
+
+          {% if filter_topics.size > 0 %}
+            <div class="product-reviews__control">
+              <label class="product-reviews__control-label" for="ReviewsFilter-{{ section.id }}">
+                {{- 'product_reviews.filter_label' | t -}}
+              </label>
+              <select id="ReviewsFilter-{{ section.id }}" class="product-reviews__select" data-reviews-filter>
+                <option value="">{{ 'product_reviews.filter_all' | t }}</option>
+                {% for topic in filter_topics %}
+                  {% assign topic_name = topic | strip %}
+                  {% if topic_name != blank %}
+                    <option value="{{ topic_name | downcase | escape }}">{{ topic_name | escape }}</option>
+                  {% endif %}
+                {% endfor %}
+              </select>
+            </div>
+          {% endif %}
+        </div>
+
+        <ul class="product-reviews__list" role="list" data-reviews-list>
+          {% for block in section.blocks %}
+            {% liquid
+              # Topics as "|size|fit|", so the filter can match whole topic names.
+              assign review_topics = '|'
+              assign topic_list = block.settings.topics | downcase | split: ','
+              for topic in topic_list
+                assign topic_name = topic | strip
+                assign review_topics = review_topics | append: topic_name | append: '|'
+              endfor
+            %}
+            <li
+              class="product-reviews__review"
+              data-date="{{ block.settings.date | date: '%Y-%m-%d' }}"
+              data-rating="{{ block.settings.rating }}"
+              data-topics="{{ review_topics | escape }}"
+              {{ block.shopify_attributes }}
+            >
+              <div class="product-reviews__review-header">
+                {% render 'star-rating', rating: block.settings.rating, class: 'product-reviews__review-stars' %}
+                {% if block.settings.date != blank %}
+                  <span class="product-reviews__date">{{ block.settings.date | time_tag: format: 'date' }}</span>
+                {% endif %}
+              </div>
+
+              {% if block.settings.title != blank %}
+                <h3 class="product-reviews__title">{{ block.settings.title | escape }}</h3>
+              {% endif %}
+
+              {% if block.settings.body != blank %}
+                <p class="product-reviews__body">{{ block.settings.body | escape | newline_to_br }}</p>
+              {% endif %}
+
+              <p class="product-reviews__author">
+                <span class="product-reviews__author-name">{{ block.settings.author | escape }}</span>
+                {% if block.settings.verified %}
+                  <span class="product-reviews__verified">
+                    <svg aria-hidden="true" focusable="false" viewBox="0 0 16 16" width="14" height="14">
+                      <path d="m3.5 8.5 3 3 6-7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                    {{- 'product_reviews.verified' | t -}}
+                  </span>
+                {% endif %}
+                {% if block.settings.size_bought != blank %}
+                  <span class="product-reviews__size">
+                    {{- 'product_reviews.size_bought' | t: size: block.settings.size_bought -}}
+                  </span>
+                {% endif %}
+              </p>
+
+              <button
+                type="button"
+                class="product-reviews__helpful"
+                aria-pressed="false"
+                data-helpful
+                data-count="{{ block.settings.helpful_count }}"
+              >
+                {{- 'product_reviews.helpful' | t }}
+                (<span data-helpful-count>{{ block.settings.helpful_count }}</span>)
+              </button>
+            </li>
+          {% endfor %}
+        </ul>
+
+        <p class="product-reviews__empty" data-reviews-empty hidden>{{ 'product_reviews.no_results' | t }}</p>
+      </div>
+    </div>
+  </div>
+</product-reviews>
+
+{% stylesheet %}
+  .product-reviews {
+    display: grid;
+    grid-template-columns: var(--content-grid);
+    border-top: 1px solid color-mix(in srgb, var(--reviews-text-color) 12%, transparent);
+    background-color: var(--reviews-background);
+    color: var(--reviews-text-color);
+  }
+
+  .product-reviews__inner {
+    grid-column: 2;
+    padding-block: 4rem;
+  }
+
+  .product-reviews__heading {
+    margin-bottom: 2.5rem;
+  }
+
+  .product-reviews__layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .product-reviews__summary {
+    display: grid;
+    gap: 0.75rem;
+    justify-items: start;
+  }
+
+  .product-reviews__average {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+  }
+
+  .product-reviews__average-value {
+    font-family: var(--font-heading--family);
+    font-size: 3.5rem;
+    line-height: 1;
+  }
+
+  .product-reviews__average-scale,
+  .product-reviews__based-on {
+    font-size: 0.9375rem;
+  }
+
+  .product-reviews__summary-stars {
+    font-size: 1.25rem;
+  }
+
+  .product-reviews__bars {
+    display: grid;
+    gap: 0.5rem;
+    width: 100%;
+    margin: 0.75rem 0 1rem;
+    padding: 0;
+    list-style: none;
+  }
+
+  .product-reviews__bar-row {
+    display: grid;
+    grid-template-columns: 4rem minmax(0, 1fr) 2.5rem;
+    gap: 0.75rem;
+    align-items: center;
+    font-size: 0.875rem;
+  }
+
+  .product-reviews__bar {
+    height: 0.5rem;
+    overflow: hidden;
+    border-radius: 999px;
+    background-color: color-mix(in srgb, var(--reviews-text-color) 12%, transparent);
+  }
+
+  .product-reviews__bar-fill {
+    display: block;
+    height: 100%;
+    background-color: var(--reviews-text-color);
+  }
+
+  .product-reviews__bar-count {
+    text-align: end;
+  }
+
+  .product-reviews .product-reviews__write {
+    border-color: var(--reviews-button-color);
+    background-color: var(--reviews-button-color);
+    color: #fff;
+  }
+
+  .product-reviews .product-reviews__write:hover {
+    background-color: color-mix(in srgb, var(--reviews-button-color) 85%, #000);
+  }
+
+  .product-reviews__toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--reviews-text-color) 12%, transparent);
+  }
+
+  .product-reviews__toolbar[hidden] {
+    display: none;
+  }
+
+  .product-reviews__control {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .product-reviews__control-label {
+    font-size: 0.875rem;
+  }
+
+  .product-reviews__select {
+    min-height: 2.5rem;
+    padding: 0 2rem 0 0.75rem;
+    border: 1px solid color-mix(in srgb, var(--reviews-text-color) 30%, transparent);
+    border-radius: var(--style-border-radius-inputs);
+    background-color: var(--reviews-background);
+    color: inherit;
+    font: inherit;
+    font-size: 0.875rem;
+  }
+
+  .product-reviews__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .product-reviews__review {
+    display: grid;
+    gap: 0.75rem;
+    padding-block: 2rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--reviews-text-color) 12%, transparent);
+  }
+
+  .product-reviews__review[hidden] {
+    display: none;
+  }
+
+  .product-reviews__review-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem 1rem;
+  }
+
+  .product-reviews__date {
+    font-size: 0.8125rem;
+    color: color-mix(in srgb, var(--reviews-text-color) 75%, var(--reviews-background));
+  }
+
+  .product-reviews__title {
+    font-family: var(--font-primary--family);
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
+  .product-reviews__body {
+    line-height: 1.6;
+  }
+
+  .product-reviews__author {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.25rem 1rem;
+    font-size: 0.875rem;
+  }
+
+  .product-reviews__author-name {
+    font-weight: 600;
+  }
+
+  .product-reviews__verified {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .product-reviews__size {
+    color: color-mix(in srgb, var(--reviews-text-color) 75%, var(--reviews-background));
+  }
+
+  .product-reviews__helpful {
+    justify-self: start;
+    min-height: 2.25rem;
+    padding: 0 0.875rem;
+    border: 1px solid color-mix(in srgb, var(--reviews-text-color) 30%, transparent);
+    border-radius: var(--style-border-radius-inputs);
+    background: none;
+    color: inherit;
+    font: inherit;
+    font-size: 0.8125rem;
+    cursor: pointer;
+  }
+
+  .product-reviews__helpful:hover,
+  .product-reviews__helpful[aria-pressed='true'] {
+    border-color: var(--reviews-text-color);
+  }
+
+  .product-reviews__helpful[aria-pressed='true'] {
+    font-weight: 600;
+  }
+
+  .product-reviews__empty {
+    padding-block: 2rem;
+  }
+
+  @media (max-width: 749px) {
+    .product-reviews__inner {
+      padding-block: 3rem;
+    }
+
+    .product-reviews__heading {
+      margin-bottom: 1.75rem;
+    }
+
+    .product-reviews__layout {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 2.5rem;
+    }
+  }
+{% endstylesheet %}
+
+{% javascript %}
+  class ProductReviews extends HTMLElement {
+    connectedCallback() {
+      this.list = this.querySelector('[data-reviews-list]');
+      this.sortSelect = this.querySelector('[data-reviews-sort]');
+      this.filterSelect = this.querySelector('[data-reviews-filter]');
+      this.emptyMessage = this.querySelector('[data-reviews-empty]');
+
+      const toolbar = this.querySelector('[data-reviews-toolbar]');
+      if (toolbar) toolbar.hidden = false;
+
+      this.addEventListener('change', (event) => {
+        if (event.target === this.sortSelect) this.sortReviews();
+        if (event.target === this.filterSelect) this.filterReviews();
+      });
+
+      this.addEventListener('click', (event) => {
+        const helpful = event.target.closest('[data-helpful]');
+        if (helpful) this.toggleHelpful(helpful);
+      });
+
+      this.sortReviews();
+    }
+
+    get reviews() {
+      return Array.from(this.list.children);
+    }
+
+    sortReviews() {
+      const order = this.sortSelect ? this.sortSelect.value : 'recent';
+      const sorted = this.reviews.sort((a, b) => {
+        if (order === 'highest') return Number(b.dataset.rating) - Number(a.dataset.rating);
+        if (order === 'lowest') return Number(a.dataset.rating) - Number(b.dataset.rating);
+        return b.dataset.date.localeCompare(a.dataset.date);
+      });
+      sorted.forEach((review) => this.list.appendChild(review));
+    }
+
+    filterReviews() {
+      const topic = this.filterSelect.value;
+      let shown = 0;
+      this.reviews.forEach((review) => {
+        const matches = !topic || review.dataset.topics.includes(`|${topic}|`);
+        review.hidden = !matches;
+        if (matches) shown += 1;
+      });
+      this.emptyMessage.hidden = shown > 0;
+    }
+
+    // Marks a review as helpful for this visit only. Sample reviews have nowhere to save the vote.
+    toggleHelpful(button) {
+      const pressed = button.getAttribute('aria-pressed') === 'true';
+      const count = Number(button.dataset.count) + (pressed ? 0 : 1);
+      button.setAttribute('aria-pressed', String(!pressed));
+      button.querySelector('[data-helpful-count]').textContent = count;
+    }
+  }
+
+  if (!customElements.get('product-reviews')) customElements.define('product-reviews', ProductReviews);
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "t:general.product_reviews",
+  "tag": "section",
+  "class": "section-product-reviews",
+  "max_blocks": 20,
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "t:info.sample_reviews"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "t:labels.heading",
+      "default": "Ratings and reviews"
+    },
+    {
+      "type": "header",
+      "content": "t:labels.star_counts"
+    },
+    {
+      "type": "number",
+      "id": "count_5",
+      "label": "t:labels.count_5",
+      "default": 104
+    },
+    {
+      "type": "number",
+      "id": "count_4",
+      "label": "t:labels.count_4",
+      "default": 16
+    },
+    {
+      "type": "number",
+      "id": "count_3",
+      "label": "t:labels.count_3",
+      "default": 4
+    },
+    {
+      "type": "number",
+      "id": "count_2",
+      "label": "t:labels.count_2",
+      "default": 1
+    },
+    {
+      "type": "number",
+      "id": "count_1",
+      "label": "t:labels.count_1",
+      "default": 1
+    },
+    {
+      "type": "url",
+      "id": "write_review_link",
+      "label": "t:labels.write_review_link",
+      "info": "t:info.write_review_link"
+    },
+    {
+      "type": "text",
+      "id": "filter_topics",
+      "label": "t:labels.filter_topics",
+      "info": "t:info.filter_topics",
+      "default": "Size, Fit"
+    },
+    {
+      "type": "header",
+      "content": "t:general.colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "t:labels.background",
+      "default": "#FAFAF8"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "t:labels.text_color",
+      "default": "#2B2B2B"
+    },
+    {
+      "type": "color",
+      "id": "button_color",
+      "label": "t:labels.button_color",
+      "default": "#6F6C5D"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "t:general.review",
+      "settings": [
+        {
+          "type": "range",
+          "id": "rating",
+          "label": "t:labels.rating",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "default": 5
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "t:labels.review_title",
+          "default": "Lovely fabric"
+        },
+        {
+          "type": "textarea",
+          "id": "body",
+          "label": "t:labels.text",
+          "default": "Soft, well made and true to size."
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "label": "t:labels.author",
+          "default": "Customer"
+        },
+        {
+          "type": "text",
+          "id": "date",
+          "label": "t:labels.date",
+          "info": "t:info.review_date",
+          "default": "2026-10-01"
+        },
+        {
+          "type": "text",
+          "id": "size_bought",
+          "label": "t:labels.size_bought"
+        },
+        {
+          "type": "text",
+          "id": "topics",
+          "label": "t:labels.topics",
+          "info": "t:info.review_topics"
+        },
+        {
+          "type": "checkbox",
+          "id": "verified",
+          "label": "t:labels.verified",
+          "default": true
+        },
+        {
+          "type": "number",
+          "id": "helpful_count",
+          "label": "t:labels.helpful_count",
+          "default": 0
+        }
+      ]
+    }
+  ],
+  "enabled_on": {
+    "templates": ["product"]
+  },
+  "presets": [
+    {
+      "name": "t:general.product_reviews"
+    }
+  ]
+}
+{% endschema %}

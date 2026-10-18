@@ -1,0 +1,92 @@
+{% doc %}
+  Renders page links ("Previous", page numbers, "Next") for a paginated list.
+  Renders nothing when there is only one page.
+
+  @param {object} paginate - The paginate object from a {% paginate %} tag
+
+  @example
+  {% render 'pagination', paginate: paginate %}
+{% enddoc %}
+
+{% if paginate.pages > 1 %}
+  <nav class="pagination" aria-label="{{ 'pagination.label' | t }}">
+    <ul class="pagination__list" role="list">
+      {% if paginate.previous %}
+        <li>
+          <a class="pagination__link pagination__step" href="{{ paginate.previous.url }}">
+            <span aria-hidden="true">←</span>
+            {{ 'pagination.previous' | t }}
+          </a>
+        </li>
+      {% endif %}
+
+      {% for part in paginate.parts %}
+        <li>
+          {% if part.is_link %}
+            <a class="pagination__link" href="{{ part.url }}" aria-label="{{ 'pagination.page' | t: number: part.title }}">
+              {{- part.title -}}
+            </a>
+          {% elsif part.title == paginate.current_page %}
+            <span class="pagination__link pagination__link--current" aria-current="page">
+              <span class="visually-hidden">{{ 'pagination.page' | t: number: part.title }}</span>
+              <span aria-hidden="true">{{ part.title }}</span>
+            </span>
+          {% else %}
+            <span class="pagination__gap" aria-hidden="true">{{ part.title }}</span>
+          {% endif %}
+        </li>
+      {% endfor %}
+
+      {% if paginate.next %}
+        <li>
+          <a class="pagination__link pagination__step" href="{{ paginate.next.url }}">
+            {{ 'pagination.next' | t }}
+            <span aria-hidden="true">→</span>
+          </a>
+        </li>
+      {% endif %}
+    </ul>
+  </nav>
+{% endif %}
+
+{% stylesheet %}
+  .pagination {
+    margin-top: 3rem;
+  }
+
+  .pagination__list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.375rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .pagination__link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.375rem;
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+    padding: 0 0.75rem;
+    border: 1px solid transparent;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  a.pagination__link:hover {
+    border-color: var(--color-border);
+  }
+
+  .pagination__link--current {
+    border-color: var(--color-foreground);
+  }
+
+  .pagination__gap {
+    padding: 0 0.25rem;
+  }
+{% endstylesheet %}

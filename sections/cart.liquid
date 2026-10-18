@@ -1,0 +1,683 @@
+{% comment %}
+  Cart page: item rows, order summary with subtotal, shipping and total lines
+  and the checkout button, and a friendly message (with optional product
+  suggestions) when the cart is empty.
+
+  In the theme editor only, an empty cart shows one sample item built from
+  the section's sample settings, so the page can be styled. Shoppers always
+  see their own cart.
+
+  Everything works without JavaScript. The optional script only sends the
+  cart form on its own after a quantity is typed, so the Update cart button
+  can be hidden.
+
+  https://shopify.dev/docs/storefronts/themes/architecture/templates/cart
+{% endcomment %}
+
+{% liquid
+  assign show_sample = false
+  if cart.item_count == 0 and request.design_mode and section.settings.show_sample
+    assign show_sample = true
+  endif
+
+  if show_sample
+    assign item_count = section.settings.sample_quantity
+    assign sample_price = section.settings.sample_price | times: 100 | round
+    assign sample_subtotal = sample_price | times: item_count
+    assign sample_shipping = section.settings.sample_shipping | times: 100 | round
+    assign sample_total = sample_subtotal | plus: sample_shipping
+  else
+    assign item_count = cart.item_count
+  endif
+%}
+
+<cart-page
+  class="cart-page full-width"
+  style="
+    --cart-background: {{ section.settings.background_color }};
+    --cart-text-color: {{ section.settings.text_color }};
+    --cart-button-color: {{ section.settings.button_color }};
+  "
+>
+  {% if cart.item_count > 0 or show_sample %}
+    <header class="cart-page__header">
+      <h1 class="cart-page__title">
+        {%- if section.settings.heading != blank -%}
+          {{- section.settings.heading | escape -}}
+        {%- else -%}
+          {{- 'cart.title' | t -}}
+        {%- endif -%}
+      </h1>
+      <p class="cart-page__count">{{ 'cart.item_count' | t: count: item_count }}</p>
+    </header>
+
+    {% if show_sample %}
+      <p class="cart-page__sample-note">{{ 'cart.sample_note' | t }}</p>
+      <div class="cart-page__layout">
+    {% else %}
+      <form class="cart-page__layout" action="{{ routes.cart_url }}" method="post" id="CartForm" data-cart-form>
+    {% endif %}
+      <div class="cart-page__items">
+        <ul class="cart-page__list" role="list">
+          {% if show_sample %}
+            <li class="cart-item" style="--cart-ratio: {{ section.settings.image_ratio }};">
+              <div class="cart-item__media">
+                {% render 'image-placeholder', ratio: section.settings.image_ratio %}
+              </div>
+              <div class="cart-item__details">
+                <h2 class="cart-item__title">{{ section.settings.sample_title | escape }}</h2>
+                <ul class="cart-item__options" role="list">
+                  {% if section.settings.sample_colour != blank %}
+                    <li>{{ 'cart.option_colour' | t: value: section.settings.sample_colour }}</li>
+                  {% endif %}
+                  {% if section.settings.sample_size != blank %}
+                    <li>{{ 'cart.option_size' | t: value: section.settings.sample_size }}</li>
+                  {% endif %}
+                </ul>
+                <p class="cart-item__unit-price">{{ sample_price | money }}</p>
+                <div class="cart-item__actions">
+                  <div class="cart-item__quantity">
+                    <span class="cart-item__step" aria-hidden="true">−</span>
+                    <input
+                      class="cart-item__quantity-input"
+                      type="number"
+                      value="{{ item_count }}"
+                      readonly
+                      aria-label="{{ 'cart.quantity_for' | t: title: section.settings.sample_title }}"
+                    >
+                    <span class="cart-item__step" aria-hidden="true">+</span>
+                  </div>
+                  <span class="cart-item__remove">{{ 'cart.remove' | t }}</span>
+                </div>
+              </div>
+              <div class="cart-item__total">
+                <span class="visually-hidden">{{ 'cart.line_total' | t }}</span>
+                <span>{{ sample_subtotal | money }}</span>
+              </div>
+            </li>
+          {% else %}
+            {% for item in cart.items %}
+              {% render 'cart-item', item: item, line: forloop.index, ratio: section.settings.image_ratio %}
+            {% endfor %}
+          {% endif %}
+        </ul>
+
+        {% unless show_sample %}
+          <div class="cart-page__update">
+            <button type="submit" name="update" class="cart-page__update-button" data-cart-update>
+              {{- 'cart.update' | t -}}
+            </button>
+          </div>
+        {% endunless %}
+      </div>
+
+      <aside class="cart-page__summary" aria-labelledby="CartSummaryTitle">
+        <h2 id="CartSummaryTitle" class="cart-page__summary-title">{{ 'cart.summary' | t }}</h2>
+
+        <p class="cart-page__row">
+          <span>{{ 'cart.subtotal' | t }}</span>
+          {% if show_sample %}
+            <span>{{ sample_subtotal | money }}</span>
+          {% else %}
+            <span>{{ cart.items_subtotal_price | money }}</span>
+          {% endif %}
+        </p>
+
+        {% if show_sample == false and cart.cart_level_discount_applications.size > 0 %}
+          <ul class="cart-page__discounts" role="list">
+            {% for discount in cart.cart_level_discount_applications %}
+              <li class="cart-page__row">
+                <span>{{ discount.title | escape }}</span>
+                <span>−{{ discount.total_allocated_amount | money }}</span>
+              </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+
+        <p class="cart-page__row">
+          <span>{{ 'cart.shipping' | t }}</span>
+          {% if show_sample %}
+            <span>{{ sample_shipping | money }}</span>
+          {% else %}
+            <span>{{ 'cart.shipping_at_checkout' | t }}</span>
+          {% endif %}
+        </p>
+
+        <p class="cart-page__row cart-page__total">
+          <span>{{ 'cart.total' | t }}</span>
+          {% if show_sample %}
+            <span>{{ sample_total | money_with_currency }}</span>
+          {% else %}
+            <span>{{ cart.total_price | money_with_currency }}</span>
+          {% endif %}
+        </p>
+        {% unless show_sample %}
+          <p class="cart-page__taxes">{{ 'cart.taxes_note' | t }}</p>
+        {% endunless %}
+
+        {% if section.settings.show_note %}
+          <div class="cart-page__note">
+            <label for="CartNote">
+              {%- if section.settings.note_label != blank -%}
+                {{- section.settings.note_label | escape -}}
+              {%- else -%}
+                {{- 'cart.note_label' | t -}}
+              {%- endif -%}
+            </label>
+            <textarea id="CartNote" name="note" rows="3">{{ cart.note }}</textarea>
+          </div>
+        {% endif %}
+
+        {% if show_sample %}
+          <button type="button" class="button cart-page__checkout">{{ 'cart.checkout' | t }}</button>
+        {% else %}
+          <button type="submit" name="checkout" class="button cart-page__checkout">
+            {{- 'cart.checkout' | t -}}
+          </button>
+        {% endif %}
+
+        {% if section.settings.show_continue and section.settings.continue_link != blank %}
+          <a class="text-link cart-page__continue" href="{{ section.settings.continue_link }}">{{ 'cart.continue' | t }}</a>
+        {% endif %}
+
+        {% if section.settings.footer_text != blank %}
+          <div class="cart-page__footer-text">{{ section.settings.footer_text }}</div>
+        {% endif %}
+      </aside>
+    {% if show_sample %}
+      </div>
+    {% else %}
+      </form>
+    {% endif %}
+  {% else %}
+    <div class="cart-page__empty">
+      <h1 class="cart-page__empty-title">
+        {%- if section.settings.empty_heading != blank -%}
+          {{- section.settings.empty_heading | escape -}}
+        {%- else -%}
+          {{- 'cart.empty_heading' | t -}}
+        {%- endif -%}
+      </h1>
+      {% if section.settings.empty_text != blank %}
+        <p class="cart-page__empty-text">{{ section.settings.empty_text | escape }}</p>
+      {% endif %}
+      {% if section.settings.empty_button_label != blank %}
+        <a class="button" href="{{ section.settings.empty_button_link | default: routes.all_products_collection_url }}">
+          {{- section.settings.empty_button_label | escape -}}
+        </a>
+      {% endif %}
+    </div>
+
+    {% liquid
+      assign suggestions = section.settings.suggestions_collection
+      if suggestions == blank
+        assign suggestions = collections.all
+      endif
+      assign suggestion_limit = section.settings.suggestions_count
+    %}
+    {% if suggestion_limit > 0 and suggestions.products_count > 0 %}
+      <section class="cart-page__suggestions" aria-labelledby="CartSuggestionsTitle">
+        <h2 id="CartSuggestionsTitle" class="section-heading">
+          {%- if section.settings.suggestions_heading != blank -%}
+            {{- section.settings.suggestions_heading | escape -}}
+          {%- else -%}
+            {{- 'cart.suggestions_heading' | t -}}
+          {%- endif -%}
+        </h2>
+        <ul class="card-grid" role="list" style="--columns: 4;">
+          {% for product in suggestions.products limit: suggestion_limit %}
+            <li>{% render 'product-card', product: product, ratio: section.settings.image_ratio %}</li>
+          {% endfor %}
+        </ul>
+      </section>
+    {% endif %}
+  {% endif %}
+</cart-page>
+
+{% stylesheet %}
+  .cart-page {
+    --cart-line: color-mix(in srgb, var(--cart-text-color) 15%, transparent);
+
+    display: grid;
+    grid-template-columns: var(--content-grid);
+    padding-block: 3rem 4rem;
+    background-color: var(--cart-background);
+    color: var(--cart-text-color);
+  }
+
+  .cart-page > * {
+    grid-column: 2;
+  }
+
+  .cart-page__sample-note {
+    margin-bottom: 1.5rem;
+    padding: 0.75rem;
+    border: 1px dashed var(--cart-line);
+    font-size: 0.875rem;
+  }
+
+  .cart-page .cart-item,
+  .cart-page .cart-item__media,
+  .cart-page .cart-item__quantity {
+    border-color: var(--cart-line);
+  }
+
+  .cart-page .cart-item__quantity {
+    background-color: var(--cart-background);
+  }
+
+  .cart-page__header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.5rem 1.25rem;
+    margin-bottom: 2rem;
+  }
+
+  .cart-page__title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1.1;
+  }
+
+  .cart-page__count {
+    font-size: 0.9375rem;
+  }
+
+  .cart-page__layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(18rem, 24rem);
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .cart-page__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--cart-line);
+  }
+
+  .cart-page__update {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-top: 1.5rem;
+  }
+
+  .cart-page__update-button {
+    min-height: 2.75rem;
+    padding: 0 1.25rem;
+    border: 1px solid var(--cart-text-color);
+    border-radius: var(--style-border-radius-inputs);
+    background: none;
+    color: inherit;
+    font: inherit;
+    font-size: 0.875rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  /* With JavaScript, typed quantities update on their own, so the button is not needed. */
+  cart-page.is-enhanced .cart-page__update-button {
+    display: none;
+  }
+
+  .cart-page__summary {
+    position: sticky;
+    top: 1.5rem;
+    display: grid;
+    gap: 1rem;
+    padding: 1.75rem;
+    border: 1px solid var(--cart-line);
+  }
+
+  .cart-page__summary-title {
+    font-size: 1.375rem;
+  }
+
+  .cart-page__discounts {
+    display: grid;
+    gap: 0.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .cart-page__row {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .cart-page__total {
+    padding-top: 1rem;
+    border-top: 1px solid var(--cart-line);
+    font-size: 1.125rem;
+    font-weight: 600;
+  }
+
+  .cart-page__taxes {
+    font-size: 0.875rem;
+    opacity: 0.85;
+  }
+
+  .cart-page__note label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.875rem;
+  }
+
+  .cart-page__note textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--cart-line);
+    background-color: #fff;
+    color: inherit;
+    resize: vertical;
+  }
+
+  .cart-page__checkout {
+    width: 100%;
+    min-height: 3.25rem;
+    font-weight: 600;
+  }
+
+  .cart-page .button {
+    border-color: var(--cart-button-color);
+    background-color: var(--cart-button-color);
+    color: #fff;
+  }
+
+  .cart-page .button:hover {
+    background-color: color-mix(in srgb, var(--cart-button-color) 85%, #000);
+  }
+
+  .cart-page__continue {
+    justify-self: center;
+    font-size: 0.9375rem;
+  }
+
+  .cart-page__footer-text {
+    font-size: 0.875rem;
+    line-height: 1.6;
+  }
+
+  .cart-page__empty {
+    display: grid;
+    gap: 1.25rem;
+    justify-items: center;
+    max-width: 36rem;
+    margin: 2rem auto 0;
+    padding: 3rem 1.5rem;
+    text-align: center;
+  }
+
+  .cart-page__empty-title {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    line-height: 1.15;
+  }
+
+  .cart-page__empty-text {
+    line-height: 1.6;
+  }
+
+  .cart-page__suggestions {
+    margin-top: 3rem;
+  }
+
+  .cart-page__suggestions .section-heading {
+    margin-bottom: 1.5rem;
+  }
+
+  @media (max-width: 989px) {
+    .cart-page__layout {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 2rem;
+    }
+
+    .cart-page__summary {
+      position: static;
+    }
+  }
+
+  @media (max-width: 749px) {
+    .cart-page {
+      padding-top: 1.5rem;
+    }
+
+    .cart-page__summary {
+      padding: 1.25rem;
+    }
+  }
+{% endstylesheet %}
+
+{% javascript %}
+  class CartPage extends HTMLElement {
+    connectedCallback() {
+      this.form = this.querySelector('[data-cart-form]');
+      if (!this.form) return;
+
+      this.classList.add('is-enhanced');
+
+      // After a quantity is typed and the shopper pauses, send the cart form to update it.
+      this.form.addEventListener('input', (event) => {
+        if (!event.target.matches('[data-cart-quantity]')) return;
+        clearTimeout(this.timer);
+        if (event.target.value === '' || Number(event.target.value) < 0) return;
+        this.timer = setTimeout(() => this.update(), 700);
+      });
+
+      // Pressing Enter in a quantity box updates the cart rather than going to checkout.
+      this.form.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' && event.target.matches('[data-cart-quantity]')) {
+          event.preventDefault();
+          clearTimeout(this.timer);
+          this.update();
+        }
+      });
+    }
+
+    update() {
+      const updateButton = this.form.querySelector('[data-cart-update]');
+      this.form.requestSubmit(updateButton || undefined);
+    }
+  }
+
+  if (!customElements.get('cart-page')) customElements.define('cart-page', CartPage);
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "t:general.cart",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "t:labels.heading",
+      "default": "Your cart"
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "label": "t:labels.image_ratio",
+      "options": [
+        { "value": "4 / 5", "label": "t:options.image_ratio.portrait" },
+        { "value": "1 / 1", "label": "t:options.image_ratio.square" },
+        { "value": "3 / 4", "label": "t:options.image_ratio.tall" }
+      ],
+      "default": "4 / 5"
+    },
+    {
+      "type": "header",
+      "content": "t:general.colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "t:labels.background",
+      "default": "#FAFAF8"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "t:labels.text_color",
+      "default": "#2B2B2B"
+    },
+    {
+      "type": "color",
+      "id": "button_color",
+      "label": "t:labels.button_color",
+      "default": "#6F6C5D"
+    },
+    {
+      "type": "header",
+      "content": "t:labels.order_summary"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_note",
+      "label": "t:labels.show_order_note",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "note_label",
+      "label": "t:labels.order_note_label",
+      "info": "t:info.label_default"
+    },
+    {
+      "type": "richtext",
+      "id": "footer_text",
+      "label": "t:labels.text_under_checkout",
+      "info": "t:info.text_under_checkout"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_continue",
+      "label": "t:labels.show_continue",
+      "default": true
+    },
+    {
+      "type": "url",
+      "id": "continue_link",
+      "label": "t:labels.link",
+      "default": "/collections/all"
+    },
+    {
+      "type": "header",
+      "content": "t:labels.empty_cart"
+    },
+    {
+      "type": "text",
+      "id": "empty_heading",
+      "label": "t:labels.heading",
+      "default": "Your cart is empty for now."
+    },
+    {
+      "type": "text",
+      "id": "empty_text",
+      "label": "t:labels.text",
+      "default": "Have a look around and find something you'll love."
+    },
+    {
+      "type": "text",
+      "id": "empty_button_label",
+      "label": "t:labels.button_label",
+      "default": "Start shopping"
+    },
+    {
+      "type": "url",
+      "id": "empty_button_link",
+      "label": "t:labels.link",
+      "default": "/collections/all"
+    },
+    {
+      "type": "header",
+      "content": "t:labels.suggestions"
+    },
+    {
+      "type": "range",
+      "id": "suggestions_count",
+      "label": "t:labels.suggestions_count",
+      "info": "t:info.suggestions_count",
+      "min": 0,
+      "max": 8,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "text",
+      "id": "suggestions_heading",
+      "label": "t:labels.heading",
+      "default": "You might like"
+    },
+    {
+      "type": "collection",
+      "id": "suggestions_collection",
+      "label": "t:general.collection",
+      "info": "t:info.featured_collection"
+    },
+    {
+      "type": "header",
+      "content": "t:labels.sample_cart"
+    },
+    {
+      "type": "paragraph",
+      "content": "t:info.sample_cart"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_sample",
+      "label": "t:labels.show_sample_cart",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "sample_title",
+      "label": "t:labels.sample_name",
+      "default": "Linen wrap dress"
+    },
+    {
+      "type": "text",
+      "id": "sample_colour",
+      "label": "t:labels.sample_colour",
+      "default": "Oat"
+    },
+    {
+      "type": "text",
+      "id": "sample_size",
+      "label": "t:labels.sample_size",
+      "default": "M"
+    },
+    {
+      "type": "range",
+      "id": "sample_quantity",
+      "label": "t:labels.sample_quantity",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "default": 1
+    },
+    {
+      "type": "number",
+      "id": "sample_price",
+      "label": "t:labels.sample_price",
+      "info": "t:info.sample_amount",
+      "default": 89
+    },
+    {
+      "type": "number",
+      "id": "sample_shipping",
+      "label": "t:labels.sample_shipping",
+      "info": "t:info.sample_amount",
+      "default": 5
+    }
+  ],
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  }
+}
+{% endschema %}

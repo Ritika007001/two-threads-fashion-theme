@@ -1,0 +1,175 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "product",
+      "blocks": {
+        "title": { "type": "title", "settings": { "show_vendor": false } },
+        "rating": { "type": "rating", "settings": { "rating": 4.8, "review_count": 126 } },
+        "price": { "type": "price", "settings": { "show_tax_note": true } },
+        "market_selector": { "type": "market_selector", "settings": { "label": "" } },
+        "variant_picker": { "type": "variant_picker", "settings": { "size_option_name": "Size", "size_guide_label": "" } },
+        "buy_buttons": { "type": "buy_buttons", "settings": { "button_label": "" } },
+        "shipping_notes": {
+          "type": "text",
+          "settings": {
+            "text": "<ul><li>Free standard delivery on orders over £75</li><li>Dispatched within 2 working days</li><li>Free returns within 30 days</li></ul>"
+          }
+        },
+        "description": { "type": "description", "settings": {} },
+        "size_chart_uk": {
+          "type": "size_chart",
+          "settings": {
+            "title": "UK size guide",
+            "countries": "GB, IE",
+            "product_filter": "",
+            "rows": "Size | UK size | Bust (cm) | Waist (cm) | Hip (cm)\nXS | 6 | 80 | 62 | 87\nS | 8 | 84 | 66 | 91\nM | 10 | 88 | 70 | 95\nL | 12 | 93 | 75 | 100\nXL | 14 | 98 | 80 | 105",
+            "note": "Example measurements only: replace them with your own. Measure around the fullest part of the bust and hips, and the narrowest part of the waist."
+          }
+        },
+        "size_chart_us": {
+          "type": "size_chart",
+          "settings": {
+            "title": "US size guide",
+            "countries": "US",
+            "product_filter": "",
+            "rows": "Size | US size | Bust (in) | Waist (in) | Hip (in)\nXS | 2 | 31.5 | 24.5 | 34.25\nS | 4 | 33 | 26 | 36\nM | 6 | 34.75 | 27.5 | 37.5\nL | 8 | 36.5 | 29.5 | 39.5\nXL | 10 | 38.5 | 31.5 | 41.25",
+            "note": "Example measurements only: replace them with your own. Measure around the fullest part of the bust and hips, and the narrowest part of the waist."
+          }
+        },
+        "size_chart_eu": {
+          "type": "size_chart",
+          "settings": {
+            "title": "EU size guide",
+            "countries": "FR, DE, IT, ES, NL, BE, AT, PT",
+            "product_filter": "",
+            "rows": "Size | EU size | Bust (cm) | Waist (cm) | Hip (cm)\nXS | 34 | 80 | 62 | 87\nS | 36 | 84 | 66 | 91\nM | 38 | 88 | 70 | 95\nL | 40 | 93 | 75 | 100\nXL | 42 | 98 | 80 | 105",
+            "note": "Example measurements only: replace them with your own. Measure around the fullest part of the bust and hips, and the narrowest part of the waist."
+          }
+        },
+        "size_chart_default": {
+          "type": "size_chart",
+          "settings": {
+            "title": "Size guide",
+            "countries": "",
+            "product_filter": "",
+            "rows": "Size | Bust (cm) | Waist (cm) | Hip (cm)\nXS | 80 | 62 | 87\nS | 84 | 66 | 91\nM | 88 | 70 | 95\nL | 93 | 75 | 100\nXL | 98 | 80 | 105",
+            "note": "Example measurements only: replace them with your own. Measure around the fullest part of the bust and hips, and the narrowest part of the waist."
+          }
+        }
+      },
+      "block_order": [
+        "title",
+        "rating",
+        "price",
+        "market_selector",
+        "variant_picker",
+        "buy_buttons",
+        "shipping_notes",
+        "description",
+        "size_chart_uk",
+        "size_chart_us",
+        "size_chart_eu",
+        "size_chart_default"
+      ],
+      "settings": {
+        "gallery_layout": "product--gallery-thumbnails",
+        "image_ratio": "4 / 5",
+        "placeholder_count": 3,
+        "background_color": "#FAFAF8",
+        "text_color": "#2B2B2B",
+        "button_color": "#6F6C5D",
+        "show_sticky_bar": true
+      }
+    },
+    "reviews": {
+      "type": "product-reviews",
+      "blocks": {
+        "review_1": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "title": "Beautiful fabric, true to size",
+            "body": "The linen is soft from the first wear and the colour is exactly as pictured. I'm usually a medium and the medium fits perfectly.",
+            "author": "Hannah R.",
+            "date": "2026-10-04",
+            "size_bought": "M",
+            "topics": "Size",
+            "verified": true,
+            "helpful_count": 14
+          }
+        },
+        "review_2": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "title": "Relaxed fit with a lovely drape",
+            "body": "Loose without feeling shapeless, and the tie waist makes it easy to adjust. I've worn it to work and at the weekend.",
+            "author": "Priya S.",
+            "date": "2026-09-22",
+            "size_bought": "S",
+            "topics": "Fit",
+            "verified": true,
+            "helpful_count": 9
+          }
+        },
+        "review_3": {
+          "type": "review",
+          "settings": {
+            "rating": 4,
+            "title": "Size up if you're between sizes",
+            "body": "Gorgeous dress, but the sleeves are a little snug. I swapped my M for an L and it's now just right across the shoulders.",
+            "author": "Claire M.",
+            "date": "2026-09-09",
+            "size_bought": "L",
+            "topics": "Size, Fit",
+            "verified": true,
+            "helpful_count": 6
+          }
+        }
+      },
+      "block_order": ["review_1", "review_2", "review_3"],
+      "settings": {
+        "heading": "Ratings and reviews",
+        "count_5": 104,
+        "count_4": 16,
+        "count_3": 4,
+        "count_2": 1,
+        "count_1": 1,
+        "write_review_link": "",
+        "filter_topics": "Size, Fit",
+        "background_color": "#FAFAF8",
+        "text_color": "#2B2B2B",
+        "button_color": "#6F6C5D"
+      }
+    },
+    "related_products": {
+      "type": "related-products",
+      "blocks": {
+        "product_1": { "type": "product", "settings": { "name": "Cotton poplin shirt", "price": "£58.00" } },
+        "product_2": { "type": "product", "settings": { "name": "Wool blend cardigan", "price": "£79.00" } },
+        "product_3": { "type": "product", "settings": { "name": "Wide leg linen trousers", "price": "£65.00" } },
+        "product_4": { "type": "product", "settings": { "name": "Soft knit scarf", "price": "£35.00" } }
+      },
+      "block_order": ["product_1", "product_2", "product_3", "product_4"],
+      "settings": {
+        "heading": "You may also like",
+        "background_color": "#FAFAF8",
+        "text_color": "#2B2B2B"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "reviews",
+    "related_products"
+  ]
+}

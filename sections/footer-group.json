@@ -1,0 +1,68 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "type": "footer",
+  "name": "t:general.footer",
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "links_shop": {
+          "type": "links",
+          "settings": {
+            "heading": "Shop",
+            "label_1": "All products",
+            "link_1": "shopify://collections/all",
+            "label_2": "Collections",
+            "link_2": "/collections",
+            "label_3": "Search",
+            "link_3": "/search"
+          }
+        },
+        "links_explore": {
+          "type": "links",
+          "settings": {
+            "heading": "Explore",
+            "label_1": "Journal",
+            "link_1": "shopify://blogs/news",
+            "label_2": "Contact",
+            "link_2": "shopify://pages/contact"
+          }
+        },
+        "store_details": {
+          "type": "store_details",
+          "settings": {
+            "heading": "Visit us",
+            "details": "<p>Add your store address, opening hours and contact email here.</p>"
+          }
+        },
+        "newsletter": {
+          "type": "newsletter",
+          "settings": {
+            "heading": "Join our newsletter",
+            "text": "<p>New arrivals, journal stories and early access to sales.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "links_shop",
+        "links_explore",
+        "store_details",
+        "newsletter"
+      ],
+      "settings": {
+        "show_payment_icons": true
+      }
+    }
+  },
+  "order": [
+    "footer"
+  ]
+}

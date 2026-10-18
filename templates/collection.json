@@ -1,0 +1,46 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "collection",
+      "settings": {
+        "products_per_page": 24,
+        "columns": 3,
+        "image_ratio": "4 / 5",
+        "show_count": true,
+        "show_filters": true,
+        "filter_layout": "row",
+        "show_sort": true,
+        "show_description": true,
+        "show_image": false,
+        "background_color": "#FAFAF8",
+        "text_color": "#2B2B2B",
+        "button_color": "#6F6C5D",
+        "show_sample": true,
+        "sample_heading": "New arrivals",
+        "sample_sizes": "XS, S, M, L, XL",
+        "sample_colours": "Oat, Sage, Charcoal, Navy"
+      },
+      "blocks": {
+        "sample_1": { "type": "sample_product", "settings": { "name": "Linen wrap dress", "price": "£89.00" } },
+        "sample_2": { "type": "sample_product", "settings": { "name": "Cotton poplin shirt", "price": "£58.00" } },
+        "sample_3": { "type": "sample_product", "settings": { "name": "Wool blend cardigan", "price": "£79.00" } },
+        "sample_4": { "type": "sample_product", "settings": { "name": "Wide leg linen trousers", "price": "£65.00" } },
+        "sample_5": { "type": "sample_product", "settings": { "name": "Soft knit scarf", "price": "£35.00" } },
+        "sample_6": { "type": "sample_product", "settings": { "name": "Relaxed denim jacket", "price": "£95.00" } }
+      },
+      "block_order": ["sample_1", "sample_2", "sample_3", "sample_4", "sample_5", "sample_6"]
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

@@ -1,0 +1,377 @@
+/** Critical CSS for the theme. This file is included on every page. */
+
+/* Reset styles inspired by https://www.joshwcomeau.com/css/custom-css-reset/ */
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  min-height: 100svh;
+}
+
+html:has(dialog[scroll-lock][open], details[scroll-lock][open]) {
+  overflow: hidden;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+input,
+textarea,
+select {
+  font: inherit;
+  border-radius: var(--style-border-radius-inputs);
+}
+
+select {
+  background-color: var(--color-background);
+  color: currentcolor;
+}
+
+dialog {
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+}
+
+p {
+  text-wrap: pretty;
+}
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+p:empty {
+  display: none;
+}
+
+:is(p, h1, h2, h3, h4, h5, h6):first-child,
+:empty:first-child + :where(p, h1, h2, h3, h4, h5, h6) {
+  margin-block-start: 0;
+}
+
+:is(p, h1, h2, h3, h4, h5, h6):last-child,
+:where(p, h1, h2, h3, h4, h5, h6) + :has(+ :empty:last-child) {
+  margin-block-end: 0;
+}
+
+/** Theme styles below */
+body {
+  font-family: var(--font-primary--family);
+  font-style: var(--font-primary--style);
+  font-weight: var(--font-primary--weight);
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading--family);
+  font-style: var(--font-heading--style);
+  font-weight: var(--font-heading--weight);
+}
+
+/** Accessibility utilities */
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  z-index: 100;
+  padding: 0.75rem 1rem;
+  background-color: var(--color-foreground);
+  color: var(--color-background);
+  transform: translateY(-200%);
+}
+
+.skip-link:focus {
+  transform: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-foreground);
+  outline-offset: 2px;
+}
+
+.main-content {
+  flex: 1 0 auto;
+}
+
+.main-content:focus {
+  outline: none;
+}
+
+/** Buttons and shared section styles */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3rem;
+  padding: 0 1.75rem;
+  border: 1px solid var(--color-foreground);
+  border-radius: var(--style-border-radius-inputs);
+  background-color: var(--color-foreground);
+  color: var(--color-background);
+  font: inherit;
+  font-size: 0.875rem;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: color-mix(in srgb, var(--color-foreground) 85%, var(--color-background));
+}
+
+.button--outline {
+  background-color: transparent;
+  color: var(--color-foreground);
+}
+
+.button--outline:hover {
+  background-color: var(--color-foreground);
+  color: var(--color-background);
+}
+
+.text-link {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+}
+
+.section-heading {
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  line-height: 1.2;
+}
+
+.section-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem 1.5rem;
+  margin-bottom: 1.75rem;
+}
+
+.home-section {
+  padding-block: 3.5rem;
+}
+
+@media (max-width: 749px) {
+  .home-section {
+    padding-block: 2.5rem;
+  }
+}
+
+/**
+ * Card grid: a row of equal columns (set --columns) that becomes a
+ * swipeable row on phones. Used for product, category and journal cards.
+ */
+.card-grid {
+  /* Contains absolutely positioned children (such as screen reader text) inside the scroll area. */
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(var(--columns, 3), minmax(0, 1fr));
+  gap: 2rem 1.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (max-width: 749px) {
+  .card-grid {
+    grid-template-columns: none;
+    grid-auto-flow: column;
+    grid-auto-columns: 70%;
+    gap: 1rem;
+    margin-inline: calc(var(--page-margin) * -1);
+    padding-inline: var(--page-margin);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--page-margin);
+    scrollbar-width: thin;
+  }
+
+  .card-grid > * {
+    scroll-snap-align: start;
+  }
+}
+
+/** Product grid for collection and search pages: columns on desktop, two per row on phones. */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--columns, 3), minmax(0, 1fr));
+  gap: 2.5rem 1.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (max-width: 989px) {
+  .product-grid {
+    grid-template-columns: repeat(min(var(--columns, 3), 3), minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 749px) {
+  .product-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2rem 0.75rem;
+  }
+}
+
+/** Message shown when a list has nothing to show */
+.empty-state {
+  display: grid;
+  gap: 1rem;
+  justify-items: center;
+  padding: 3rem 1.5rem;
+  border: 1px dashed var(--color-border);
+  text-align: center;
+}
+
+.empty-state__title {
+  font-family: var(--font-heading--family);
+  font-size: 1.5rem;
+}
+
+/** Rich text from Shopify's editors (journal posts, content pages, descriptions) */
+.rte {
+  font-size: 1.0625rem;
+  line-height: 1.75;
+}
+
+.rte > * + * {
+  margin-top: 1.25rem;
+}
+
+.rte h2,
+.rte h3,
+.rte h4 {
+  margin-top: 2.25rem;
+  line-height: 1.25;
+}
+
+.rte h2 {
+  font-size: 1.75rem;
+}
+
+.rte h3 {
+  font-size: 1.375rem;
+}
+
+.rte a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.rte ul,
+.rte ol {
+  padding-inline-start: 1.5rem;
+}
+
+.rte li + li {
+  margin-top: 0.5rem;
+}
+
+.rte blockquote {
+  margin-inline: 0;
+  padding: 0.5rem 0 0.5rem 1.5rem;
+  border-inline-start: 3px solid var(--color-accent);
+  font-family: var(--font-heading--family);
+  font-size: 1.375rem;
+  line-height: 1.5;
+}
+
+.rte img {
+  height: auto;
+  margin-inline: auto;
+}
+
+.rte hr {
+  border: 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.rte table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.rte th,
+.rte td {
+  padding: 0.5rem;
+  border-bottom: 1px solid var(--color-border);
+  text-align: start;
+}
+
+/** Section layout utilities */
+
+/**
+ * Setup a grid that enables both full-width and constrained layouts
+ * depending on the class of the child elements.
+ *
+ * By default, a minimum content margin is set on the left and right
+ * sides of the section and the content is centered in the viewport to
+ * not exceed the maximum page width.
+ *
+ * When a child element is given the `full-width` class, it will span
+ * the entire viewport.
+ */
+.shopify-section {
+  --content-width: min(
+    calc(var(--page-width) - var(--page-margin) * 2),
+    calc(100% - var(--page-margin) * 2)
+  );
+  --content-margin: minmax(var(--page-margin), 1fr);
+  --content-grid: var(--content-margin) var(--content-width) var(--content-margin);
+
+  /* This is required to make <img> elements work as background images */
+  position: relative;
+  grid-template-columns: var(--content-grid);
+  display: grid;
+  width: 100%;
+}
+
+/* Child elements, by default, are constrained to the central column of the grid. */
+.shopify-section > * {
+  grid-column: 2;
+}
+
+/* Child elements that use the full-width utility class span the entire viewport. */
+.shopify-section > .full-width {
+  grid-column: 1 / -1;
+}

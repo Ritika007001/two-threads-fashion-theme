@@ -1,0 +1,28 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+ {
+  "sections": {
+    "main": {
+      "type": "404",
+      "settings": {
+        "heading": "We can't find that page.",
+        "text": "It may have moved, or the address might have a small typo. Try a search, or head back to the shop.",
+        "show_search": true,
+        "button_label": "Shop all products",
+        "button_link": "/collections/all",
+        "suggestions_count": 4,
+        "suggestions_heading": "Popular right now"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

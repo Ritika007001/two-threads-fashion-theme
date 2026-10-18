@@ -1,0 +1,58 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "cart",
+      "settings": {
+        "heading": "Your cart",
+        "image_ratio": "4 / 5",
+        "show_note": false,
+        "note_label": "",
+        "show_continue": true,
+        "continue_link": "/collections/all",
+        "empty_heading": "Your cart is empty for now.",
+        "empty_text": "Have a look around and find something you'll love.",
+        "empty_button_label": "Start shopping",
+        "empty_button_link": "/collections/all",
+        "suggestions_count": 0,
+        "suggestions_heading": "You might like",
+        "background_color": "#FAFAF8",
+        "text_color": "#2B2B2B",
+        "button_color": "#6F6C5D",
+        "show_sample": true,
+        "sample_title": "Linen wrap dress",
+        "sample_colour": "Oat",
+        "sample_size": "M",
+        "sample_quantity": 1,
+        "sample_price": 89,
+        "sample_shipping": 5
+      }
+    },
+    "related_products": {
+      "type": "related-products",
+      "blocks": {
+        "product_1": { "type": "product", "settings": { "name": "Cotton poplin shirt", "price": "£58.00" } },
+        "product_2": { "type": "product", "settings": { "name": "Wool blend cardigan", "price": "£79.00" } },
+        "product_3": { "type": "product", "settings": { "name": "Soft knit scarf", "price": "£35.00" } }
+      },
+      "block_order": ["product_1", "product_2", "product_3"],
+      "settings": {
+        "heading": "You may also like",
+        "background_color": "#FAFAF8",
+        "text_color": "#2B2B2B"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "related_products"
+  ]
+}

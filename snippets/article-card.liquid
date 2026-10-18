@@ -1,0 +1,214 @@
+{% doc %}
+  Renders a journal post tile: image, tags, title, date and a short excerpt.
+  Without an article, renders a placeholder tile so empty layouts still show.
+
+  @param {article} [article] - The journal post to show. Leave out for a placeholder tile
+  @param {string} [blog_url] - The blog's URL, used to link tags to the blog filtered by tag
+  @param {boolean} [show_date] - Show the publish date
+  @param {boolean} [show_tags] - Show the post's tags
+  @param {boolean} [show_excerpt] - Show a short excerpt
+  @param {boolean} [show_author] - Show the author's name
+  @param {boolean} [show_reading_time] - Show an estimated reading time, such as "4 min read"
+  @param {string} [ratio] - Image shape, for example '3 / 2'. Defaults to '3 / 2'
+  @param {string} [size] - 'large' for a wide featured layout, image beside text on desktop
+  @param {string} [heading_level] - Heading tag for the title. Defaults to 'h3'
+
+  @example
+  {% render 'article-card', article: article, blog_url: blog.url, show_date: true, show_tags: true %}
+  {% render 'article-card', show_date: true, show_excerpt: true %}
+  {% render 'article-card', article: article, size: 'large', show_reading_time: true %}
+{% enddoc %}
+
+{% liquid
+  assign heading_level = heading_level | default: 'h3'
+  assign ratio = ratio | default: '3 / 2'
+
+  assign show_meta = false
+  if show_date or show_author or show_reading_time
+    assign show_meta = true
+  endif
+  if article != blank and show_reading_time
+    assign word_count = article.content | strip_html | split: ' ' | size
+    assign reading_minutes = word_count | divided_by: 200 | floor | at_least: 1
+  endif
+%}
+
+<article class="article-card{% if size == 'large' %} article-card--large{% endif %}" style="--article-ratio: {{ ratio }};">
+  {% if article != blank %}
+    <a class="article-card__media" href="{{ article.url }}" tabindex="-1" aria-hidden="true">
+      {% if article.image %}
+        {{
+          article.image
+          | image_url: width: 1200
+          | image_tag:
+            widths: '400, 600, 800, 1000, 1200',
+            sizes: '(min-width: 990px) 33vw, (min-width: 750px) 50vw, 85vw',
+            loading: 'lazy',
+            alt: article.image.alt,
+            class: 'article-card__image'
+        }}
+      {% else %}
+        {% render 'image-placeholder', ratio: ratio %}
+      {% endif %}
+    </a>
+
+    <div class="article-card__body">
+      {% if show_tags and article.tags.size > 0 %}
+        <ul class="article-card__tags" role="list">
+          {% for tag in article.tags limit: 3 %}
+            <li>
+              {% if blog_url != blank %}
+                <a class="article-card__tag" href="{{ blog_url }}/tagged/{{ tag | handle }}">{{ tag | escape }}</a>
+              {% else %}
+                <span class="article-card__tag">{{ tag | escape }}</span>
+              {% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+
+      <{{ heading_level }} class="article-card__title">
+        <a href="{{ article.url }}">{{ article.title | escape }}</a>
+      </{{ heading_level }}>
+
+      {% if show_meta %}
+        <p class="article-card__date">
+          {%- if show_date -%}
+            {{- article.published_at | time_tag: format: 'date' -}}
+          {%- endif -%}
+          {%- if show_author and article.author != blank -%}
+            {%- if show_date %} · {% endif -%}
+            {{- 'blog.by_author' | t: author: article.author -}}
+          {%- endif -%}
+          {%- if show_reading_time -%}
+            {%- if show_date or show_author %} · {% endif -%}
+            {{- 'blog.reading_time' | t: minutes: reading_minutes -}}
+          {%- endif -%}
+        </p>
+      {% endif %}
+
+      {% if show_excerpt %}
+        {% if article.excerpt != blank %}
+          <p class="article-card__excerpt">{{ article.excerpt | strip_html | truncatewords: 24 }}</p>
+        {% else %}
+          <p class="article-card__excerpt">{{ article.content | strip_html | truncatewords: 24 }}</p>
+        {% endif %}
+      {% endif %}
+    </div>
+  {% else %}
+    <div class="article-card__media">
+      {% render 'image-placeholder', ratio: ratio %}
+    </div>
+
+    {% if show_tags %}
+      <ul class="article-card__tags" role="list">
+        <li><span class="article-card__tag">{{ 'home.placeholder_tag' | t }}</span></li>
+      </ul>
+    {% endif %}
+
+    <{{ heading_level }} class="article-card__title article-card__title--placeholder">
+      {{- 'home.placeholder_article' | t -}}
+    </{{ heading_level }}>
+
+    {% if show_excerpt %}
+      <p class="article-card__excerpt article-card__title--placeholder">{{ 'home.placeholder_excerpt' | t }}</p>
+    {% endif %}
+  {% endif %}
+</article>
+
+{% stylesheet %}
+  .article-card {
+    display: grid;
+    gap: 0.75rem;
+    align-content: start;
+  }
+
+  .article-card__body {
+    display: grid;
+    gap: 0.75rem;
+    align-content: start;
+  }
+
+  .article-card__media {
+    display: block;
+    aspect-ratio: var(--article-ratio, 3 / 2);
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+  }
+
+  .article-card__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .article-card__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.375rem;
+    margin: 0.25rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .article-card__tag {
+    display: inline-block;
+    padding: 0.25rem 0.625rem;
+    border-radius: 1rem;
+    background-color: var(--color-accent);
+    color: var(--color-foreground);
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+  }
+
+  a.article-card__tag:hover {
+    text-decoration: underline;
+  }
+
+  .article-card__title {
+    font-size: 1.375rem;
+    line-height: 1.3;
+  }
+
+  .article-card__title a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .article-card__title a:hover {
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  .article-card__title--placeholder {
+    opacity: 0.6;
+  }
+
+  .article-card__date {
+    font-size: 0.8125rem;
+    letter-spacing: 0.04em;
+    opacity: 0.8;
+  }
+
+  .article-card__excerpt {
+    line-height: 1.6;
+  }
+
+  @media (min-width: 750px) {
+    .article-card--large {
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    .article-card--large .article-card__title {
+      font-size: clamp(1.75rem, 3vw, 2.5rem);
+      line-height: 1.15;
+    }
+
+    .article-card--large .article-card__excerpt {
+      font-size: 1.0625rem;
+    }
+  }
+{% endstylesheet %}

@@ -1,0 +1,32 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "article",
+      "settings": {
+        "show_image": true,
+        "image_width": "journal-post__image--wide",
+        "show_tags": true,
+        "show_date": true,
+        "show_author": true,
+        "show_reading_time": true,
+        "show_copy_link": true,
+        "show_prev_next": true,
+        "show_more": true,
+        "more_heading": "More from the journal",
+        "more_count": 3
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
