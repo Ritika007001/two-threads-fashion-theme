@@ -12,6 +12,17 @@ node_modules/
 # Shopify CLI files
 .shopify/
 
+# Local AI assistant settings and scratch files (never share these)
+.claude/
+.cursor/
+*.local.json
+
+# Editor and temporary files
+.vscode/
+.idea/
+*.tmp
+*.log
+
 ## Release files
 release
 *.zip
