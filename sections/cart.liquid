@@ -31,14 +31,7 @@
   endif
 %}
 
-<cart-page
-  class="cart-page full-width"
-  style="
-    --cart-background: {{ section.settings.background_color }};
-    --cart-text-color: {{ section.settings.text_color }};
-    --cart-button-color: {{ section.settings.button_color }};
-  "
->
+<cart-page class="cart-page full-width">
   {% if cart.item_count > 0 or show_sample %}
     <header class="cart-page__header">
       <h1 class="cart-page__title">
@@ -60,9 +53,9 @@
       <div class="cart-page__items">
         <ul class="cart-page__list" role="list">
           {% if show_sample %}
-            <li class="cart-item" style="--cart-ratio: {{ section.settings.image_ratio }};">
+            <li class="cart-item" style="--cart-ratio: {{ settings.product_image_ratio }};">
               <div class="cart-item__media">
-                {% render 'image-placeholder', ratio: section.settings.image_ratio %}
+                {% render 'image-placeholder', ratio: settings.product_image_ratio %}
               </div>
               <div class="cart-item__details">
                 <h2 class="cart-item__title">{{ section.settings.sample_title | escape }}</h2>
@@ -97,14 +90,14 @@
             </li>
           {% else %}
             {% for item in cart.items %}
-              {% render 'cart-item', item: item, line: forloop.index, ratio: section.settings.image_ratio %}
+              {% render 'cart-item', item: item, line: forloop.index %}
             {% endfor %}
           {% endif %}
         </ul>
 
         {% unless show_sample %}
           <div class="cart-page__update">
-            <button type="submit" name="update" class="cart-page__update-button" data-cart-update>
+            <button type="submit" name="update" class="button button--secondary cart-page__update-button" data-cart-update>
               {{- 'cart.update' | t -}}
             </button>
           </div>
@@ -226,7 +219,7 @@
         </h2>
         <ul class="card-grid" role="list" style="--columns: 4;">
           {% for product in suggestions.products limit: suggestion_limit %}
-            <li>{% render 'product-card', product: product, ratio: section.settings.image_ratio %}</li>
+            <li>{% render 'product-card', product: product %}</li>
           {% endfor %}
         </ul>
       </section>
@@ -236,13 +229,13 @@
 
 {% stylesheet %}
   .cart-page {
-    --cart-line: color-mix(in srgb, var(--cart-text-color) 15%, transparent);
+    --cart-line: var(--color-line);
 
     display: grid;
     grid-template-columns: var(--content-grid);
-    padding-block: 3rem 4rem;
-    background-color: var(--cart-background);
-    color: var(--cart-text-color);
+    padding-block: var(--space-7) var(--space-8);
+    background-color: var(--color-background);
+    color: var(--color-foreground);
   }
 
   .cart-page > * {
@@ -263,7 +256,7 @@
   }
 
   .cart-page .cart-item__quantity {
-    background-color: var(--cart-background);
+    background-color: var(--color-background);
   }
 
   .cart-page__header {
@@ -275,8 +268,8 @@
   }
 
   .cart-page__title {
-    font-size: clamp(2rem, 4vw, 3rem);
-    line-height: 1.1;
+    font-size: var(--text-h1);
+    line-height: var(--leading-tight);
   }
 
   .cart-page__count {
@@ -308,16 +301,7 @@
 
   .cart-page__update-button {
     min-height: 2.75rem;
-    padding: 0 1.25rem;
-    border: 1px solid var(--cart-text-color);
-    border-radius: var(--style-border-radius-inputs);
-    background: none;
-    color: inherit;
-    font: inherit;
-    font-size: 0.875rem;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    cursor: pointer;
+    padding: 0 var(--space-5);
   }
 
   /* With JavaScript, typed quantities update on their own, so the button is not needed. */
@@ -373,8 +357,8 @@
   .cart-page__note textarea {
     width: 100%;
     padding: 0.75rem;
-    border: 1px solid var(--cart-line);
-    background-color: #fff;
+    border: 1px solid var(--color-border);
+    background-color: var(--color-background);
     color: inherit;
     resize: vertical;
   }
@@ -382,17 +366,6 @@
   .cart-page__checkout {
     width: 100%;
     min-height: 3.25rem;
-    font-weight: 600;
-  }
-
-  .cart-page .button {
-    border-color: var(--cart-button-color);
-    background-color: var(--cart-button-color);
-    color: #fff;
-  }
-
-  .cart-page .button:hover {
-    background-color: color-mix(in srgb, var(--cart-button-color) 85%, #000);
   }
 
   .cart-page__continue {
@@ -416,8 +389,8 @@
   }
 
   .cart-page__empty-title {
-    font-size: clamp(1.75rem, 4vw, 2.5rem);
-    line-height: 1.15;
+    font-size: var(--text-h2);
+    line-height: var(--leading-tight);
   }
 
   .cart-page__empty-text {
@@ -498,39 +471,6 @@
       "id": "heading",
       "label": "t:labels.heading",
       "default": "Your cart"
-    },
-    {
-      "type": "select",
-      "id": "image_ratio",
-      "label": "t:labels.image_ratio",
-      "options": [
-        { "value": "4 / 5", "label": "t:options.image_ratio.portrait" },
-        { "value": "1 / 1", "label": "t:options.image_ratio.square" },
-        { "value": "3 / 4", "label": "t:options.image_ratio.tall" }
-      ],
-      "default": "4 / 5"
-    },
-    {
-      "type": "header",
-      "content": "t:general.colors"
-    },
-    {
-      "type": "color",
-      "id": "background_color",
-      "label": "t:labels.background",
-      "default": "#FAFAF8"
-    },
-    {
-      "type": "color",
-      "id": "text_color",
-      "label": "t:labels.text_color",
-      "default": "#2B2B2B"
-    },
-    {
-      "type": "color",
-      "id": "button_color",
-      "label": "t:labels.button_color",
-      "default": "#6F6C5D"
     },
     {
       "type": "header",

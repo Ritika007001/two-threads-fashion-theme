@@ -14,7 +14,6 @@
       "settings": {
         "heading": "Shop all collections",
         "columns": 3,
-        "image_ratio": "4 / 5",
         "show_description": false
       }
     }

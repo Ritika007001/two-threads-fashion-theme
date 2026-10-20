@@ -4,6 +4,20 @@
 
 Use the [Shopify AI Toolkit](https://shopify.dev/docs/apps/build/ai-toolkit) for all Shopify API and platform work. If missing, install it in the agent host per that page (or `npx skills add Shopify/shopify-ai-toolkit --list` for skill-compatible hosts).
 
+## Design direction
+
+"Soft editorial minimalism": minimal, luxury, editorial, soft, warm and classic.
+
+- **Colours** come from the colour scheme group in `config/settings_schema.json` (Cream default, Sage, Ivory, Charcoal). Never hardcode a hex value. Use `--color-background`, `--color-foreground`, `--color-surface`, `--color-border`, `--color-accent`, plus the derived `--color-text-subdued` and `--color-line`.
+- **Contrast**: body and button text must meet WCAG AA (4.5:1). Use `--color-border` for lines only, never small text. Use `--color-accent` for decoration and large text only.
+- **Type**: Playfair Display for headings (italic via `<em>` or `.heading--italic`), Work Sans for body. Use the `--text-h1` to `--text-h6`, `--text-body`, `--text-small` and `--text-eyebrow` tokens, not literal sizes.
+- **Eyebrows**: small uppercase labels above headings use the `.eyebrow` class, via `{% render 'section-header' %}` where possible.
+- **Spacing**: use `--space-1` to `--space-9` and `--section-padding` (via `.section-padding`). Sections get the shared Background and Section spacing selects.
+- **Buttons**: `.button` (primary) and `.button--secondary`. Soft 250ms hovers, no hard shadows.
+- **Images**: product imagery uses the global shape setting (`--product-image-ratio`, 4:5 by default). Frame images with `--color-line`.
+- **Motion**: fade-in via `data-reveal` / `data-reveal-group`; always respects `prefers-reduced-motion`.
+- Everything merchant-facing is a theme or section setting with a `t:` translation key.
+
 ## Theme Architecture
 
 **Key principles: focus on generating snippets, blocks, and sections; users may create templates using the theme editor**

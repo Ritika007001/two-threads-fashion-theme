@@ -4,27 +4,19 @@
 {% endcomment %}
 
 <div
-  class="collection-list full-width"
-  style="
-    --collection-list-background: {{ section.settings.background_color }};
-    --collection-list-title-color: {{ section.settings.title_color }};
-  "
+  class="collection-list section-band full-width {{ section.settings.background }}"
+  style="--section-scale: {{ section.settings.spacing }};"
 >
-  <div class="collection-list__inner">
-    {% if section.settings.heading != blank %}
-      <div class="section-header">
-        <h2 class="section-heading">{{ section.settings.heading | escape }}</h2>
-      </div>
-    {% endif %}
+  <div class="section-padding">
+    {% render 'section-header', heading: section.settings.heading, eyebrow: section.settings.eyebrow %}
 
-    <ul class="card-grid collection-list__grid" role="list" style="--columns: {{ section.settings.columns }};">
+    <ul class="card-grid collection-list__grid" role="list" style="--columns: {{ section.settings.columns }};" data-reveal-group>
       {% for block in section.blocks %}
         <li class="collection-tile" {{ block.shopify_attributes }}>
           {% render 'collection-card',
             collection: block.settings.collection,
             image: block.settings.image,
-            label: block.settings.label,
-            ratio: section.settings.image_ratio
+            label: block.settings.label
           %}
         </li>
       {% endfor %}
@@ -33,39 +25,16 @@
 </div>
 
 {% stylesheet %}
-  .collection-list {
-    display: grid;
-    grid-template-columns: var(--content-grid);
-    background-color: var(--collection-list-background);
-  }
-
-  .collection-list__inner {
-    grid-column: 2;
-    padding-block: 5rem;
-  }
-
-  .collection-list .section-header {
-    margin-bottom: 2.5rem;
-  }
-
   .collection-list .collection-list__grid {
-    gap: 3rem 2rem;
-  }
-
-  .collection-list .collection-tile__title {
-    color: var(--collection-list-title-color);
+    gap: var(--space-7) var(--space-6);
   }
 
   /* Two columns on phones, instead of the swipeable row other card grids use */
   @media (max-width: 749px) {
-    .collection-list__inner {
-      padding-block: 3.5rem;
-    }
-
     .collection-list .collection-list__grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
       grid-auto-flow: row;
-      gap: 2rem 1rem;
+      gap: var(--space-6) var(--space-4);
       margin-inline: 0;
       padding-inline: 0;
       overflow: visible;
@@ -79,6 +48,13 @@
   "tag": "section",
   "max_blocks": 8,
   "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "t:labels.eyebrow",
+      "info": "t:info.eyebrow",
+      "default": "Collections"
+    },
     {
       "type": "text",
       "id": "heading",
@@ -95,27 +71,29 @@
       "default": 3
     },
     {
+      "type": "header",
+      "content": "t:general.layout"
+    },
+    {
       "type": "select",
-      "id": "image_ratio",
-      "label": "t:labels.image_ratio",
-      "options": [
-        { "value": "4 / 5", "label": "t:options.image_ratio.portrait" },
-        { "value": "1 / 1", "label": "t:options.image_ratio.square" },
-        { "value": "3 / 4", "label": "t:options.image_ratio.tall" }
-      ],
-      "default": "4 / 5"
-    },
-    {
-      "type": "color",
-      "id": "background_color",
+      "id": "background",
       "label": "t:labels.background",
-      "default": "#FAFAF8"
+      "options": [
+        { "value": "surface--page", "label": "t:options.background.page" },
+        { "value": "surface--alternate", "label": "t:options.background.alternate" }
+      ],
+      "default": "surface--page"
     },
     {
-      "type": "color",
-      "id": "title_color",
-      "label": "t:labels.category_name_color",
-      "default": "#2B2B2B"
+      "type": "select",
+      "id": "spacing",
+      "label": "t:labels.section_spacing",
+      "options": [
+        { "value": "0.6", "label": "t:options.spacing.small" },
+        { "value": "1", "label": "t:options.spacing.default" },
+        { "value": "1.4", "label": "t:options.spacing.large" }
+      ],
+      "default": "1"
     }
   ],
   "blocks": [

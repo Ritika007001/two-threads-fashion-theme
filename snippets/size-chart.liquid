@@ -153,10 +153,10 @@
 
 {% stylesheet %}
   .size-chart {
-    --size-chart-background: var(--product-background, var(--color-background));
-    --size-chart-text: var(--product-text-color, var(--color-foreground));
-    --size-chart-button: var(--product-button-color, var(--color-accent));
-    --size-chart-line: color-mix(in srgb, var(--size-chart-text) 15%, transparent);
+    --size-chart-background: var(--color-background);
+    --size-chart-text: var(--color-foreground);
+    --size-chart-button: var(--color-foreground);
+    --size-chart-line: var(--color-line);
 
     /* The theme's reset removes margins; modal dialogs need auto margins to be centred. */
     margin: auto;
@@ -253,9 +253,9 @@
   .size-chart__field-input {
     min-height: 2.75rem;
     padding: 0 0.75rem;
-    border: 1px solid color-mix(in srgb, var(--size-chart-text) 35%, transparent);
+    border: 1px solid var(--color-border);
     border-radius: var(--style-border-radius-inputs);
-    background-color: #fff;
+    background-color: var(--size-chart-background);
     color: inherit;
     font: inherit;
   }
@@ -305,7 +305,7 @@
     margin-inline-start: 0.5rem;
     padding: 0.125rem 0.5rem;
     background-color: var(--size-chart-button);
-    color: #fff;
+    color: var(--size-chart-background);
     font-size: 0.6875rem;
     font-weight: 600;
     letter-spacing: 0.04em;
@@ -324,19 +324,19 @@
   }
 
   .size-chart__cell:hover {
-    border-color: color-mix(in srgb, var(--size-chart-text) 35%, transparent);
+    border-color: var(--color-border);
   }
 
   .size-chart__cell:focus {
     border-style: solid;
     border-color: var(--size-chart-text);
-    background-color: #fff;
+    background-color: var(--size-chart-background);
   }
 
   .size-chart__edit-hint {
     margin-top: 0.75rem;
     font-size: 0.8125rem;
-    color: color-mix(in srgb, var(--size-chart-text) 75%, var(--size-chart-background));
+    color: var(--color-text-subdued);
   }
 
   .size-chart__note {

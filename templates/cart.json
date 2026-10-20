@@ -13,7 +13,6 @@
       "type": "cart",
       "settings": {
         "heading": "Your cart",
-        "image_ratio": "4 / 5",
         "show_note": false,
         "note_label": "",
         "show_continue": true,
@@ -24,9 +23,6 @@
         "empty_button_link": "/collections/all",
         "suggestions_count": 0,
         "suggestions_heading": "You might like",
-        "background_color": "#FAFAF8",
-        "text_color": "#2B2B2B",
-        "button_color": "#6F6C5D",
         "show_sample": true,
         "sample_title": "Linen wrap dress",
         "sample_colour": "Oat",
@@ -46,8 +42,7 @@
       "block_order": ["product_1", "product_2", "product_3"],
       "settings": {
         "heading": "You may also like",
-        "background_color": "#FAFAF8",
-        "text_color": "#2B2B2B"
+        "background": "surface--alternate"
       }
     }
   },

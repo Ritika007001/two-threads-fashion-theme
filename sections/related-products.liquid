@@ -5,28 +5,21 @@
 {% endcomment %}
 
 <div
-  class="related-products full-width"
-  style="
-    --related-background: {{ section.settings.background_color }};
-    --related-text-color: {{ section.settings.text_color }};
-  "
+  class="related-products section-band full-width {{ section.settings.background }}"
+  style="--section-scale: {{ section.settings.spacing }};"
 >
-  <div class="related-products__inner">
-    {% if section.settings.heading != blank %}
-      <div class="section-header">
-        <h2 class="section-heading">{{ section.settings.heading | escape }}</h2>
-      </div>
-    {% endif %}
+  <div class="section-padding">
+    {% render 'section-header', heading: section.settings.heading, eyebrow: section.settings.eyebrow %}
 
-    <ul class="card-grid" role="list" style="--columns: {{ section.blocks.size | at_least: 2 }};">
+    <ul class="card-grid" role="list" style="--columns: {{ section.blocks.size | at_least: 2 }};" data-reveal-group>
       {% for block in section.blocks %}
         <li {{ block.shopify_attributes }}>
           {% if block.settings.product != blank %}
             {% render 'product-card', product: block.settings.product %}
           {% else %}
-            <div class="product-card" style="--card-ratio: 4 / 5;">
+            <div class="product-card" style="--card-ratio: {{ settings.product_image_ratio }};">
               <div class="product-card__media">
-                {% render 'image-placeholder', ratio: '4 / 5', small: true %}
+                {% render 'image-placeholder', ratio: settings.product_image_ratio, small: true %}
               </div>
               <h3 class="product-card__title">{{ block.settings.name | escape }}</h3>
               <p class="product-card__price">{{ block.settings.price | escape }}</p>
@@ -38,26 +31,6 @@
   </div>
 </div>
 
-{% stylesheet %}
-  .related-products {
-    display: grid;
-    grid-template-columns: var(--content-grid);
-    background-color: var(--related-background);
-    color: var(--related-text-color);
-  }
-
-  .related-products__inner {
-    grid-column: 2;
-    padding-block: 4rem 5rem;
-  }
-
-  @media (max-width: 749px) {
-    .related-products__inner {
-      padding-block: 3rem 3.5rem;
-    }
-  }
-{% endstylesheet %}
-
 {% schema %}
 {
   "name": "t:general.related_products",
@@ -66,25 +39,40 @@
   "settings": [
     {
       "type": "text",
+      "id": "eyebrow",
+      "label": "t:labels.eyebrow",
+      "info": "t:info.eyebrow"
+    },
+    {
+      "type": "text",
       "id": "heading",
       "label": "t:labels.heading",
       "default": "You may also like"
     },
     {
       "type": "header",
-      "content": "t:general.colors"
+      "content": "t:general.layout"
     },
     {
-      "type": "color",
-      "id": "background_color",
+      "type": "select",
+      "id": "background",
       "label": "t:labels.background",
-      "default": "#FAFAF8"
+      "options": [
+        { "value": "surface--page", "label": "t:options.background.page" },
+        { "value": "surface--alternate", "label": "t:options.background.alternate" }
+      ],
+      "default": "surface--page"
     },
     {
-      "type": "color",
-      "id": "text_color",
-      "label": "t:labels.text_color",
-      "default": "#2B2B2B"
+      "type": "select",
+      "id": "spacing",
+      "label": "t:labels.section_spacing",
+      "options": [
+        { "value": "0.6", "label": "t:options.spacing.small" },
+        { "value": "1", "label": "t:options.spacing.default" },
+        { "value": "1.4", "label": "t:options.spacing.large" }
+      ],
+      "default": "1"
     }
   ],
   "blocks": [

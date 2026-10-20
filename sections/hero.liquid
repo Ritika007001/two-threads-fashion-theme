@@ -1,17 +1,15 @@
 {% comment %}
-  Full-width banner for the top of the home page. The heading and button sit
-  over the empty left side of the image on larger screens, and below the
-  image on mobile so the clothing on the right is never cropped. Shows a
-  plain placeholder box until an image is chosen.
+  Full-width banner for the top of the home page. The eyebrow, heading and
+  button sit over the empty left side of the image on larger screens, and
+  below the image on mobile so the clothing on the right is never cropped.
+  Shows a plain placeholder box until an image is chosen.
+
+  Colours come from the colour scheme. The merchant picks whether the text
+  over the image uses the scheme's text colour or its background colour,
+  whichever reads best on their photo.
 {% endcomment %}
 
-<div
-  class="hero full-width"
-  style="
-    --hero-heading-color: {{ section.settings.heading_color }};
-    --hero-button-color: {{ section.settings.button_color }};
-  "
->
+<div class="hero full-width {{ section.settings.text_on_image }}">
   <div class="hero__media">
     {% if section.settings.image != blank %}
       {{
@@ -32,6 +30,10 @@
 
   <div class="hero__inner">
     <div class="hero__content">
+      {% if section.settings.eyebrow != blank %}
+        <p class="eyebrow hero__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      {% endif %}
+
       {% if section.settings.heading != blank %}
         <h1 class="hero__heading">{{ section.settings.heading | escape }}</h1>
       {% endif %}
@@ -52,7 +54,7 @@
 {% stylesheet %}
   .hero {
     position: relative;
-    background-color: var(--color-panel);
+    background-color: var(--color-surface);
   }
 
   .hero__media {
@@ -69,7 +71,7 @@
 
   /* Light placeholder, so the heading over it stays easy to read until an image is chosen */
   .hero__placeholder {
-    background-color: var(--color-panel);
+    background-color: var(--color-surface);
     color: var(--color-border);
   }
 
@@ -84,28 +86,43 @@
 
   .hero__content {
     display: grid;
-    gap: 1.75rem;
+    gap: var(--space-5);
     justify-items: start;
     max-width: 28vw;
   }
 
+  /* Text colour over the image, chosen in the editor */
+  .hero--text-foreground .hero__content {
+    color: var(--color-foreground);
+  }
+
+  .hero--text-background .hero__content {
+    color: var(--color-background);
+  }
+
+  .hero__eyebrow {
+    color: inherit;
+  }
+
   .hero__heading {
-    color: var(--hero-heading-color);
-    font-size: clamp(2.25rem, 4.5vw, 4.5rem);
-    line-height: 1.05;
+    font-size: var(--text-display);
+    line-height: var(--leading-tight);
   }
 
   .hero__button {
-    border-color: var(--hero-button-color);
-    background-color: var(--hero-button-color);
-    color: #fff;
-    font-size: 1rem;
-    font-weight: 600;
+    margin-top: var(--space-2);
   }
 
-  .hero__button:hover {
-    border-color: color-mix(in srgb, var(--hero-button-color) 85%, #000);
-    background-color: color-mix(in srgb, var(--hero-button-color) 85%, #000);
+  /* Inverted button when the text is the background colour */
+  .hero--text-background .hero__button {
+    border-color: var(--color-background);
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+  }
+
+  .hero--text-background .hero__button:hover {
+    border-color: color-mix(in srgb, var(--color-background) 85%, var(--color-foreground));
+    background-color: color-mix(in srgb, var(--color-background) 85%, var(--color-foreground));
   }
 
   @media (max-width: 749px) {
@@ -116,12 +133,23 @@
 
     .hero__content {
       max-width: none;
-      padding-block: 2rem 2.5rem;
-      gap: 1.25rem;
+      padding-block: var(--space-6) var(--space-7);
+      gap: var(--space-4);
+    }
+
+    /* Below the image on phones, the text sits on the page colour, so it must use the text colour */
+    .hero--text-background .hero__content {
+      color: var(--color-foreground);
+    }
+
+    .hero--text-background .hero__button {
+      border-color: var(--color-foreground);
+      background-color: var(--color-foreground);
+      color: var(--color-background);
     }
 
     .hero__heading {
-      font-size: 2.25rem;
+      font-size: var(--text-h1);
     }
   }
 {% endstylesheet %}
@@ -138,20 +166,32 @@
       "info": "t:info.image_banner"
     },
     {
+      "type": "select",
+      "id": "text_on_image",
+      "label": "t:labels.text_on_image",
+      "info": "t:info.text_on_image",
+      "options": [
+        { "value": "hero--text-foreground", "label": "t:options.text_on_image.foreground" },
+        { "value": "hero--text-background", "label": "t:options.text_on_image.background" }
+      ],
+      "default": "hero--text-foreground"
+    },
+    {
       "type": "header",
       "content": "t:general.content"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "t:labels.eyebrow",
+      "info": "t:info.eyebrow",
+      "default": "New season"
     },
     {
       "type": "text",
       "id": "heading",
       "label": "t:labels.heading",
       "default": "New arrivals"
-    },
-    {
-      "type": "color",
-      "id": "heading_color",
-      "label": "t:labels.heading_color",
-      "default": "#2B2B2B"
     },
     {
       "type": "text",
@@ -164,12 +204,6 @@
       "id": "button_link",
       "label": "t:labels.link",
       "default": "/collections/all"
-    },
-    {
-      "type": "color",
-      "id": "button_color",
-      "label": "t:labels.button_color",
-      "default": "#6F6C5D"
     }
   ],
   "presets": [

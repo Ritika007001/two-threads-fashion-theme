@@ -82,11 +82,7 @@
       ],
       "settings": {
         "gallery_layout": "product--gallery-thumbnails",
-        "image_ratio": "4 / 5",
         "placeholder_count": 3,
-        "background_color": "#FAFAF8",
-        "text_color": "#2B2B2B",
-        "button_color": "#6F6C5D",
         "show_sticky_bar": true
       }
     },
@@ -145,10 +141,7 @@
         "count_2": 1,
         "count_1": 1,
         "write_review_link": "",
-        "filter_topics": "Size, Fit",
-        "background_color": "#FAFAF8",
-        "text_color": "#2B2B2B",
-        "button_color": "#6F6C5D"
+        "filter_topics": "Size, Fit"
       }
     },
     "related_products": {
@@ -162,8 +155,7 @@
       "block_order": ["product_1", "product_2", "product_3", "product_4"],
       "settings": {
         "heading": "You may also like",
-        "background_color": "#FAFAF8",
-        "text_color": "#2B2B2B"
+        "background": "surface--alternate"
       }
     }
   },

@@ -1,0 +1,53 @@
+{% doc %}
+  Renders a section heading with an optional eyebrow label above it (small
+  capitals, for example NEW ARRIVALS) and an optional link beside it.
+  Renders nothing when there is no heading, eyebrow or link.
+
+  @param {string} [heading] - The section heading
+  @param {string} [eyebrow] - Short label shown above the heading
+  @param {string} [link_label] - Text of the link beside the heading
+  @param {string} [link_url] - Where the link goes. The link only shows with both a label and a URL
+  @param {string} [heading_id] - Optional id on the heading, for aria-labelledby
+  @param {string} [align] - 'center' to centre the heading and eyebrow
+
+  @example
+  {% render 'section-header', heading: section.settings.heading, eyebrow: section.settings.eyebrow %}
+  {% assign link_label = 'home.view_all' | t %}
+  {% render 'section-header',
+    heading: section.settings.heading,
+    eyebrow: section.settings.eyebrow,
+    link_label: link_label,
+    link_url: collection.url
+  %}
+{% enddoc %}
+
+{% liquid
+  assign show_link = false
+  if link_label != blank and link_url != blank
+    assign show_link = true
+  endif
+%}
+
+{% if heading != blank or eyebrow != blank or show_link %}
+  <div class="section-header{% if align == 'center' %} section-header--center{% endif %}" data-reveal>
+    <div class="section-header__titles">
+      {% if eyebrow != blank %}
+        <p class="eyebrow">{{ eyebrow | escape }}</p>
+      {% endif %}
+      {% if heading != blank %}
+        <h2
+          class="section-heading"
+          {% if heading_id != blank %}
+            id="{{ heading_id }}"
+          {% endif %}
+        >
+          {{- heading | escape -}}
+        </h2>
+      {% endif %}
+    </div>
+
+    {% if show_link %}
+      <a class="text-link" href="{{ link_url }}">{{ link_label | escape }}</a>
+    {% endif %}
+  </div>
+{% endif %}

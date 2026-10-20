@@ -24,14 +24,7 @@
 %}
 
 {% paginate collection.products by section.settings.products_per_page %}
-  <div
-    class="collection-page full-width"
-    style="
-      --collection-background: {{ section.settings.background_color }};
-      --collection-text-color: {{ section.settings.text_color }};
-      --collection-button-color: {{ section.settings.button_color }};
-    "
-  >
+  <div class="collection-page full-width">
     <header class="collection-page__header{% if section.settings.show_image and collection.image %} collection-page__header--with-image{% endif %}">
       <div class="collection-page__intro">
         <h1 class="collection-page__title">{{ collection.title | default: section.settings.sample_heading | escape }}</h1>
@@ -157,9 +150,9 @@
           <ul class="product-grid" role="list" style="--columns: {{ section.settings.columns }};">
             {% for block in section.blocks %}
               <li {{ block.shopify_attributes }}>
-                <div class="product-card" style="--card-ratio: {{ section.settings.image_ratio }};">
+                <div class="product-card" style="--card-ratio: {{ settings.product_image_ratio }};">
                   <div class="product-card__media">
-                    {% render 'image-placeholder', ratio: section.settings.image_ratio, small: true %}
+                    {% render 'image-placeholder', ratio: settings.product_image_ratio, small: true %}
                   </div>
                   <h2 class="product-card__title">{{ block.settings.name | escape }}</h2>
                   <p class="product-card__price">{{ block.settings.price | escape }}</p>
@@ -199,7 +192,7 @@
             style="--columns: {{ section.settings.columns }};"
           >
             {% for product in collection.products %}
-              <li>{% render 'product-card', product: product, ratio: section.settings.image_ratio, heading_level: 'h2' %}</li>
+              <li>{% render 'product-card', product: product, heading_level: 'h2' %}</li>
             {% endfor %}
           </ul>
 
@@ -228,29 +221,15 @@
 
 {% stylesheet %}
   .collection-page {
-    /* The filters and product cards inside use the theme colours, so point them at this section's colours. */
-    --color-background: var(--collection-background);
-    --color-foreground: var(--collection-text-color);
-
     display: grid;
     grid-template-columns: var(--content-grid);
-    padding-block: 3rem 4rem;
-    background-color: var(--collection-background);
-    color: var(--collection-text-color);
+    padding-block: var(--space-7) var(--space-8);
+    background-color: var(--color-background);
+    color: var(--color-foreground);
   }
 
   .collection-page > * {
     grid-column: 2;
-  }
-
-  .collection-page .button {
-    border-color: var(--collection-button-color);
-    background-color: var(--collection-button-color);
-    color: #fff;
-  }
-
-  .collection-page .button:hover {
-    background-color: color-mix(in srgb, var(--collection-button-color) 85%, #000);
   }
 
   .collection-page__sample-note {
@@ -304,13 +283,13 @@
       gap: 0.75rem;
       min-height: 2.75rem;
       padding: 0 1rem;
-      border: 1px solid color-mix(in srgb, var(--collection-text-color) 25%, transparent);
+      border: 1px solid var(--color-border);
       border-radius: var(--style-border-radius-inputs);
       letter-spacing: 0.04em;
     }
 
     .facets-layout--row .facets__group[open] > .facets__group-title {
-      border-color: var(--collection-text-color);
+      border-color: var(--color-foreground);
     }
 
     .facets-layout--row .facets__group-title::after {
@@ -325,8 +304,8 @@
     .facets-layout--row .facets__group > :not(summary) {
       margin-top: 0.375rem;
       padding: 1rem;
-      border: 1px solid color-mix(in srgb, var(--collection-text-color) 15%, transparent);
-      background-color: var(--collection-background);
+      border: 1px solid var(--color-line);
+      background-color: var(--color-background);
     }
 
     /* With the script, open dropdowns float over the products instead of pushing them down. */
@@ -356,24 +335,23 @@
   }
 
   .collection-page__title {
-    font-size: clamp(2.25rem, 4.5vw, 3.5rem);
-    line-height: 1.1;
+    font-size: var(--text-h1);
+    line-height: var(--leading-tight);
   }
 
   .collection-page__description {
     max-width: 40rem;
-    margin-top: 1rem;
-    line-height: 1.6;
+    margin-top: var(--space-4);
   }
 
   .collection-page__description > * + * {
-    margin-top: 0.75rem;
+    margin-top: var(--space-3);
   }
 
   .collection-page__image {
     aspect-ratio: 3 / 2;
     overflow: hidden;
-    border: 1px solid var(--color-border);
+    border: 1px solid var(--color-line);
   }
 
   .collection-page__img {
@@ -469,15 +447,8 @@
       "default": 3
     },
     {
-      "type": "select",
-      "id": "image_ratio",
-      "label": "t:labels.image_ratio",
-      "options": [
-        { "value": "4 / 5", "label": "t:options.image_ratio.portrait" },
-        { "value": "1 / 1", "label": "t:options.image_ratio.square" },
-        { "value": "3 / 4", "label": "t:options.image_ratio.tall" }
-      ],
-      "default": "4 / 5"
+      "type": "paragraph",
+      "content": "t:info.image_shape_global"
     },
     {
       "type": "checkbox",
@@ -528,28 +499,6 @@
       "id": "show_image",
       "label": "t:labels.show_collection_image",
       "default": false
-    },
-    {
-      "type": "header",
-      "content": "t:general.colors"
-    },
-    {
-      "type": "color",
-      "id": "background_color",
-      "label": "t:labels.background",
-      "default": "#FAFAF8"
-    },
-    {
-      "type": "color",
-      "id": "text_color",
-      "label": "t:labels.text_color",
-      "default": "#2B2B2B"
-    },
-    {
-      "type": "color",
-      "id": "button_color",
-      "label": "t:labels.button_color",
-      "default": "#6F6C5D"
     },
     {
       "type": "header",

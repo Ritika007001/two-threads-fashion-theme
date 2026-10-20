@@ -10,41 +10,50 @@
     assign journal = blogs.news
   endif
   assign post_limit = section.settings.post_count
+
+  assign link_label = 'home.view_journal' | t
+  assign link_url = blank
+  if journal.articles_count > 0
+    assign link_url = journal.url
+  endif
 %}
 
-<div class="featured-journal home-section">
-  <div class="section-header">
-    {% if section.settings.heading != blank %}
-      <h2 class="section-heading">{{ section.settings.heading | escape }}</h2>
-    {% endif %}
-    {% if journal.articles_count > 0 %}
-      <a class="text-link" href="{{ journal.url }}">{{ 'home.view_journal' | t }}</a>
-    {% endif %}
-  </div>
+<div
+  class="featured-journal section-band full-width {{ section.settings.background }}"
+  style="--section-scale: {{ section.settings.spacing }};"
+>
+  <div class="section-padding">
+    {% render 'section-header',
+      heading: section.settings.heading,
+      eyebrow: section.settings.eyebrow,
+      link_label: link_label,
+      link_url: link_url
+    %}
 
-  <ul class="card-grid" role="list" style="--columns: {{ section.settings.columns }};">
-    {% for article in journal.articles limit: post_limit %}
-      <li>
-        {% render 'article-card',
-          article: article,
-          blog_url: journal.url,
-          show_date: section.settings.show_date,
-          show_tags: section.settings.show_tags,
-          show_excerpt: section.settings.show_excerpt
-        %}
-      </li>
-    {% else %}
-      {% for i in (1..post_limit) %}
+    <ul class="card-grid" role="list" style="--columns: {{ section.settings.columns }};" data-reveal-group>
+      {% for article in journal.articles limit: post_limit %}
         <li>
           {% render 'article-card',
+            article: article,
+            blog_url: journal.url,
             show_date: section.settings.show_date,
             show_tags: section.settings.show_tags,
             show_excerpt: section.settings.show_excerpt
           %}
         </li>
+      {% else %}
+        {% for i in (1..post_limit) %}
+          <li>
+            {% render 'article-card',
+              show_date: section.settings.show_date,
+              show_tags: section.settings.show_tags,
+              show_excerpt: section.settings.show_excerpt
+            %}
+          </li>
+        {% endfor %}
       {% endfor %}
-    {% endfor %}
-  </ul>
+    </ul>
+  </div>
 </div>
 
 {% schema %}
@@ -52,6 +61,13 @@
   "name": "t:general.featured_journal",
   "tag": "section",
   "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "t:labels.eyebrow",
+      "info": "t:info.eyebrow",
+      "default": "Journal"
+    },
     {
       "type": "text",
       "id": "heading",
@@ -99,6 +115,31 @@
       "id": "show_excerpt",
       "label": "t:labels.show_excerpt",
       "default": true
+    },
+    {
+      "type": "header",
+      "content": "t:general.layout"
+    },
+    {
+      "type": "select",
+      "id": "background",
+      "label": "t:labels.background",
+      "options": [
+        { "value": "surface--page", "label": "t:options.background.page" },
+        { "value": "surface--alternate", "label": "t:options.background.alternate" }
+      ],
+      "default": "surface--page"
+    },
+    {
+      "type": "select",
+      "id": "spacing",
+      "label": "t:labels.section_spacing",
+      "options": [
+        { "value": "0.6", "label": "t:options.spacing.small" },
+        { "value": "1", "label": "t:options.spacing.default" },
+        { "value": "1.4", "label": "t:options.spacing.large" }
+      ],
+      "default": "1"
     }
   ],
   "presets": [

@@ -80,7 +80,7 @@
                           aria-describedby="{{ form_id }}-error"
                         {% endif %}
                       >
-                      <button type="submit" class="site-footer__button">
+                      <button type="submit" class="button site-footer__button">
                         {{- 'footer.newsletter_subscribe' | t -}}
                       </button>
                     </div>
@@ -142,31 +142,38 @@
   .site-footer {
     display: grid;
     grid-template-columns: var(--content-grid);
-    margin-top: 4rem;
+    margin-top: var(--space-8);
     background-color: var(--color-background);
     color: var(--color-foreground);
-    border-top: 1px solid var(--color-border);
+    border-top: 1px solid var(--color-line);
   }
 
   .site-footer__inner {
     grid-column: 2;
-    padding: 3rem 0 2rem;
+    padding: var(--space-8) 0 var(--space-6);
   }
 
   .site-footer__blocks {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(12rem, 100%), 1fr));
-    gap: 2.5rem 2rem;
-    padding-bottom: 2.5rem;
+    gap: var(--space-7) var(--space-6);
+    padding-bottom: var(--space-7);
   }
 
   .site-footer__block--newsletter {
     grid-column: span 2;
   }
 
+  /* Footer headings as small capitals, matching section eyebrows */
   .site-footer__heading {
-    margin-bottom: 1rem;
-    font-size: 1.125rem;
+    margin-bottom: var(--space-4);
+    font-family: var(--font-primary--family);
+    font-style: normal;
+    font-size: var(--text-eyebrow);
+    font-weight: 500;
+    letter-spacing: var(--tracking-eyebrow);
+    text-transform: uppercase;
+    color: var(--color-text-subdued);
   }
 
   .site-footer a {
@@ -223,15 +230,7 @@
 
   .site-footer__button {
     min-height: 2.75rem;
-    padding: 0 1.5rem;
-    border: 1px solid var(--color-foreground);
-    border-radius: var(--style-border-radius-inputs);
-    background-color: var(--color-foreground);
-    color: var(--color-background);
-    font: inherit;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    cursor: pointer;
+    padding: 0 var(--space-5);
   }
 
   .site-footer__form-message {
@@ -244,9 +243,10 @@
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid var(--color-border);
-    font-size: 0.875rem;
+    padding-top: var(--space-5);
+    border-top: 1px solid var(--color-line);
+    font-size: var(--text-small);
+    color: var(--color-text-subdued);
   }
 
   .site-footer__payment {

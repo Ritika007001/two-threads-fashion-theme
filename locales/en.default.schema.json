@@ -3,6 +3,7 @@
     "404": "Not found",
     "article": "Article",
     "block": "Block",
+    "buttons": "Buttons and inputs",
     "buy_buttons": "Add to cart button",
     "blog": "Blog",
     "cart": "Cart",
@@ -24,12 +25,14 @@
     "group": "Group",
     "header": "Header",
     "hero": "Hero banner",
+    "images": "Images",
     "image_with_text": "Image with text",
     "layout": "Layout",
     "link_column": "Link column",
     "main": "Main",
     "market_selector": "Market selector",
     "menu_link": "Menu link",
+    "motion": "Motion",
     "newsletter": "Newsletter",
     "page": "Page",
     "price": "Price",
@@ -57,11 +60,22 @@
     "variant_picker": "Size and option picker"
   },
   "info": {
-    "background_color": "Main background for every page.",
-    "foreground_color": "Headings, body text and the sticky add to cart bar.",
-    "panel_color": "Hero banner and product information panel.",
-    "accent_color": "Journal tags, the selected size and the add to cart button.",
-    "border_color": "Borders, dividers and empty image placeholders.",
+    "accent_color": "Used sparingly for decoration and large text, such as journal tag marks and quote rules. Never used for small text.",
+    "alternate_background": "Sections set to \"Alternate colour\" use this background, for a gentle change of rhythm down the page.",
+    "base_font_size": "Body text size on desktop. Headings and spacing scale with it.",
+    "border_color": "Borders, dividers and empty image placeholders. Small text uses a softened version of the text colour instead, so it always stays readable.",
+    "color_scheme": "Used across the whole store. Each section can switch between the page colour and the alternate colour.",
+    "color_schemes": "Four ready-made schemes: Cream, Sage, Ivory and Charcoal. Pick one below, or adjust any colour. Keep text dark on light backgrounds (or light on dark) so it stays easy to read.",
+    "enable_reveal": "Content gently fades in as shoppers scroll. Turned off automatically for visitors who prefer reduced motion.",
+    "eyebrow": "Short label shown above the heading in small capitals, for example NEW ARRIVALS. Leave empty to hide it.",
+    "fonts": "Headings use Playfair Display and body text uses Work Sans. Both are included with the theme.",
+    "heading_style": "Italic gives headings an editorial feel. You can also italicise a single word inside a heading using the italic button in rich text.",
+    "image_shape_global": "The image shape for all product images is set once in Theme settings > Images.",
+    "input_corner_radius": "Applies to buttons and form fields. 0 keeps sharp, classic corners.",
+    "product_image_shape": "Used for every product image: cards, cart rows and the product gallery. Portrait (4:5) is recommended.",
+    "section_spacing": "Vertical space above and below sections on desktop. Phones use about two thirds of this.",
+    "text_color": "Headings, body text, buttons and the sticky add to cart bar.",
+    "text_on_image": "Both options come from the colour scheme. Pick whichever reads best over your image.",
     "button_label": "Used on the product panel button and the sticky bar. Leave empty to use the default \"Add to cart\" text.",
     "comments": "Comments show only when they're turned on for this blog in Shopify admin (Online Store > Blog posts > Manage blogs).",
     "contact_form": "Adds a contact form under the page text. Messages are sent to your store's email address. The \"page.contact\" template has this turned on: pick it for your Contact page in Shopify admin.",
@@ -104,11 +118,24 @@
     "variant_picker": "Shows each product option, such as size or colour, as buttons. Option names and values come from the product in Shopify admin."
   },
   "labels": {
+    "accent": "Accent",
     "alignment": "Alignment",
+    "alternate_background": "Alternate background",
     "background": "Background",
+    "base_font_size": "Base text size",
+    "border": "Borders and lines",
     "button_label": "Button label",
-    "button_color": "Button colour",
-    "category_name_color": "Category name colour",
+    "color_scheme": "Colour scheme",
+    "enable_reveal": "Fade in content on scroll",
+    "eyebrow": "Eyebrow label",
+    "heading_scale": "Heading size",
+    "heading_style": "Heading style",
+    "heading_weight": "Heading weight",
+    "page_background": "Page background",
+    "product_image_shape": "Product image shape",
+    "section_spacing": "Section spacing",
+    "text_color": "Text and headings",
+    "text_on_image": "Text colour over the image",
     "after_post": "After the post",
     "chart_title": "Chart title",
     "collection_header": "Collection heading",
@@ -126,15 +153,13 @@
     "grid_item_width": "Grid item width",
     "height": "Height",
     "heading": "Heading",
-    "heading_color": "Heading colour",
     "image_width": "Featured image width",
     "intro": "Introduction",
     "image": "Image",
     "image_position": "Image position",
     "image_ratio": "Image shape",
-    "input_corner_radius": "Input corner radius",
+    "input_corner_radius": "Corner radius",
     "label": "Label",
-    "panel": "Panel background",
     "placeholder_count": "Placeholder boxes",
     "post_details": "Post details",
     "post_grid": "Post grid",
@@ -177,10 +202,6 @@
     "sample_sizes": "Sample sizes",
     "sample_colours": "Sample colours",
     "show_tax_note": "Show \"Prices include VAT\"",
-    "accent": "Accent",
-    "border": "Borders and placeholders",
-    "page_background": "Page background",
-    "text_color": "Text and headings",
     "layout_direction": "Layout direction",
     "link": "Link",
     "link_1": "Link 1",
@@ -256,7 +277,22 @@
     },
     "background": {
       "page": "Page colour",
-      "panel": "Panel colour"
+      "alternate": "Alternate colour",
+      "panel": "Alternate colour"
+    },
+    "heading_scale": {
+      "compact": "Compact",
+      "default": "Default",
+      "generous": "Generous"
+    },
+    "heading_style": {
+      "regular": "Regular",
+      "italic": "Italic"
+    },
+    "heading_weight": {
+      "regular": "Regular",
+      "medium": "Medium",
+      "semibold": "Semibold"
     },
     "height": {
       "short": "Short",
@@ -295,10 +331,19 @@
       "large": "Large",
       "small": "Small"
     },
+    "spacing": {
+      "small": "Small",
+      "default": "Default",
+      "large": "Large"
+    },
+    "text_on_image": {
+      "foreground": "Text colour",
+      "background": "Background colour"
+    },
     "text_style": {
       "title": "Title",
       "subtitle": "Subtitle",
       "normal": "Normal text"
-    },
+    }
   }
 }

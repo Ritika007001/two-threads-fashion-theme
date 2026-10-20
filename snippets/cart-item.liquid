@@ -8,14 +8,14 @@
 
   @param {line_item} item - The cart line item
   @param {number} line - The item's position in the cart, starting at 1
-  @param {string} [ratio] - Photo shape, for example '4 / 5'. Defaults to '4 / 5'
+  @param {string} [ratio] - Photo shape, for example '4 / 5'. Defaults to the product image shape in theme settings
 
   @example
   {% render 'cart-item', item: item, line: forloop.index %}
 {% enddoc %}
 
 {% liquid
-  assign ratio = ratio | default: '4 / 5'
+  assign ratio = ratio | default: settings.product_image_ratio
   assign quantity_id = 'CartQuantity-' | append: line
   assign decrease_quantity = item.quantity | minus: 1
   assign increase_quantity = item.quantity | plus: 1
@@ -248,7 +248,7 @@
   }
 
   .cart-item__step:hover {
-    background-color: var(--color-panel);
+    background-color: var(--color-surface);
   }
 
   .cart-item__quantity-input {

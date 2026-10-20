@@ -1,11 +1,14 @@
 {% comment %}
-  "Our story": an image beside a heading, a paragraph and a link. Shows a
-  placeholder box until an image is chosen.
+  "Our story": an image beside an eyebrow, a heading, a paragraph and a
+  link. Shows a placeholder box until an image is chosen.
 {% endcomment %}
 
-<div class="image-with-text full-width {{ section.settings.image_position }} {{ section.settings.background }}">
-  <div class="image-with-text__inner home-section">
-    <div class="image-with-text__media">
+<div
+  class="image-with-text section-band full-width {{ section.settings.image_position }} {{ section.settings.background }}"
+  style="--section-scale: {{ section.settings.spacing }};"
+>
+  <div class="image-with-text__inner section-padding">
+    <div class="image-with-text__media" data-reveal>
       {% if section.settings.image != blank %}
         {{
           section.settings.image
@@ -21,7 +24,11 @@
       {% endif %}
     </div>
 
-    <div class="image-with-text__content">
+    <div class="image-with-text__content" data-reveal>
+      {% if section.settings.eyebrow != blank %}
+        <p class="eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      {% endif %}
+
       {% if section.settings.heading != blank %}
         <h2 class="section-heading">{{ section.settings.heading | escape }}</h2>
       {% endif %}
@@ -38,20 +45,10 @@
 </div>
 
 {% stylesheet %}
-  .image-with-text {
-    display: grid;
-    grid-template-columns: var(--content-grid);
-  }
-
-  .image-with-text--panel {
-    background-color: var(--color-panel);
-  }
-
   .image-with-text__inner {
-    grid-column: 2;
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    gap: 3rem;
+    gap: var(--space-8);
     align-items: center;
   }
 
@@ -63,7 +60,7 @@
     aspect-ratio: 4 / 5;
     max-height: 44rem;
     overflow: hidden;
-    border: 1px solid var(--color-border);
+    border: 1px solid var(--color-line);
   }
 
   .image-with-text__image {
@@ -74,24 +71,27 @@
 
   .image-with-text__content {
     display: grid;
-    gap: 1.25rem;
+    gap: var(--space-5);
     justify-items: start;
     max-width: 32rem;
   }
 
+  .image-with-text__content .eyebrow + .section-heading {
+    margin-top: calc(var(--space-2) * -1);
+  }
+
   .image-with-text__text {
-    font-size: 1.0625rem;
     line-height: 1.7;
   }
 
   .image-with-text__text > * + * {
-    margin-top: 1rem;
+    margin-top: var(--space-4);
   }
 
   @media (max-width: 749px) {
     .image-with-text__inner {
       grid-template-columns: minmax(0, 1fr);
-      gap: 1.75rem;
+      gap: var(--space-6);
     }
 
     .image-with-text--image-right .image-with-text__media {
@@ -122,18 +122,15 @@
       "default": "image-with-text--image-left"
     },
     {
-      "type": "select",
-      "id": "background",
-      "label": "t:labels.background",
-      "options": [
-        { "value": "image-with-text--page", "label": "t:options.background.page" },
-        { "value": "image-with-text--panel", "label": "t:options.background.panel" }
-      ],
-      "default": "image-with-text--page"
-    },
-    {
       "type": "header",
       "content": "t:general.content"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "t:labels.eyebrow",
+      "info": "t:info.eyebrow",
+      "default": "Our story"
     },
     {
       "type": "text",
@@ -157,6 +154,31 @@
       "type": "url",
       "id": "link",
       "label": "t:labels.link"
+    },
+    {
+      "type": "header",
+      "content": "t:general.layout"
+    },
+    {
+      "type": "select",
+      "id": "background",
+      "label": "t:labels.background",
+      "options": [
+        { "value": "surface--page", "label": "t:options.background.page" },
+        { "value": "surface--alternate", "label": "t:options.background.alternate" }
+      ],
+      "default": "surface--page"
+    },
+    {
+      "type": "select",
+      "id": "spacing",
+      "label": "t:labels.section_spacing",
+      "options": [
+        { "value": "0.6", "label": "t:options.spacing.small" },
+        { "value": "1", "label": "t:options.spacing.default" },
+        { "value": "1.4", "label": "t:options.spacing.large" }
+      ],
+      "default": "1"
     }
   ],
   "presets": [

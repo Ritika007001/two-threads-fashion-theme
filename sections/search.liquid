@@ -79,7 +79,7 @@
               {% if product_results.size > 0 %}
                 <ul class="product-grid" role="list" style="--columns: {{ section.settings.columns }};">
                   {% for product in product_results %}
-                    <li>{% render 'product-card', product: product, ratio: section.settings.image_ratio, heading_level: 'h2' %}</li>
+                    <li>{% render 'product-card', product: product, heading_level: 'h2' %}</li>
                   {% endfor %}
                 </ul>
               {% endif %}
@@ -125,8 +125,8 @@
   }
 
   .search-page__title {
-    font-size: clamp(2rem, 4vw, 3rem);
-    line-height: 1.1;
+    font-size: var(--text-h1);
+    line-height: var(--leading-tight);
   }
 
   .search-page__form {
@@ -175,10 +175,11 @@
   }
 
   .search-page__type {
-    font-size: 0.75rem;
-    letter-spacing: 0.08em;
+    font-size: var(--text-eyebrow);
+    font-weight: 500;
+    letter-spacing: var(--tracking-eyebrow);
     text-transform: uppercase;
-    opacity: 0.75;
+    color: var(--color-text-subdued);
   }
 
   .search-page__item-title {
@@ -232,15 +233,8 @@
       "default": 3
     },
     {
-      "type": "select",
-      "id": "image_ratio",
-      "label": "t:labels.image_ratio",
-      "options": [
-        { "value": "4 / 5", "label": "t:options.image_ratio.portrait" },
-        { "value": "1 / 1", "label": "t:options.image_ratio.square" },
-        { "value": "3 / 4", "label": "t:options.image_ratio.tall" }
-      ],
-      "default": "4 / 5"
+      "type": "paragraph",
+      "content": "t:info.image_shape_global"
     },
     {
       "type": "header",

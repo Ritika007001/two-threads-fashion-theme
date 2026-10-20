@@ -2,10 +2,131 @@
   {
     "name": "theme_info",
     "theme_name": "Fashion Store",
-    "theme_version": "1.0.0",
+    "theme_version": "1.1.0",
     "theme_author": "Shopify",
     "theme_documentation_url": "https://help.shopify.com/manual/online-store/themes",
     "theme_support_url": "https://support.shopify.com/"
+  },
+  {
+    "name": "t:general.colors",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "t:info.color_schemes"
+      },
+      {
+        "type": "color_scheme_group",
+        "id": "color_schemes",
+        "definition": [
+          {
+            "type": "color",
+            "id": "background",
+            "label": "t:labels.page_background",
+            "default": "#F7F3EE"
+          },
+          {
+            "type": "color",
+            "id": "text",
+            "label": "t:labels.text_color",
+            "info": "t:info.text_color",
+            "default": "#2B2724"
+          },
+          {
+            "type": "color",
+            "id": "surface",
+            "label": "t:labels.alternate_background",
+            "info": "t:info.alternate_background",
+            "default": "#EDE6DD"
+          },
+          {
+            "type": "color",
+            "id": "border",
+            "label": "t:labels.border",
+            "info": "t:info.border_color",
+            "default": "#A89A8A"
+          },
+          {
+            "type": "color",
+            "id": "accent",
+            "label": "t:labels.accent",
+            "info": "t:info.accent_color",
+            "default": "#B5785A"
+          }
+        ],
+        "role": {
+          "background": "background",
+          "text": "text",
+          "primary_button": "text",
+          "on_primary_button": "background",
+          "primary_button_border": "text",
+          "secondary_button": "background",
+          "on_secondary_button": "text",
+          "secondary_button_border": "text",
+          "icons": "text",
+          "links": "text"
+        }
+      },
+      {
+        "type": "color_scheme",
+        "id": "color_scheme",
+        "label": "t:labels.color_scheme",
+        "info": "t:info.color_scheme",
+        "default": "cream"
+      }
+    ]
+  },
+  {
+    "name": "t:general.typography",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "t:info.fonts"
+      },
+      {
+        "type": "range",
+        "id": "base_font_size",
+        "label": "t:labels.base_font_size",
+        "info": "t:info.base_font_size",
+        "min": 15,
+        "max": 18,
+        "step": 1,
+        "unit": "px",
+        "default": 16
+      },
+      {
+        "type": "select",
+        "id": "heading_scale",
+        "label": "t:labels.heading_scale",
+        "options": [
+          { "value": "0.9", "label": "t:options.heading_scale.compact" },
+          { "value": "1", "label": "t:options.heading_scale.default" },
+          { "value": "1.12", "label": "t:options.heading_scale.generous" }
+        ],
+        "default": "1"
+      },
+      {
+        "type": "select",
+        "id": "heading_weight",
+        "label": "t:labels.heading_weight",
+        "options": [
+          { "value": "400", "label": "t:options.heading_weight.regular" },
+          { "value": "500", "label": "t:options.heading_weight.medium" },
+          { "value": "600", "label": "t:options.heading_weight.semibold" }
+        ],
+        "default": "400"
+      },
+      {
+        "type": "select",
+        "id": "heading_style",
+        "label": "t:labels.heading_style",
+        "info": "t:info.heading_style",
+        "options": [
+          { "value": "normal", "label": "t:options.heading_style.regular" },
+          { "value": "italic", "label": "t:options.heading_style.italic" }
+        ],
+        "default": "normal"
+      }
+    ]
   },
   {
     "name": "t:general.layout",
@@ -35,47 +156,23 @@
         "unit": "px",
         "label": "t:labels.page_margin",
         "default": 20
+      },
+      {
+        "type": "range",
+        "id": "section_spacing",
+        "min": 48,
+        "max": 144,
+        "step": 4,
+        "unit": "px",
+        "label": "t:labels.section_spacing",
+        "info": "t:info.section_spacing",
+        "default": 96
       }
     ]
   },
   {
-    "name": "t:general.colors",
+    "name": "t:general.buttons",
     "settings": [
-      {
-        "type": "color",
-        "id": "background_color",
-        "default": "#FAF8F4",
-        "label": "t:labels.page_background",
-        "info": "t:info.background_color"
-      },
-      {
-        "type": "color",
-        "id": "foreground_color",
-        "default": "#221510",
-        "label": "t:labels.text_color",
-        "info": "t:info.foreground_color"
-      },
-      {
-        "type": "color",
-        "id": "panel_color",
-        "default": "#E0DFDB",
-        "label": "t:labels.panel",
-        "info": "t:info.panel_color"
-      },
-      {
-        "type": "color",
-        "id": "accent_color",
-        "default": "#C8AA8E",
-        "label": "t:labels.accent",
-        "info": "t:info.accent_color"
-      },
-      {
-        "type": "color",
-        "id": "border_color",
-        "default": "#8D735C",
-        "label": "t:labels.border",
-        "info": "t:info.border_color"
-      },
       {
         "type": "range",
         "id": "input_corner_radius",
@@ -84,7 +181,37 @@
         "step": 1,
         "unit": "px",
         "label": "t:labels.input_corner_radius",
-        "default": 4
+        "info": "t:info.input_corner_radius",
+        "default": 0
+      }
+    ]
+  },
+  {
+    "name": "t:general.images",
+    "settings": [
+      {
+        "type": "select",
+        "id": "product_image_ratio",
+        "label": "t:labels.product_image_shape",
+        "info": "t:info.product_image_shape",
+        "options": [
+          { "value": "4 / 5", "label": "t:options.image_ratio.portrait" },
+          { "value": "1 / 1", "label": "t:options.image_ratio.square" },
+          { "value": "3 / 4", "label": "t:options.image_ratio.tall" }
+        ],
+        "default": "4 / 5"
+      }
+    ]
+  },
+  {
+    "name": "t:general.motion",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "enable_reveal",
+        "label": "t:labels.enable_reveal",
+        "info": "t:info.enable_reveal",
+        "default": true
       }
     ]
   }

@@ -1,14 +1,23 @@
 {% doc %}
-  Renders the theme's self-hosted font faces and global CSS variables
-  derived from theme settings.
+  Renders the theme's self-hosted font faces and the global CSS variables
+  that come from theme settings: fonts, page layout, section spacing, the
+  product image shape and one class per colour scheme.
 
   Fonts are served from the theme's assets folder (no external font services):
   Work Sans for body text and Playfair Display for headings, both variable
   fonts licensed under the SIL Open Font License 1.1 (see licenses/).
 
+  Static design tokens that never change in the editor (the type scale, the
+  spacing scale and motion timings) live in assets/critical.css.
+
   @example
   {% render 'css-variables' %}
 {% enddoc %}
+
+{% liquid
+  assign section_spacing_mobile = settings.section_spacing | times: 0.66 | round
+  assign default_scheme = settings.color_scheme
+%}
 
 {% style %}
   @font-face {
@@ -88,15 +97,32 @@
     --font-primary--style: normal;
     --font-primary--weight: 400;
     --font-heading--family: 'Playfair Display', Georgia, 'Times New Roman', serif;
-    --font-heading--style: normal;
-    --font-heading--weight: 500;
+    --font-heading--style: {{ settings.heading_style }};
+    --font-heading--weight: {{ settings.heading_weight }};
+    --font-size-base: {{ settings.base_font_size }}px;
+    --heading-scale: {{ settings.heading_scale }};
     --page-width: {{ settings.max_page_width }};
     --page-margin: {{ settings.min_page_margin }}px;
-    --color-background: {{ settings.background_color }};
-    --color-foreground: {{ settings.foreground_color }};
-    --color-panel: {{ settings.panel_color }};
-    --color-accent: {{ settings.accent_color }};
-    --color-border: {{ settings.border_color }};
+    --section-spacing-desktop: {{ settings.section_spacing }}px;
+    --section-spacing-mobile: {{ section_spacing_mobile }}px;
+    --product-image-ratio: {{ settings.product_image_ratio }};
     --style-border-radius-inputs: {{ settings.input_corner_radius }}px;
+
+    /* The default scheme, so anything outside <body> (dialog backdrops, the editor) has colours too */
+    --color-background: {{ default_scheme.settings.background }};
+    --color-foreground: {{ default_scheme.settings.text }};
+    --color-surface: {{ default_scheme.settings.surface }};
+    --color-border: {{ default_scheme.settings.border }};
+    --color-accent: {{ default_scheme.settings.accent }};
   }
+
+  {% for scheme in settings.color_schemes %}
+    .color-{{ scheme.id }} {
+      --color-background: {{ scheme.settings.background }};
+      --color-foreground: {{ scheme.settings.text }};
+      --color-surface: {{ scheme.settings.surface }};
+      --color-border: {{ scheme.settings.border }};
+      --color-accent: {{ scheme.settings.accent }};
+    }
+  {% endfor %}
 {% endstyle %}

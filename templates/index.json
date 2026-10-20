@@ -12,11 +12,10 @@
     "hero": {
       "type": "hero",
       "settings": {
+        "eyebrow": "New season",
         "heading": "New arrivals",
-        "heading_color": "#2B2B2B",
         "button_label": "Shop now",
-        "button_link": "shopify://collections/all",
-        "button_color": "#6F6C5D"
+        "button_link": "shopify://collections/all"
       }
     },
     "collection_list": {
@@ -29,20 +28,18 @@
       },
       "block_order": ["category_tops", "category_outerwear", "category_dresses", "category_bottoms"],
       "settings": {
+        "eyebrow": "Collections",
         "heading": "Shop by category",
-        "columns": 4,
-        "image_ratio": "4 / 5",
-        "background_color": "#FAFAF8",
-        "title_color": "#2B2B2B"
+        "columns": 4
       }
     },
     "featured_collection": {
       "type": "featured-collection",
       "settings": {
+        "eyebrow": "New arrivals",
         "heading": "Featured pieces",
         "products_to_show": 8,
         "columns": 4,
-        "image_ratio": "4 / 5",
         "show_view_all": true
       }
     },
@@ -50,7 +47,8 @@
       "type": "image-with-text",
       "settings": {
         "image_position": "image-with-text--image-left",
-        "background": "image-with-text--panel",
+        "background": "surface--alternate",
+        "eyebrow": "Our story",
         "heading": "Made slowly, worn often",
         "text": "<p>Tell shoppers who you are and what you care about: where your pieces are made, the fabrics you choose and why. A few honest sentences go a long way.</p>",
         "link_label": "Read our story"
@@ -59,6 +57,7 @@
     "featured_journal": {
       "type": "featured-journal",
       "settings": {
+        "eyebrow": "Journal",
         "heading": "From the journal",
         "post_count": 3,
         "columns": 3,

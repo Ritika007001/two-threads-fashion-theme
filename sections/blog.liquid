@@ -134,14 +134,12 @@
   }
 
   .journal-page__title {
-    font-size: clamp(2.25rem, 5vw, 3.5rem);
-    line-height: 1.05;
+    font-size: var(--text-h1);
+    line-height: var(--leading-tight);
   }
 
   .journal-page__intro {
-    margin-top: 1rem;
-    font-size: 1.0625rem;
-    line-height: 1.6;
+    margin-top: var(--space-4);
   }
 
   .journal-page__tags {
@@ -170,7 +168,7 @@
   }
 
   .journal-page__tag:hover {
-    background-color: var(--color-panel);
+    background-color: var(--color-surface);
   }
 
   .journal-page__tag.is-active {

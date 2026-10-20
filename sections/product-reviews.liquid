@@ -34,18 +34,12 @@
 %}
 
 <product-reviews
-  class="product-reviews full-width"
+  class="product-reviews section-band full-width {{ section.settings.background }}"
   id="Reviews-{{ section.id }}"
-  style="
-    --reviews-background: {{ section.settings.background_color }};
-    --reviews-text-color: {{ section.settings.text_color }};
-    --reviews-button-color: {{ section.settings.button_color }};
-  "
+  style="--section-scale: {{ section.settings.spacing }};"
 >
-  <div class="product-reviews__inner">
-    {% if section.settings.heading != blank %}
-      <h2 class="section-heading product-reviews__heading">{{ section.settings.heading | escape }}</h2>
-    {% endif %}
+  <div class="product-reviews__inner section-padding">
+    {% render 'section-header', heading: section.settings.heading, eyebrow: section.settings.eyebrow %}
 
     <div class="product-reviews__layout">
       <div class="product-reviews__summary">
@@ -189,26 +183,15 @@
 
 {% stylesheet %}
   .product-reviews {
-    display: grid;
-    grid-template-columns: var(--content-grid);
-    border-top: 1px solid color-mix(in srgb, var(--reviews-text-color) 12%, transparent);
-    background-color: var(--reviews-background);
-    color: var(--reviews-text-color);
-  }
+    --reviews-line: var(--color-line);
 
-  .product-reviews__inner {
-    grid-column: 2;
-    padding-block: 4rem;
-  }
-
-  .product-reviews__heading {
-    margin-bottom: 2.5rem;
+    border-top: 1px solid var(--reviews-line);
   }
 
   .product-reviews__layout {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
-    gap: 4rem;
+    gap: var(--space-8);
     align-items: start;
   }
 
@@ -260,27 +243,17 @@
     height: 0.5rem;
     overflow: hidden;
     border-radius: 999px;
-    background-color: color-mix(in srgb, var(--reviews-text-color) 12%, transparent);
+    background-color: var(--reviews-line);
   }
 
   .product-reviews__bar-fill {
     display: block;
     height: 100%;
-    background-color: var(--reviews-text-color);
+    background-color: var(--color-foreground);
   }
 
   .product-reviews__bar-count {
     text-align: end;
-  }
-
-  .product-reviews .product-reviews__write {
-    border-color: var(--reviews-button-color);
-    background-color: var(--reviews-button-color);
-    color: #fff;
-  }
-
-  .product-reviews .product-reviews__write:hover {
-    background-color: color-mix(in srgb, var(--reviews-button-color) 85%, #000);
   }
 
   .product-reviews__toolbar {
@@ -288,7 +261,7 @@
     flex-wrap: wrap;
     gap: 1rem 1.5rem;
     padding-bottom: 1.5rem;
-    border-bottom: 1px solid color-mix(in srgb, var(--reviews-text-color) 12%, transparent);
+    border-bottom: 1px solid var(--reviews-line);
   }
 
   .product-reviews__toolbar[hidden] {
@@ -308,9 +281,9 @@
   .product-reviews__select {
     min-height: 2.5rem;
     padding: 0 2rem 0 0.75rem;
-    border: 1px solid color-mix(in srgb, var(--reviews-text-color) 30%, transparent);
+    border: 1px solid var(--color-border);
     border-radius: var(--style-border-radius-inputs);
-    background-color: var(--reviews-background);
+    background-color: var(--color-background);
     color: inherit;
     font: inherit;
     font-size: 0.875rem;
@@ -326,7 +299,7 @@
     display: grid;
     gap: 0.75rem;
     padding-block: 2rem;
-    border-bottom: 1px solid color-mix(in srgb, var(--reviews-text-color) 12%, transparent);
+    border-bottom: 1px solid var(--reviews-line);
   }
 
   .product-reviews__review[hidden] {
@@ -343,7 +316,7 @@
 
   .product-reviews__date {
     font-size: 0.8125rem;
-    color: color-mix(in srgb, var(--reviews-text-color) 75%, var(--reviews-background));
+    color: var(--color-text-subdued);
   }
 
   .product-reviews__title {
@@ -375,14 +348,14 @@
   }
 
   .product-reviews__size {
-    color: color-mix(in srgb, var(--reviews-text-color) 75%, var(--reviews-background));
+    color: var(--color-text-subdued);
   }
 
   .product-reviews__helpful {
     justify-self: start;
     min-height: 2.25rem;
     padding: 0 0.875rem;
-    border: 1px solid color-mix(in srgb, var(--reviews-text-color) 30%, transparent);
+    border: 1px solid var(--color-border);
     border-radius: var(--style-border-radius-inputs);
     background: none;
     color: inherit;
@@ -393,7 +366,7 @@
 
   .product-reviews__helpful:hover,
   .product-reviews__helpful[aria-pressed='true'] {
-    border-color: var(--reviews-text-color);
+    border-color: var(--color-foreground);
   }
 
   .product-reviews__helpful[aria-pressed='true'] {
@@ -405,17 +378,9 @@
   }
 
   @media (max-width: 749px) {
-    .product-reviews__inner {
-      padding-block: 3rem;
-    }
-
-    .product-reviews__heading {
-      margin-bottom: 1.75rem;
-    }
-
     .product-reviews__layout {
       grid-template-columns: minmax(0, 1fr);
-      gap: 2.5rem;
+      gap: var(--space-7);
     }
   }
 {% endstylesheet %}
@@ -494,6 +459,12 @@
     },
     {
       "type": "text",
+      "id": "eyebrow",
+      "label": "t:labels.eyebrow",
+      "info": "t:info.eyebrow"
+    },
+    {
+      "type": "text",
       "id": "heading",
       "label": "t:labels.heading",
       "default": "Ratings and reviews"
@@ -547,25 +518,28 @@
     },
     {
       "type": "header",
-      "content": "t:general.colors"
+      "content": "t:general.layout"
     },
     {
-      "type": "color",
-      "id": "background_color",
+      "type": "select",
+      "id": "background",
       "label": "t:labels.background",
-      "default": "#FAFAF8"
+      "options": [
+        { "value": "surface--page", "label": "t:options.background.page" },
+        { "value": "surface--alternate", "label": "t:options.background.alternate" }
+      ],
+      "default": "surface--page"
     },
     {
-      "type": "color",
-      "id": "text_color",
-      "label": "t:labels.text_color",
-      "default": "#2B2B2B"
-    },
-    {
-      "type": "color",
-      "id": "button_color",
-      "label": "t:labels.button_color",
-      "default": "#6F6C5D"
+      "type": "select",
+      "id": "spacing",
+      "label": "t:labels.section_spacing",
+      "options": [
+        { "value": "0.6", "label": "t:options.spacing.small" },
+        { "value": "1", "label": "t:options.spacing.default" },
+        { "value": "1.4", "label": "t:options.spacing.large" }
+      ],
+      "default": "1"
     }
   ],
   "blocks": [

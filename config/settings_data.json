@@ -9,10 +9,54 @@
  */
 {
   "current": {
-    "background_color": "#FAF8F4",
-    "foreground_color": "#221510",
-    "panel_color": "#E0DFDB",
-    "accent_color": "#C8AA8E",
-    "border_color": "#8D735C"
+    "color_schemes": {
+      "cream": {
+        "settings": {
+          "background": "#F7F3EE",
+          "text": "#2B2724",
+          "surface": "#EDE6DD",
+          "border": "#A89A8A",
+          "accent": "#B5785A"
+        }
+      },
+      "sage": {
+        "settings": {
+          "background": "#F1F2EC",
+          "text": "#2F3A33",
+          "surface": "#E3E7DD",
+          "border": "#9AA596",
+          "accent": "#7D8F7A"
+        }
+      },
+      "ivory": {
+        "settings": {
+          "background": "#FFFDF8",
+          "text": "#2B2724",
+          "surface": "#F5F0E8",
+          "border": "#B3A79A",
+          "accent": "#B5785A"
+        }
+      },
+      "charcoal": {
+        "settings": {
+          "background": "#232120",
+          "text": "#F3EEE7",
+          "surface": "#2E2B29",
+          "border": "#8C8279",
+          "accent": "#C9A27E"
+        }
+      }
+    },
+    "color_scheme": "cream",
+    "base_font_size": 16,
+    "heading_scale": "1",
+    "heading_weight": "400",
+    "heading_style": "normal",
+    "max_page_width": "90rem",
+    "min_page_margin": 20,
+    "section_spacing": 96,
+    "input_corner_radius": 0,
+    "product_image_ratio": "4 / 5",
+    "enable_reveal": true
   }
 }

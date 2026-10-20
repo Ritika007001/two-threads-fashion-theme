@@ -10,29 +10,36 @@
     assign featured = collections.all
   endif
   assign product_limit = section.settings.products_to_show
+
+  assign link_label = 'home.view_all' | t
+  assign link_url = blank
+  if section.settings.show_view_all and featured.products_count > 0
+    assign link_url = featured.url
+  endif
 %}
 
-<div class="featured-collection home-section">
-  {% if section.settings.heading != blank or section.settings.show_view_all %}
-    <div class="section-header">
-      {% if section.settings.heading != blank %}
-        <h2 class="section-heading">{{ section.settings.heading | escape }}</h2>
-      {% endif %}
-      {% if section.settings.show_view_all and featured.products_count > 0 %}
-        <a class="text-link" href="{{ featured.url }}">{{ 'home.view_all' | t }}</a>
-      {% endif %}
-    </div>
-  {% endif %}
+<div
+  class="featured-collection section-band full-width {{ section.settings.background }}"
+  style="--section-scale: {{ section.settings.spacing }};"
+>
+  <div class="section-padding">
+    {% render 'section-header',
+      heading: section.settings.heading,
+      eyebrow: section.settings.eyebrow,
+      link_label: link_label,
+      link_url: link_url
+    %}
 
-  <ul class="card-grid" role="list" style="--columns: {{ section.settings.columns }};">
-    {% for product in featured.products limit: product_limit %}
-      <li>{% render 'product-card', product: product, ratio: section.settings.image_ratio %}</li>
-    {% else %}
-      {% for i in (1..product_limit) %}
-        <li>{% render 'product-card', ratio: section.settings.image_ratio %}</li>
+    <ul class="card-grid" role="list" style="--columns: {{ section.settings.columns }};" data-reveal-group>
+      {% for product in featured.products limit: product_limit %}
+        <li>{% render 'product-card', product: product %}</li>
+      {% else %}
+        {% for i in (1..product_limit) %}
+          <li>{% render 'product-card' %}</li>
+        {% endfor %}
       {% endfor %}
-    {% endfor %}
-  </ul>
+    </ul>
+  </div>
 </div>
 
 {% schema %}
@@ -40,6 +47,13 @@
   "name": "t:general.featured_collection",
   "tag": "section",
   "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "t:labels.eyebrow",
+      "info": "t:info.eyebrow",
+      "default": "New arrivals"
+    },
     {
       "type": "text",
       "id": "heading",
@@ -71,21 +85,35 @@
       "default": 4
     },
     {
-      "type": "select",
-      "id": "image_ratio",
-      "label": "t:labels.image_ratio",
-      "options": [
-        { "value": "4 / 5", "label": "t:options.image_ratio.portrait" },
-        { "value": "1 / 1", "label": "t:options.image_ratio.square" },
-        { "value": "3 / 4", "label": "t:options.image_ratio.tall" }
-      ],
-      "default": "4 / 5"
-    },
-    {
       "type": "checkbox",
       "id": "show_view_all",
       "label": "t:labels.show_view_all",
       "default": true
+    },
+    {
+      "type": "header",
+      "content": "t:general.layout"
+    },
+    {
+      "type": "select",
+      "id": "background",
+      "label": "t:labels.background",
+      "options": [
+        { "value": "surface--page", "label": "t:options.background.page" },
+        { "value": "surface--alternate", "label": "t:options.background.alternate" }
+      ],
+      "default": "surface--page"
+    },
+    {
+      "type": "select",
+      "id": "spacing",
+      "label": "t:labels.section_spacing",
+      "options": [
+        { "value": "0.6", "label": "t:options.spacing.small" },
+        { "value": "1", "label": "t:options.spacing.default" },
+        { "value": "1.4", "label": "t:options.spacing.large" }
+      ],
+      "default": "1"
     }
   ],
   "presets": [
