@@ -4,7 +4,10 @@
 
   Each tile can also name a built-in image (shipped in assets) so the theme
   looks complete straight after installing. It shows only when the merchant
-  has not chosen an image and the collection has no image of its own.
+  has not chosen an image and the collection is missing, empty or has no
+  image of its own. Tiles left on "Automatic" take a built-in image by their
+  position (tops, knitwear, dresses, bottoms, then repeating), so a tile is
+  never an empty box.
 {% endcomment %}
 
 <div
@@ -17,8 +20,23 @@
     <ul class="card-grid collection-list__grid" role="list" style="--columns: {{ section.settings.columns }};" data-reveal-group>
       {% for block in section.blocks %}
         {% liquid
+          assign default_image = block.settings.default_image
+          if default_image == blank
+            assign position = forloop.index0 | modulo: 4
+            case position
+              when 0
+                assign default_image = 'default-tops.jpg'
+              when 1
+                assign default_image = 'default-knitwear.jpg'
+              when 2
+                assign default_image = 'default-dresses.jpg'
+              when 3
+                assign default_image = 'default-bottoms.jpg'
+            endcase
+          endif
+
           assign default_alt = ''
-          case block.settings.default_image
+          case default_image
             when 'default-tops.jpg'
               assign default_alt = 'home.default_images.tops' | t
             when 'default-dresses.jpg'
@@ -34,7 +52,7 @@
             collection: block.settings.collection,
             image: block.settings.image,
             label: block.settings.label,
-            default_image: block.settings.default_image,
+            default_image: default_image,
             default_alt: default_alt
           %}
         </li>
@@ -143,7 +161,7 @@
           "label": "t:labels.default_image",
           "info": "t:info.default_image",
           "options": [
-            { "value": "", "label": "t:options.default_image.none" },
+            { "value": "", "label": "t:options.default_image.auto" },
             { "value": "default-tops.jpg", "label": "t:options.default_image.tops" },
             { "value": "default-dresses.jpg", "label": "t:options.default_image.dresses" },
             { "value": "default-bottoms.jpg", "label": "t:options.default_image.bottoms" },
