@@ -156,13 +156,17 @@
       "our_story": "Hands folding a cream linen shirt on a worn wooden table beside a window, with folded fabrics, scissors and a spool of thread",
       "journal_capsule": "Wooden clothing rail holding a cream cable knit jumper, a linen shirt, a beige trench coat and a white vest, with a woven basket and sandals",
       "journal_knitwear_care": "Folded cream cable knit jumper with a wooden clothes brush, a bottle of wool wash and sprigs of lavender on linen",
-      "journal_fabrics": "Close-up of layered cream fabrics: cable knit, crumpled linen, fine rib and smooth satin"
+      "journal_fabrics": "Close-up of layered cream fabrics: cable knit, crumpled linen, fine rib and smooth satin",
+      "sample_tank_top": "Butter yellow cotton tank top laid flat on a light grey background",
+      "sample_jeans": "Mid blue straight leg jeans laid flat on a warm grey background",
+      "sample_jacket": "Black leather zip-up jacket laid flat on a light stone background",
+      "sample_tee": "White crew neck cotton t-shirt laid flat on a warm beige background"
     },
     "sample_products": {
-      "trousers": "Wide-Leg Drawstring Trousers",
-      "dress": "Floral Midi Dress",
-      "tank_top": "Ribbed Tank Top",
-      "jumper": "Chunky Rib Knit Jumper"
+      "tank_top": "Ribbed Tank Top in Butter",
+      "jeans": "Classic Straight Jeans",
+      "jacket": "Leather Biker Jacket",
+      "tee": "Essential Cotton Tee"
     },
     "default_journal": {
       "capsule_title": "Building a capsule wardrobe",

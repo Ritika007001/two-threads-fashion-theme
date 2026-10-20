@@ -37,8 +37,8 @@
       {% if featured == blank %}
         {% liquid
           assign sample_limit = product_limit | at_most: 4
-          assign sample_images = 'default-bottoms.jpg,default-dresses.jpg,default-tops.jpg,default-knitwear.jpg' | split: ','
-          assign sample_prices = '7900,8900,2900,6900' | split: ','
+          assign sample_images = 'default-sample-1.jpg,default-sample-2.jpg,default-sample-3.jpg,default-sample-4.jpg' | split: ','
+          assign sample_prices = '2900,7900,18900,2500' | split: ','
         %}
         {% for i in (1..sample_limit) %}
           {% liquid
@@ -47,17 +47,17 @@
             assign sample_price = sample_prices[sample_index] | plus: 0
             case forloop.index
               when 1
-                assign sample_title = 'home.sample_products.trousers' | t
-                assign sample_alt = 'home.default_images.bottoms' | t
-              when 2
-                assign sample_title = 'home.sample_products.dress' | t
-                assign sample_alt = 'home.default_images.dresses' | t
-              when 3
                 assign sample_title = 'home.sample_products.tank_top' | t
-                assign sample_alt = 'home.default_images.tops' | t
+                assign sample_alt = 'home.default_images.sample_tank_top' | t
+              when 2
+                assign sample_title = 'home.sample_products.jeans' | t
+                assign sample_alt = 'home.default_images.sample_jeans' | t
+              when 3
+                assign sample_title = 'home.sample_products.jacket' | t
+                assign sample_alt = 'home.default_images.sample_jacket' | t
               when 4
-                assign sample_title = 'home.sample_products.jumper' | t
-                assign sample_alt = 'home.default_images.knitwear' | t
+                assign sample_title = 'home.sample_products.tee' | t
+                assign sample_alt = 'home.default_images.sample_tee' | t
             endcase
           %}
           <li>
