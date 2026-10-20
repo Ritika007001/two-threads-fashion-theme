@@ -21,12 +21,12 @@
     "collection_list": {
       "type": "collection-list",
       "blocks": {
-        "category_tops": { "type": "category", "settings": { "collection": "tops", "label": "Tops" } },
-        "category_outerwear": { "type": "category", "settings": { "collection": "outerwear", "label": "Outerwear" } },
-        "category_dresses": { "type": "category", "settings": { "collection": "dresses", "label": "Dresses" } },
-        "category_bottoms": { "type": "category", "settings": { "collection": "bottoms", "label": "Bottoms" } }
+        "category_tops": { "type": "category", "settings": { "collection": "tops", "label": "Tops", "default_image": "default-tops.jpg" } },
+        "category_knitwear": { "type": "category", "settings": { "collection": "knitwear", "label": "Knitwear", "default_image": "default-knitwear.jpg" } },
+        "category_dresses": { "type": "category", "settings": { "collection": "dresses", "label": "Dresses", "default_image": "default-dresses.jpg" } },
+        "category_bottoms": { "type": "category", "settings": { "collection": "bottoms", "label": "Bottoms", "default_image": "default-bottoms.jpg" } }
       },
-      "block_order": ["category_tops", "category_outerwear", "category_dresses", "category_bottoms"],
+      "block_order": ["category_tops", "category_knitwear", "category_dresses", "category_bottoms"],
       "settings": {
         "eyebrow": "Collections",
         "heading": "Shop by category",

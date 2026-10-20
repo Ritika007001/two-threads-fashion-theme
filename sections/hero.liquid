@@ -2,7 +2,8 @@
   Full-width banner for the top of the home page. The eyebrow, heading and
   button sit over the empty left side of the image on larger screens, and
   below the image on mobile so the clothing on the right is never cropped.
-  Shows a plain placeholder box until an image is chosen.
+  Until the merchant chooses an image, a built-in linen flat-lay from the
+  theme's assets shows, so the home page looks complete after installing.
 
   Colours come from the colour scheme. The merchant picks whether the text
   over the image uses the scheme's text colour or its background colour,
@@ -24,7 +25,22 @@
           alt: section.settings.image.alt
       }}
     {% else %}
-      {% render 'image-placeholder', class: 'hero__placeholder' %}
+      {% # Built-in image, replaced as soon as the merchant picks one above. %}
+      <img
+        class="hero__image"
+        src="{{ 'default-hero.jpg' | asset_img_url: '1456x' }}"
+        srcset="
+          {{ 'default-hero.jpg' | asset_img_url: '750x' }} 750w,
+          {{ 'default-hero.jpg' | asset_img_url: '1100x' }} 1100w,
+          {{ 'default-hero.jpg' | asset_img_url: '1456x' }} 1456w
+        "
+        sizes="100vw"
+        width="1456"
+        height="720"
+        loading="eager"
+        fetchpriority="high"
+        alt="{{ 'home.default_images.hero' | t }}"
+      >
     {% endif %}
   </div>
 
@@ -67,12 +83,6 @@
     height: 100%;
     object-fit: cover;
     object-position: right center;
-  }
-
-  /* Light placeholder, so the heading over it stays easy to read until an image is chosen */
-  .hero__placeholder {
-    background-color: var(--color-surface);
-    color: var(--color-border);
   }
 
   /* Sized in vw to follow the image: its empty area is the left third */

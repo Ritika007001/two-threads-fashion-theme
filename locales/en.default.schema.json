@@ -95,7 +95,8 @@
     "sample_collection": "Shoppers never see the sample filters or products. They show only in the theme editor while a collection has no products, so you can style the page.",
     "sample_amount": "In your store's currency, for example 89 or 4.5.",
     "sample_product": "Pick a product to show it here. Until then, the sample name and price show with a placeholder image.",
-    "image_banner": "Wide image with an empty left side for the text, recommended 2400 × 1340 px. Until you choose one, a plain placeholder box shows.",
+    "image_banner": "Wide image with an empty left side for the text, recommended 2400 × 1340 px. Until you choose one, the theme's built-in linen flat-lay shows.",
+    "default_image": "One of the theme's built-in images. Shows only until you choose your own image above, or the collection has an image of its own.",
     "countries": "Two-letter country codes separated by commas, for example GB, IE. Leave empty to make this the default chart for every other country.",
     "header_icons": "The account icon shows only when customer accounts are turned on. The cart icon always shows the number of items in the cart.",
     "label_default": "Leave empty to use the default text.",
@@ -126,6 +127,7 @@
     "border": "Borders and lines",
     "button_label": "Button label",
     "color_scheme": "Colour scheme",
+    "default_image": "Built-in image",
     "enable_reveal": "Fade in content on scroll",
     "eyebrow": "Eyebrow label",
     "heading_scale": "Heading size",
@@ -279,6 +281,13 @@
       "page": "Page colour",
       "alternate": "Alternate colour",
       "panel": "Alternate colour"
+    },
+    "default_image": {
+      "none": "None",
+      "tops": "Tank top",
+      "dresses": "Floral dress",
+      "bottoms": "Teal trousers",
+      "knitwear": "Folded jumper"
     },
     "heading_scale": {
       "compact": "Compact",

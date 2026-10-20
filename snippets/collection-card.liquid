@@ -9,10 +9,13 @@
   @param {string} [ratio] - Image shape, for example '4 / 5'. Defaults to the product image shape in theme settings
   @param {boolean} [show_description] - Show a short version of the collection description
   @param {string} [heading_level] - Heading tag for the name. Defaults to 'h3'
+  @param {string} [default_image] - File name of a built-in image in assets, shown only when neither a chosen image nor the collection's own image exists
+  @param {string} [default_alt] - Alt text for the built-in image
 
   @example
   {% render 'collection-card', collection: collection %}
   {% render 'collection-card', collection: block.settings.collection, image: block.settings.image, label: block.settings.label %}
+  {% render 'collection-card', collection: block.settings.collection, default_image: 'default-tops.jpg', default_alt: 'Ribbed white tank top' %}
 {% enddoc %}
 
 {% liquid
@@ -48,6 +51,22 @@
           loading: 'lazy',
           class: 'collection-tile__image'
       }}
+    {% elsif default_image != blank %}
+      {% # Built-in image: a merchant's own image, or the collection's, always takes its place above. %}
+      <img
+        class="collection-tile__image"
+        src="{{ default_image | asset_img_url: '900x' }}"
+        srcset="
+          {{ default_image | asset_img_url: '450x' }} 450w,
+          {{ default_image | asset_img_url: '600x' }} 600w,
+          {{ default_image | asset_img_url: '900x' }} 900w
+        "
+        sizes="(min-width: 990px) 33vw, (min-width: 750px) 50vw, 70vw"
+        width="800"
+        height="1000"
+        loading="lazy"
+        alt="{{ default_alt | escape }}"
+      >
     {% else %}
       {% render 'image-placeholder', ratio: ratio, small: true %}
     {% endif %}

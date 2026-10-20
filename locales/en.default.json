@@ -146,7 +146,14 @@
     "placeholder_category": "Category",
     "placeholder_article": "Journal post title",
     "placeholder_excerpt": "A short introduction to the post will appear here.",
-    "placeholder_tag": "Tag"
+    "placeholder_tag": "Tag",
+    "default_images": {
+      "hero": "Tan leather tote bag, paisley silk scarf, cream knit jumper, pleated navy skirt and beige trousers laid out on crumpled linen",
+      "tops": "White ribbed tank top laid flat on a warm grey background",
+      "dresses": "Cream midi dress with a small blue floral print and tie waist, laid flat on a warm grey background",
+      "bottoms": "Teal wide leg drawstring trousers laid flat on a warm beige background",
+      "knitwear": "Folded cream ribbed knit jumper on a warm grey background"
+    }
   },
   "pagination": {
     "label": "Pages",

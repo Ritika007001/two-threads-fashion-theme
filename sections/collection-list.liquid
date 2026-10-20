@@ -1,6 +1,10 @@
 {% comment %}
   "Shop by category" tiles. Each block is one tile: a collection, with an
   optional image and name that replace the collection's own.
+
+  Each tile can also name a built-in image (shipped in assets) so the theme
+  looks complete straight after installing. It shows only when the merchant
+  has not chosen an image and the collection has no image of its own.
 {% endcomment %}
 
 <div
@@ -12,11 +16,26 @@
 
     <ul class="card-grid collection-list__grid" role="list" style="--columns: {{ section.settings.columns }};" data-reveal-group>
       {% for block in section.blocks %}
+        {% liquid
+          assign default_alt = ''
+          case block.settings.default_image
+            when 'default-tops.jpg'
+              assign default_alt = 'home.default_images.tops' | t
+            when 'default-dresses.jpg'
+              assign default_alt = 'home.default_images.dresses' | t
+            when 'default-bottoms.jpg'
+              assign default_alt = 'home.default_images.bottoms' | t
+            when 'default-knitwear.jpg'
+              assign default_alt = 'home.default_images.knitwear' | t
+          endcase
+        %}
         <li class="collection-tile" {{ block.shopify_attributes }}>
           {% render 'collection-card',
             collection: block.settings.collection,
             image: block.settings.image,
-            label: block.settings.label
+            label: block.settings.label,
+            default_image: block.settings.default_image,
+            default_alt: default_alt
           %}
         </li>
       {% endfor %}
@@ -117,6 +136,20 @@
           "id": "image",
           "label": "t:labels.image",
           "info": "t:info.tile_image"
+        },
+        {
+          "type": "select",
+          "id": "default_image",
+          "label": "t:labels.default_image",
+          "info": "t:info.default_image",
+          "options": [
+            { "value": "", "label": "t:options.default_image.none" },
+            { "value": "default-tops.jpg", "label": "t:options.default_image.tops" },
+            { "value": "default-dresses.jpg", "label": "t:options.default_image.dresses" },
+            { "value": "default-bottoms.jpg", "label": "t:options.default_image.bottoms" },
+            { "value": "default-knitwear.jpg", "label": "t:options.default_image.knitwear" }
+          ],
+          "default": ""
         }
       ]
     }
@@ -125,9 +158,10 @@
     {
       "name": "t:general.collection_list",
       "blocks": [
-        { "type": "category", "settings": { "label": "New in" } },
-        { "type": "category", "settings": { "label": "Dresses" } },
-        { "type": "category", "settings": { "label": "Knitwear" } }
+        { "type": "category", "settings": { "label": "Tops", "default_image": "default-tops.jpg" } },
+        { "type": "category", "settings": { "label": "Knitwear", "default_image": "default-knitwear.jpg" } },
+        { "type": "category", "settings": { "label": "Dresses", "default_image": "default-dresses.jpg" } },
+        { "type": "category", "settings": { "label": "Bottoms", "default_image": "default-bottoms.jpg" } }
       ]
     }
   ],
