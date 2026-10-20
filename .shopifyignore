@@ -4,10 +4,16 @@
 # Examples:
 #
 # Ignore a specific file:
-#   templates/product.json
+#   templates/product.temp.json
 #
 # Ignore templates with a wildcard pattern:
 #   templates/*.json
 #
 # Ignore templates and sections with a regular expression:
 #   /(templates|sections)/.*\.json/
+
+# Developer notes for AI coding assistants: not part of the theme.
+# Note: "shopify theme package" (CLI 4.9) still bundles AGENTS.md despite
+# this file. Use scripts/package-theme.ps1 to build a clean zip.
+AGENTS.md
+CLAUDE.md

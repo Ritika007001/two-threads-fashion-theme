@@ -140,6 +140,7 @@ To show a photo when a shopper picks a colour or size, open the product's **Vari
 - Preview while you edit: `shopify theme dev --store your-store.myshopify.com`
 - Check the code: `shopify theme check`
 - Upload without publishing: `shopify theme push --unpublished --store your-store.myshopify.com`
+- Build a zip for sharing: `powershell -ExecutionPolicy Bypass -File scripts\package-theme.ps1`. It runs `shopify theme package`, drops the developer notes (`AGENTS.md`, `CLAUDE.md`) that the CLI bundles anyway, and adds `LICENSE`, the font licence texts, `README.md` and `INSTALL.md`.
 - Styles and scripts live with each section and snippet, in `{% stylesheet %}` and `{% javascript %}` tags. Styles needed on every page are in `assets/critical.css`.
 - All shopper-facing text is in `locales/en.default.json`, and theme editor labels are in `locales/en.default.schema.json`.
 
