@@ -158,6 +158,12 @@
       "journal_knitwear_care": "Folded cream cable knit jumper with a wooden clothes brush, a bottle of wool wash and sprigs of lavender on linen",
       "journal_fabrics": "Close-up of layered cream fabrics: cable knit, crumpled linen, fine rib and smooth satin"
     },
+    "sample_products": {
+      "trousers": "Wide-Leg Drawstring Trousers",
+      "dress": "Floral Midi Dress",
+      "tank_top": "Ribbed Tank Top",
+      "jumper": "Chunky Rib Knit Jumper"
+    },
     "default_journal": {
       "capsule_title": "Building a capsule wardrobe",
       "capsule_intro": "A few well-made pieces that work together, and how to choose them.",

@@ -80,7 +80,7 @@
     "comments": "Comments show only when they're turned on for this blog in Shopify admin (Online Store > Blog posts > Manage blogs).",
     "contact_form": "Adds a contact form under the page text. Messages are sent to your store's email address. The \"page.contact\" template has this turned on: pick it for your Contact page in Shopify admin.",
     "display_name": "Leave empty to use the collection's name.",
-    "featured_collection": "Leave empty to show products from your whole catalogue.",
+    "featured_collection": "Until you pick a collection, four sample pieces with built-in images show. Shoppers see them too, so choose a collection before launching.",
     "featured_journal": "Leave empty to use your store's default blog (News). Until the blog has posts, three sample stories with built-in images show.",
     "featured_post": "Shows the newest post large at the top of the first page, when no tag is chosen.",
     "filters": "Choose which filters appear, such as size or colour, in Shopify's free Search & Discovery app.",

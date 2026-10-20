@@ -1,20 +1,23 @@
 {% comment %}
-  Featured products: a grid of product cards from one collection. Without a
-  chosen collection, uses all products. Shows placeholder cards when there
-  are no products yet.
+  Featured products: a grid of product cards from one collection. Until the
+  merchant picks a collection, four sample cards with built-in images
+  (shipped in assets) show, so the section looks complete after installing.
+  Choosing a collection replaces them with real products; a chosen
+  collection with no products shows placeholder cards.
 {% endcomment %}
 
 {% liquid
   assign featured = section.settings.collection
-  if featured == blank
-    assign featured = collections.all
-  endif
   assign product_limit = section.settings.products_to_show
 
   assign link_label = 'home.view_all' | t
   assign link_url = blank
-  if section.settings.show_view_all and featured.products_count > 0
-    assign link_url = featured.url
+  if section.settings.show_view_all
+    if featured != blank and featured.products_count > 0
+      assign link_url = featured.url
+    elsif featured == blank and collections.all.products_count > 0
+      assign link_url = routes.all_products_collection_url
+    endif
   endif
 %}
 
@@ -31,13 +34,50 @@
     %}
 
     <ul class="card-grid" role="list" style="--columns: {{ section.settings.columns }};" data-reveal-group>
-      {% for product in featured.products limit: product_limit %}
-        <li>{% render 'product-card', product: product %}</li>
-      {% else %}
-        {% for i in (1..product_limit) %}
-          <li>{% render 'product-card' %}</li>
+      {% if featured == blank %}
+        {% liquid
+          assign sample_limit = product_limit | at_most: 4
+          assign sample_images = 'default-bottoms.jpg,default-dresses.jpg,default-tops.jpg,default-knitwear.jpg' | split: ','
+          assign sample_prices = '7900,8900,2900,6900' | split: ','
+        %}
+        {% for i in (1..sample_limit) %}
+          {% liquid
+            assign sample_index = forloop.index0
+            assign sample_image = sample_images[sample_index]
+            assign sample_price = sample_prices[sample_index] | plus: 0
+            case forloop.index
+              when 1
+                assign sample_title = 'home.sample_products.trousers' | t
+                assign sample_alt = 'home.default_images.bottoms' | t
+              when 2
+                assign sample_title = 'home.sample_products.dress' | t
+                assign sample_alt = 'home.default_images.dresses' | t
+              when 3
+                assign sample_title = 'home.sample_products.tank_top' | t
+                assign sample_alt = 'home.default_images.tops' | t
+              when 4
+                assign sample_title = 'home.sample_products.jumper' | t
+                assign sample_alt = 'home.default_images.knitwear' | t
+            endcase
+          %}
+          <li>
+            {% render 'product-card',
+              sample_title: sample_title,
+              sample_price: sample_price,
+              sample_image: sample_image,
+              sample_alt: sample_alt
+            %}
+          </li>
         {% endfor %}
-      {% endfor %}
+      {% else %}
+        {% for product in featured.products limit: product_limit %}
+          <li>{% render 'product-card', product: product %}</li>
+        {% else %}
+          {% for i in (1..product_limit) %}
+            <li>{% render 'product-card' %}</li>
+          {% endfor %}
+        {% endfor %}
+      {% endif %}
     </ul>
   </div>
 </div>

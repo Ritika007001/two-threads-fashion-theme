@@ -6,16 +6,23 @@
   @param {product} [product] - The product to show. Leave out for a placeholder tile
   @param {string} [ratio] - Image shape, for example '4 / 5'. Defaults to the product image shape in theme settings
   @param {string} [heading_level] - Heading tag for the title. Defaults to 'h3'
+  @param {string} [sample_title] - Without a product: a sample name, which turns the tile into a sample card
+  @param {number} [sample_price] - Without a product: a sample price in the store's minor currency unit, for example 7900 for 79.00
+  @param {string} [sample_image] - Without a product: file name of a built-in image in assets
+  @param {string} [sample_alt] - Alt text for the built-in image
+  @param {string} [sample_url] - Where a sample card links. Defaults to the all products collection
 
   @example
   {% render 'product-card', product: product %}
   {% render 'product-card', product: product, heading_level: 'h2' %}
   {% render 'product-card' %}
+  {% render 'product-card', sample_title: 'Ribbed tank top', sample_price: 2900, sample_image: 'default-tops.jpg', sample_alt: 'White ribbed tank top' %}
 {% enddoc %}
 
 {% liquid
   assign ratio = ratio | default: settings.product_image_ratio
   assign heading_level = heading_level | default: 'h3'
+  assign sample_url = sample_url | default: routes.all_products_collection_url
 %}
 
 <div class="product-card" style="--card-ratio: {{ ratio }};">
@@ -53,6 +60,37 @@
         {% render 'price', variant: product.selected_or_first_available_variant %}
       {% endif %}
     </div>
+  {% elsif sample_title != blank %}
+    {% # Sample card with a built-in image: same markup as a real product, so it looks identical. %}
+    <a class="product-card__link" href="{{ sample_url }}">
+      <div class="product-card__media">
+        {% if sample_image != blank %}
+          <img
+            class="product-card__image"
+            src="{{ sample_image | asset_img_url: '1000x' }}"
+            srcset="
+              {{ sample_image | asset_img_url: '450x' }} 450w,
+              {{ sample_image | asset_img_url: '600x' }} 600w,
+              {{ sample_image | asset_img_url: '800x' }} 800w,
+              {{ sample_image | asset_img_url: '1000x' }} 1000w
+            "
+            sizes="(min-width: 990px) 25vw, (min-width: 750px) 33vw, 60vw"
+            width="800"
+            height="1000"
+            loading="lazy"
+            alt="{{ sample_alt | escape }}"
+          >
+        {% else %}
+          {% render 'image-placeholder', ratio: ratio, small: true %}
+        {% endif %}
+      </div>
+
+      <{{ heading_level }} class="product-card__title">{{ sample_title | escape }}</{{ heading_level }}>
+    </a>
+
+    {% if sample_price != blank %}
+      <div class="product-card__price">{{ sample_price | money }}</div>
+    {% endif %}
   {% else %}
     <div class="product-card__media">
       {% render 'image-placeholder', ratio: ratio %}
