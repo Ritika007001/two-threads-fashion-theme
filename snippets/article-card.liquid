@@ -12,16 +12,29 @@
   @param {string} [ratio] - Image shape, for example '3 / 2'. Defaults to '3 / 2'
   @param {string} [size] - 'large' for a wide featured layout, image beside text on desktop
   @param {string} [heading_level] - Heading tag for the title. Defaults to 'h3'
+  @param {string} [placeholder_image] - Without an article: file name of a built-in image in assets to show instead of the placeholder box
+  @param {string} [placeholder_alt] - Alt text for the built-in image
+  @param {string} [placeholder_title] - Without an article: a sample title to show instead of the generic placeholder text
+  @param {string} [placeholder_excerpt] - Without an article: a sample intro line
 
   @example
   {% render 'article-card', article: article, blog_url: blog.url, show_date: true, show_tags: true %}
   {% render 'article-card', show_date: true, show_excerpt: true %}
   {% render 'article-card', article: article, size: 'large', show_reading_time: true %}
+  {% render 'article-card', placeholder_image: 'default-journal-fabrics.jpg', placeholder_alt: 'Folded cream fabrics', placeholder_title: 'Behind the fabrics' %}
 {% enddoc %}
 
 {% liquid
   assign heading_level = heading_level | default: 'h3'
   assign ratio = ratio | default: '3 / 2'
+
+  if placeholder_title == blank
+    assign placeholder_title = 'home.placeholder_article' | t
+    assign placeholder_class = ' article-card__title--placeholder'
+  endif
+  if placeholder_excerpt == blank
+    assign placeholder_excerpt = 'home.placeholder_excerpt' | t
+  endif
 
   assign show_meta = false
   if show_date or show_author or show_reading_time
@@ -97,22 +110,41 @@
     </div>
   {% else %}
     <div class="article-card__media">
-      {% render 'image-placeholder', ratio: ratio %}
+      {% if placeholder_image != blank %}
+        <img
+          class="article-card__image"
+          src="{{ placeholder_image | asset_img_url: '1000x' }}"
+          srcset="
+            {{ placeholder_image | asset_img_url: '500x' }} 500w,
+            {{ placeholder_image | asset_img_url: '800x' }} 800w,
+            {{ placeholder_image | asset_img_url: '1000x' }} 1000w
+          "
+          sizes="(min-width: 990px) 33vw, (min-width: 750px) 50vw, 85vw"
+          width="1200"
+          height="800"
+          loading="lazy"
+          alt="{{ placeholder_alt | escape }}"
+        >
+      {% else %}
+        {% render 'image-placeholder', ratio: ratio %}
+      {% endif %}
     </div>
 
-    {% if show_tags %}
-      <ul class="article-card__tags" role="list">
-        <li><span class="article-card__tag">{{ 'home.placeholder_tag' | t }}</span></li>
-      </ul>
-    {% endif %}
+    <div class="article-card__body">
+      {% if show_tags %}
+        <ul class="article-card__tags" role="list">
+          <li><span class="article-card__tag">{{ 'home.placeholder_tag' | t }}</span></li>
+        </ul>
+      {% endif %}
 
-    <{{ heading_level }} class="article-card__title article-card__title--placeholder">
-      {{- 'home.placeholder_article' | t -}}
-    </{{ heading_level }}>
+      <{{ heading_level }} class="article-card__title{{ placeholder_class }}">
+        {{- placeholder_title | escape -}}
+      </{{ heading_level }}>
 
-    {% if show_excerpt %}
-      <p class="article-card__excerpt article-card__title--placeholder">{{ 'home.placeholder_excerpt' | t }}</p>
-    {% endif %}
+      {% if show_excerpt %}
+        <p class="article-card__excerpt{{ placeholder_class }}">{{ placeholder_excerpt | escape }}</p>
+      {% endif %}
+    </div>
   {% endif %}
 </article>
 

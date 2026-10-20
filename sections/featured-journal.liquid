@@ -1,7 +1,8 @@
 {% comment %}
   "From the journal": the latest posts from one blog. Without a chosen blog,
-  uses the store's default "news" blog. Shows placeholder cards when there
-  are no posts yet.
+  uses the store's default "news" blog. Until there are posts, three sample
+  stories with built-in images (shipped in assets) show, so the section
+  looks complete after installing. Real posts always take their place.
 {% endcomment %}
 
 {% liquid
@@ -43,11 +44,38 @@
         </li>
       {% else %}
         {% for i in (1..post_limit) %}
+          {% liquid
+            assign sample_image = ''
+            assign sample_alt = ''
+            assign sample_title = ''
+            assign sample_intro = ''
+            case forloop.index
+              when 1
+                assign sample_image = 'default-journal-capsule.jpg'
+                assign sample_alt = 'home.default_images.journal_capsule' | t
+                assign sample_title = 'home.default_journal.capsule_title' | t
+                assign sample_intro = 'home.default_journal.capsule_intro' | t
+              when 2
+                assign sample_image = 'default-journal-knitwear-care.jpg'
+                assign sample_alt = 'home.default_images.journal_knitwear_care' | t
+                assign sample_title = 'home.default_journal.knitwear_care_title' | t
+                assign sample_intro = 'home.default_journal.knitwear_care_intro' | t
+              when 3
+                assign sample_image = 'default-journal-fabrics.jpg'
+                assign sample_alt = 'home.default_images.journal_fabrics' | t
+                assign sample_title = 'home.default_journal.fabrics_title' | t
+                assign sample_intro = 'home.default_journal.fabrics_intro' | t
+            endcase
+          %}
           <li>
             {% render 'article-card',
               show_date: section.settings.show_date,
               show_tags: section.settings.show_tags,
-              show_excerpt: section.settings.show_excerpt
+              show_excerpt: section.settings.show_excerpt,
+              placeholder_image: sample_image,
+              placeholder_alt: sample_alt,
+              placeholder_title: sample_title,
+              placeholder_excerpt: sample_intro
             %}
           </li>
         {% endfor %}
