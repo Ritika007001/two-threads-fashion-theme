@@ -1,0 +1,274 @@
+{
+  "404": {
+    "title": "Non riusciamo a trovare questa pagina.",
+    "home": "Vai alla home page",
+    "suggestions_heading": "Popolari in questo momento"
+  },
+  "blog": {
+    "tags_label": "Filtra le storie per argomento",
+    "all_tags": "Tutte",
+    "empty": "Non ci sono ancora storie qui. Torna a trovarci presto.",
+    "tag_empty": "Non ci sono ancora storie con questo tag.",
+    "see_all": "Vedi tutte le storie",
+    "back_to_shop": "Torna al negozio",
+    "by_author": "di {{ author }}",
+    "reading_time": "{{ minutes }} min di lettura",
+    "copy_link": "Copia link",
+    "link_copied": "Link copiato",
+    "post_navigation": "Altri articoli",
+    "previous_post": "Articolo precedente",
+    "next_post": "Articolo successivo",
+    "more_heading": "Altro dal journal",
+    "comments_count": {
+      "one": "{{ count }} commento",
+      "other": "{{ count }} commenti"
+    },
+    "no_comments": "Ancora nessun commento. Sii la prima persona a condividere un pensiero.",
+    "comment_form_title": "Lascia un commento",
+    "comment_name": "Nome",
+    "comment_email": "E-mail",
+    "comment_body": "Commento",
+    "comment_submit": "Pubblica commento",
+    "comment_moderation_note": "I commenti vengono letti prima della pubblicazione. Il tuo indirizzo e-mail non sarà mostrato.",
+    "comment_moderated": "Grazie! Il tuo commento apparirà una volta approvato.",
+    "comment_posted": "Grazie! Il tuo commento è stato pubblicato."
+  },
+  "cart": {
+    "title": "Il tuo carrello",
+    "item_count": {
+      "one": "{{ count }} articolo",
+      "other": "{{ count }} articoli"
+    },
+    "quantity_for": "Quantità per {{ title }}",
+    "decrease": "Un {{ title }} in meno",
+    "increase": "Un {{ title }} in più",
+    "remove": "Rimuovi",
+    "line_total": "Totale per questo articolo",
+    "update": "Aggiorna carrello",
+    "continue": "Continua gli acquisti",
+    "summary": "Riepilogo ordine",
+    "subtotal": "Subtotale",
+    "taxes_note": "Spedizione e tasse vengono calcolate al momento del pagamento.",
+    "note_label": "C'è qualcosa che dovremmo sapere sul tuo ordine?",
+    "checkout": "Vai al pagamento",
+    "shipping": "Spedizione",
+    "shipping_at_checkout": "Calcolata al pagamento",
+    "total": "Totale",
+    "option_colour": "Colore: {{ value }}",
+    "option_size": "Taglia: {{ value }}",
+    "sample_note": "Articolo di esempio, visibile solo nell'editor del tema quando il carrello è vuoto. I clienti vedono sempre il proprio carrello.",
+    "empty_heading": "Il tuo carrello è vuoto per ora.",
+    "suggestions_heading": "Potrebbe piacerti"
+  },
+  "facets": {
+    "filter": "Filtra",
+    "sort_by": "Ordina per",
+    "apply": "Applica",
+    "clear_all": "Cancella tutto",
+    "remove_filter": "Rimuovi filtro",
+    "close": "Chiudi filtri",
+    "price_from": "Da",
+    "price_to": "A",
+    "sort_newest": "Novità",
+    "sort_price_low": "Prezzo, dal più basso",
+    "sort_price_high": "Prezzo, dal più alto"
+  },
+  "footer": {
+    "copyright": "© {{ year }} {{ shop_name }}",
+    "newsletter_email": "Indirizzo e-mail",
+    "newsletter_subscribe": "Iscriviti",
+    "newsletter_success": "Grazie per l'iscrizione.",
+    "payment_methods": "Metodi di pagamento",
+    "payment_placeholder": "Le icone dei pagamenti appariranno qui una volta configurati i pagamenti in Shopify. I clienti non vedono questa nota.",
+    "language_label": "Lingua",
+    "country_label": "Paese/area geografica",
+    "update_localization": "Aggiorna",
+    "localization_editor_note": "I selettori di lingua e paese appariranno qui quando il negozio avrà più di una lingua o di un mercato. I clienti non vedono questa nota.",
+    "social_editor_note": "Aggiungi i link ai tuoi profili in Impostazioni tema › Social media. I clienti non vedono questa nota."
+  },
+  "header": {
+    "skip_to_content": "Vai al contenuto",
+    "menu": "Menu",
+    "main_menu": "Menu principale",
+    "search": "Cerca",
+    "account": "Account",
+    "cart": "Carrello",
+    "cart_count": {
+      "one": "{{ count }} articolo",
+      "other": "{{ count }} articoli"
+    }
+  },
+  "contact": {
+    "heading": "Inviaci un messaggio",
+    "name": "Nome",
+    "email": "E-mail",
+    "phone": "Numero di telefono",
+    "body": "Messaggio",
+    "optional": "facoltativo",
+    "required": "obbligatorio",
+    "send": "Invia messaggio",
+    "success": "Grazie per averci scritto. Ti risponderemo il prima possibile."
+  },
+  "customers": {
+    "login": {
+      "email": "E-mail",
+      "password": "Password",
+      "submit": "Accedi",
+      "title": "Accesso"
+    }
+  },
+  "collection": {
+    "product_count": {
+      "one": "{{ count }} prodotto",
+      "other": "{{ count }} prodotti"
+    },
+    "empty_title": "Qui non c'è ancora nulla.",
+    "empty_text": "Nuovi capi sono in arrivo.",
+    "browse_all": "Sfoglia tutti i prodotti",
+    "no_matches": "Nessun capo corrisponde a questi filtri.",
+    "clear_filters": "Cancella tutti i filtri",
+    "sample_note": "Filtri e prodotti di esempio, visibili solo nell'editor del tema quando questa collezione è vuota. I clienti vedono sempre la collezione reale.",
+    "sample_size": "Taglia",
+    "sample_colour": "Colore",
+    "sample_price": "Prezzo"
+  },
+  "collections": {
+    "title": "Collezioni",
+    "empty": "Non ci sono ancora collezioni da mostrare."
+  },
+  "gift_card": {
+    "add_to_apple_wallet": "Aggiungi ad Apple Wallet",
+    "card": "Carta regalo",
+    "expired": "Questa carta regalo è scaduta",
+    "expires_on": "Scade il {{ expires_on }}",
+    "use_at_checkout": "Usa questa carta regalo al momento del pagamento"
+  },
+  "home": {
+    "view_all": "Vedi tutto",
+    "view_journal": "Visita il journal",
+    "from_price": "Da {{ price }}",
+    "placeholder_product": "Nome del prodotto",
+    "placeholder_category": "Categoria",
+    "placeholder_article": "Titolo dell'articolo",
+    "placeholder_excerpt": "Qui apparirà una breve introduzione all'articolo.",
+    "placeholder_tag": "Tag",
+    "default_images": {
+      "hero": "Borsa tote in pelle color cuoio, foulard di seta con motivo paisley, maglione crema, gonna plissettata blu navy e pantaloni beige disposti su lino stropicciato",
+      "tops": "Canotta bianca a costine distesa su sfondo grigio caldo",
+      "dresses": "Abito midi crema con piccola fantasia floreale blu e cintura da annodare, disteso su sfondo grigio caldo",
+      "bottoms": "Pantaloni ampi color petrolio con coulisse, distesi su sfondo beige caldo",
+      "knitwear": "Maglione crema a costine piegato su sfondo grigio caldo",
+      "our_story": "Mani che piegano una camicia di lino crema su un vecchio tavolo di legno accanto a una finestra, con tessuti piegati, forbici e un rocchetto di filo",
+      "journal_capsule": "Stender in legno con un maglione crema a trecce, una camicia di lino, un trench beige e una canotta bianca, con un cesto intrecciato e sandali",
+      "journal_knitwear_care": "Maglione crema a trecce piegato con una spazzola per abiti in legno, un flacone di detergente per lana e rametti di lavanda su lino",
+      "journal_fabrics": "Primo piano di tessuti crema sovrapposti: maglia a trecce, lino stropicciato, costina fine e raso liscio",
+      "sample_tank_top": "Canotta di cotone giallo burro distesa su sfondo grigio chiaro",
+      "sample_jeans": "Jeans dritti blu medio distesi su sfondo grigio caldo",
+      "sample_jacket": "Giacca di pelle nera con zip distesa su sfondo pietra chiaro",
+      "sample_tee": "T-shirt bianca di cotone a girocollo distesa su sfondo beige caldo"
+    },
+    "sample_products": {
+      "tank_top": "Canotta a costine color burro",
+      "jeans": "Jeans dritti classici",
+      "jacket": "Giacca biker in pelle",
+      "tee": "T-shirt essenziale in cotone"
+    },
+    "default_journal": {
+      "capsule_title": "Creare un guardaroba capsule",
+      "capsule_intro": "Pochi capi ben fatti che si abbinano tra loro, e come sceglierli.",
+      "knitwear_care_title": "Come prendersi cura della maglieria",
+      "knitwear_care_intro": "Lavare, asciugare e conservare la lana perché resti morbida per anni.",
+      "fabrics_title": "Dietro i tessuti",
+      "fabrics_intro": "Perché scegliamo lino, cotone e lana, e da dove provengono."
+    }
+  },
+  "pagination": {
+    "label": "Pagine",
+    "previous": "Precedente",
+    "next": "Successiva",
+    "page": "Pagina {{ number }}"
+  },
+  "password": {
+    "title": "Apriamo presto",
+    "signup_button": "Avvisami",
+    "signup_success": "Grazie. Ti avviseremo quando apriremo.",
+    "entry_toggle": "Hai una password? Entra nel negozio",
+    "password": "Password del negozio",
+    "enter": "Entra"
+  },
+  "product": {
+    "add_to_cart": "Aggiungi al carrello",
+    "sold_out": "Esaurito",
+    "unavailable": "Non disponibile",
+    "sale_price": "Prezzo scontato",
+    "regular_price": "Prezzo di listino",
+    "gallery": "Immagini del prodotto",
+    "show_image": "Mostra immagine {{ index }}",
+    "rating": "Valutato {{ rating }} stelle su 5",
+    "review_count": {
+      "one": "{{ count }} recensione",
+      "other": "{{ count }} recensioni"
+    },
+    "tax_included": "Prezzi IVA inclusa",
+    "market_label": "Paese/area geografica",
+    "market_update": "Aggiorna",
+    "market_editor_note": "Il selettore del mercato apparirà qui quando venderai in più di un paese o area geografica. I clienti non vedono questa nota.",
+    "quantity": "Quantità",
+    "quantity_decrease": "Riduci quantità",
+    "quantity_increase": "Aumenta quantità",
+    "sticky_bar": "Aggiunta rapida al carrello",
+    "size_guide": "Guida alle taglie",
+    "size_guide_close": "Chiudi guida alle taglie",
+    "size_guide_selected": "la taglia selezionata",
+    "size_chart_default": "tutti gli altri paesi (tabella predefinita)",
+    "size_chart_editor_note": "La tabella taglie \"{{ title }}\" viene mostrata per: {{ countries }}.",
+    "size_chart_active": "Mostrata adesso.",
+    "size_chart_preview": "Anteprima tabella",
+    "size_finder": {
+      "title": "Trova la tua taglia",
+      "intro": "Inserisci le tue misure: evidenzieremo la taglia più vicina e la selezioneremo per te.",
+      "result": "Taglia più vicina: {{ size }}. L'abbiamo selezionata per te.",
+      "best_match": "Migliore corrispondenza",
+      "cell_label": "{{ measurement }} per la taglia {{ size }}",
+      "edit_hint": "Puoi modificare qualsiasi valore nella tabella, ad esempio per confrontarlo con capi che possiedi già. Le modifiche valgono solo per questa visita."
+    }
+  },
+  "product_reviews": {
+    "out_of": "su 5",
+    "based_on": {
+      "one": "Basato su {{ count }} recensione",
+      "other": "Basato su {{ count }} recensioni"
+    },
+    "stars": {
+      "one": "{{ count }} stella",
+      "other": "{{ count }} stelle"
+    },
+    "write_review": "Scrivi una recensione",
+    "sort_label": "Ordina per",
+    "sort_recent": "Più recenti",
+    "sort_highest": "Valutazione più alta",
+    "sort_lowest": "Valutazione più bassa",
+    "filter_label": "Filtra per",
+    "filter_all": "Tutti gli argomenti",
+    "verified": "Acquisto verificato",
+    "helpful": "Utile",
+    "size_bought": "Taglia acquistata: {{ size }}",
+    "no_results": "Non ci sono ancora recensioni su questo argomento."
+  },
+  "search": {
+    "title": "Cerca",
+    "label": "Cerca nel negozio",
+    "placeholder": "Cerca capi, storie o pagine",
+    "submit": "Cerca",
+    "prompt": "Cosa stai cercando?",
+    "results_count": {
+      "one": "{{ count }} risultato per \"{{ terms }}\"",
+      "other": "{{ count }} risultati per \"{{ terms }}\""
+    },
+    "no_results": "Nessun risultato per \"{{ terms }}\".",
+    "no_results_hint": "Prova con un'altra parola o controlla l'ortografia.",
+    "other_results": "Pagine e articoli del journal",
+    "type_article": "Journal",
+    "type_page": "Pagina"
+  }
+}

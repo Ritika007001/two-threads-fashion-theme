@@ -1,11 +1,11 @@
 [
   {
     "name": "theme_info",
-    "theme_name": "Fashion Store",
+    "theme_name": "Two Threads",
     "theme_version": "1.0.0",
-    "theme_author": "Shopify",
-    "theme_documentation_url": "https://help.shopify.com/manual/online-store/themes",
-    "theme_support_url": "https://support.shopify.com/"
+    "theme_author": "Two Threads Studio",
+    "theme_documentation_url": "https://github.com/Ritika007001/two-threads-fashion-theme#readme",
+    "theme_support_url": "https://github.com/Ritika007001/two-threads-fashion-theme/issues"
   },
   {
     "name": "t:general.colors",
@@ -98,9 +98,18 @@
         "id": "heading_scale",
         "label": "t:labels.heading_scale",
         "options": [
-          { "value": "0.9", "label": "t:options.heading_scale.compact" },
-          { "value": "1", "label": "t:options.heading_scale.default" },
-          { "value": "1.12", "label": "t:options.heading_scale.generous" }
+          {
+            "value": "0.9",
+            "label": "t:options.heading_scale.compact"
+          },
+          {
+            "value": "1",
+            "label": "t:options.heading_scale.default"
+          },
+          {
+            "value": "1.12",
+            "label": "t:options.heading_scale.generous"
+          }
         ],
         "default": "1"
       },
@@ -109,9 +118,18 @@
         "id": "heading_weight",
         "label": "t:labels.heading_weight",
         "options": [
-          { "value": "400", "label": "t:options.heading_weight.regular" },
-          { "value": "500", "label": "t:options.heading_weight.medium" },
-          { "value": "600", "label": "t:options.heading_weight.semibold" }
+          {
+            "value": "400",
+            "label": "t:options.heading_weight.regular"
+          },
+          {
+            "value": "500",
+            "label": "t:options.heading_weight.medium"
+          },
+          {
+            "value": "600",
+            "label": "t:options.heading_weight.semibold"
+          }
         ],
         "default": "400"
       },
@@ -121,8 +139,14 @@
         "label": "t:labels.heading_style",
         "info": "t:info.heading_style",
         "options": [
-          { "value": "normal", "label": "t:options.heading_style.regular" },
-          { "value": "italic", "label": "t:options.heading_style.italic" }
+          {
+            "value": "normal",
+            "label": "t:options.heading_style.regular"
+          },
+          {
+            "value": "italic",
+            "label": "t:options.heading_style.italic"
+          }
         ],
         "default": "normal"
       }
@@ -195,11 +219,70 @@
         "label": "t:labels.product_image_shape",
         "info": "t:info.product_image_shape",
         "options": [
-          { "value": "4 / 5", "label": "t:options.image_ratio.portrait" },
-          { "value": "1 / 1", "label": "t:options.image_ratio.square" },
-          { "value": "3 / 4", "label": "t:options.image_ratio.tall" }
+          {
+            "value": "4 / 5",
+            "label": "t:options.image_ratio.portrait"
+          },
+          {
+            "value": "1 / 1",
+            "label": "t:options.image_ratio.square"
+          },
+          {
+            "value": "3 / 4",
+            "label": "t:options.image_ratio.tall"
+          }
         ],
         "default": "4 / 5"
+      }
+    ]
+  },
+  {
+    "name": "t:general.favicon",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "t:labels.favicon",
+        "info": "t:info.favicon"
+      }
+    ]
+  },
+  {
+    "name": "t:general.social",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "t:info.social"
+      },
+      {
+        "type": "text",
+        "id": "social_instagram",
+        "label": "t:labels.social_instagram",
+        "info": "https://instagram.com/yourshop"
+      },
+      {
+        "type": "text",
+        "id": "social_tiktok",
+        "label": "t:labels.social_tiktok",
+        "info": "https://tiktok.com/@yourshop"
+      },
+      {
+        "type": "text",
+        "id": "social_facebook",
+        "label": "t:labels.social_facebook",
+        "info": "https://facebook.com/yourshop"
+      },
+      {
+        "type": "text",
+        "id": "social_pinterest",
+        "label": "t:labels.social_pinterest",
+        "info": "https://pinterest.com/yourshop"
+      },
+      {
+        "type": "text",
+        "id": "social_youtube",
+        "label": "t:labels.social_youtube",
+        "info": "https://youtube.com/@yourshop"
       }
     ]
   },

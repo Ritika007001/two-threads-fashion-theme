@@ -1,0 +1,83 @@
+{% doc %}
+  Renders the store's social media profiles as a row of small text links,
+  in the same small-capitals style as the footer headings.
+
+  Addresses come from Theme settings > Social media. Platforms left empty are
+  skipped, and nothing is rendered when none are set, except for a short note
+  in the theme editor so the merchant knows where to add them.
+
+  Text links are used instead of platform logos on purpose: logos are trademarks
+  with their own usage rules, and plain words stay readable in every colour scheme.
+
+  @example
+  {% render 'social-links' %}
+{% enddoc %}
+
+{%- liquid
+  assign platforms = 'instagram,tiktok,facebook,pinterest,youtube' | split: ','
+  assign names = 'Instagram,TikTok,Facebook,Pinterest,YouTube' | split: ','
+  assign has_links = false
+  for platform in platforms
+    assign setting_key = 'social_' | append: platform
+    if settings[setting_key] != blank
+      assign has_links = true
+    endif
+  endfor
+-%}
+
+{%- if has_links -%}
+  <ul class="social-links" role="list">
+    {%- for platform in platforms -%}
+      {%- liquid
+        assign setting_key = 'social_' | append: platform
+        assign url = settings[setting_key]
+      -%}
+      {%- if url != blank -%}
+        <li>
+          <a
+            class="social-links__link"
+            href="{{ url | escape }}"
+            target="_blank"
+            rel="noopener"
+          >
+            {{- names[forloop.index0] -}}
+          </a>
+        </li>
+      {%- endif -%}
+    {%- endfor -%}
+  </ul>
+{%- elsif request.design_mode -%}
+  <p class="social-links__note">{{ 'footer.social_editor_note' | t }}</p>
+{%- endif -%}
+
+{% stylesheet %}
+  .social-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1.25rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .social-links__link {
+    font-size: var(--text-eyebrow);
+    font-weight: 500;
+    letter-spacing: var(--tracking-eyebrow);
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--color-foreground);
+    transition: opacity 250ms ease;
+  }
+
+  .social-links__link:hover {
+    opacity: 0.7;
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  .social-links__note {
+    font-size: var(--text-small);
+    opacity: 0.7;
+  }
+{% endstylesheet %}

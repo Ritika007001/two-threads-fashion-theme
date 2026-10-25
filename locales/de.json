@@ -1,0 +1,274 @@
+{
+  "404": {
+    "title": "Diese Seite können wir nicht finden.",
+    "home": "Zur Startseite",
+    "suggestions_heading": "Gerade beliebt"
+  },
+  "blog": {
+    "tags_label": "Beiträge nach Thema filtern",
+    "all_tags": "Alle",
+    "empty": "Hier gibt es noch keine Beiträge. Schau bald wieder vorbei.",
+    "tag_empty": "Noch keine Beiträge mit diesem Tag.",
+    "see_all": "Alle Beiträge ansehen",
+    "back_to_shop": "Zurück zum Shop",
+    "by_author": "von {{ author }}",
+    "reading_time": "{{ minutes }} Min. Lesezeit",
+    "copy_link": "Link kopieren",
+    "link_copied": "Link kopiert",
+    "post_navigation": "Weitere Beiträge",
+    "previous_post": "Vorheriger Beitrag",
+    "next_post": "Nächster Beitrag",
+    "more_heading": "Mehr aus dem Journal",
+    "comments_count": {
+      "one": "{{ count }} Kommentar",
+      "other": "{{ count }} Kommentare"
+    },
+    "no_comments": "Noch keine Kommentare. Teile als Erste*r deine Gedanken.",
+    "comment_form_title": "Kommentar schreiben",
+    "comment_name": "Name",
+    "comment_email": "E-Mail",
+    "comment_body": "Kommentar",
+    "comment_submit": "Kommentar absenden",
+    "comment_moderation_note": "Kommentare werden vor der Veröffentlichung geprüft. Deine E-Mail-Adresse wird nicht angezeigt.",
+    "comment_moderated": "Danke! Dein Kommentar erscheint, sobald er freigegeben wurde.",
+    "comment_posted": "Danke! Dein Kommentar wurde veröffentlicht."
+  },
+  "cart": {
+    "title": "Dein Warenkorb",
+    "item_count": {
+      "one": "{{ count }} Artikel",
+      "other": "{{ count }} Artikel"
+    },
+    "quantity_for": "Menge für {{ title }}",
+    "decrease": "{{ title }} einmal weniger",
+    "increase": "{{ title }} einmal mehr",
+    "remove": "Entfernen",
+    "line_total": "Summe für diesen Artikel",
+    "update": "Warenkorb aktualisieren",
+    "continue": "Weiter einkaufen",
+    "summary": "Bestellübersicht",
+    "subtotal": "Zwischensumme",
+    "taxes_note": "Versand und Steuern werden an der Kasse berechnet.",
+    "note_label": "Gibt es etwas, das wir zu deiner Bestellung wissen sollten?",
+    "checkout": "Zur Kasse",
+    "shipping": "Versand",
+    "shipping_at_checkout": "Wird an der Kasse berechnet",
+    "total": "Gesamt",
+    "option_colour": "Farbe: {{ value }}",
+    "option_size": "Größe: {{ value }}",
+    "sample_note": "Beispielartikel, nur im Theme-Editor sichtbar, solange der Warenkorb leer ist. Kund*innen sehen immer ihren eigenen Warenkorb.",
+    "empty_heading": "Dein Warenkorb ist noch leer.",
+    "suggestions_heading": "Das könnte dir gefallen"
+  },
+  "facets": {
+    "filter": "Filter",
+    "sort_by": "Sortieren nach",
+    "apply": "Anwenden",
+    "clear_all": "Alle löschen",
+    "remove_filter": "Filter entfernen",
+    "close": "Filter schließen",
+    "price_from": "Von",
+    "price_to": "Bis",
+    "sort_newest": "Neueste",
+    "sort_price_low": "Preis, aufsteigend",
+    "sort_price_high": "Preis, absteigend"
+  },
+  "footer": {
+    "copyright": "© {{ year }} {{ shop_name }}",
+    "newsletter_email": "E-Mail-Adresse",
+    "newsletter_subscribe": "Abonnieren",
+    "newsletter_success": "Danke für dein Abonnement.",
+    "payment_methods": "Zahlungsarten",
+    "payment_placeholder": "Zahlungssymbole erscheinen hier, sobald Zahlungen in Shopify eingerichtet sind. Kund*innen sehen diesen Hinweis nicht.",
+    "language_label": "Sprache",
+    "country_label": "Land/Region",
+    "update_localization": "Aktualisieren",
+    "localization_editor_note": "Die Sprach- und Länderauswahl erscheint hier, sobald dein Shop mehr als eine Sprache oder einen Markt hat. Kund*innen sehen diesen Hinweis nicht.",
+    "social_editor_note": "Füge deine Profil-Links unter Theme-Einstellungen › Social Media hinzu. Kund*innen sehen diesen Hinweis nicht."
+  },
+  "header": {
+    "skip_to_content": "Zum Inhalt springen",
+    "menu": "Menü",
+    "main_menu": "Hauptmenü",
+    "search": "Suche",
+    "account": "Konto",
+    "cart": "Warenkorb",
+    "cart_count": {
+      "one": "{{ count }} Artikel",
+      "other": "{{ count }} Artikel"
+    }
+  },
+  "contact": {
+    "heading": "Schreib uns eine Nachricht",
+    "name": "Name",
+    "email": "E-Mail",
+    "phone": "Telefonnummer",
+    "body": "Nachricht",
+    "optional": "optional",
+    "required": "erforderlich",
+    "send": "Nachricht senden",
+    "success": "Danke für deine Nachricht. Wir antworten so schnell wie möglich."
+  },
+  "customers": {
+    "login": {
+      "email": "E-Mail",
+      "password": "Passwort",
+      "submit": "Anmelden",
+      "title": "Anmeldung"
+    }
+  },
+  "collection": {
+    "product_count": {
+      "one": "{{ count }} Produkt",
+      "other": "{{ count }} Produkte"
+    },
+    "empty_title": "Hier gibt es noch nichts.",
+    "empty_text": "Neue Teile sind unterwegs.",
+    "browse_all": "Alle Produkte ansehen",
+    "no_matches": "Keine Teile passen zu diesen Filtern.",
+    "clear_filters": "Alle Filter löschen",
+    "sample_note": "Beispielfilter und -produkte, nur im Theme-Editor sichtbar, solange diese Kollektion leer ist. Kund*innen sehen immer die echte Kollektion.",
+    "sample_size": "Größe",
+    "sample_colour": "Farbe",
+    "sample_price": "Preis"
+  },
+  "collections": {
+    "title": "Kollektionen",
+    "empty": "Es gibt noch keine Kollektionen."
+  },
+  "gift_card": {
+    "add_to_apple_wallet": "Zu Apple Wallet hinzufügen",
+    "card": "Geschenkkarte",
+    "expired": "Diese Geschenkkarte ist abgelaufen",
+    "expires_on": "Gültig bis {{ expires_on }}",
+    "use_at_checkout": "Diese Geschenkkarte an der Kasse einlösen"
+  },
+  "home": {
+    "view_all": "Alle ansehen",
+    "view_journal": "Zum Journal",
+    "from_price": "Ab {{ price }}",
+    "placeholder_product": "Produktname",
+    "placeholder_category": "Kategorie",
+    "placeholder_article": "Titel des Journalbeitrags",
+    "placeholder_excerpt": "Hier erscheint eine kurze Einleitung zum Beitrag.",
+    "placeholder_tag": "Tag",
+    "default_images": {
+      "hero": "Hellbraune Ledertasche, Seidenschal mit Paisleymuster, cremefarbener Strickpullover, marineblauer Faltenrock und beige Hose auf zerknittertem Leinen ausgelegt",
+      "tops": "Weißes geripptes Tanktop, flach auf warmgrauem Hintergrund",
+      "dresses": "Cremefarbenes Midikleid mit kleinem blauem Blumenmuster und Bindegürtel, flach auf warmgrauem Hintergrund",
+      "bottoms": "Petrolfarbene weite Hose mit Kordelzug, flach auf warmbeigem Hintergrund",
+      "knitwear": "Gefalteter cremefarbener Rippstrickpullover auf warmgrauem Hintergrund",
+      "our_story": "Hände falten ein cremefarbenes Leinenhemd auf einem alten Holztisch neben einem Fenster, daneben gefaltete Stoffe, eine Schere und eine Garnrolle",
+      "journal_capsule": "Kleiderstange aus Holz mit einem cremefarbenen Zopfstrickpullover, einem Leinenhemd, einem beigen Trenchcoat und einem weißen Top, dazu ein Weidenkorb und Sandalen",
+      "journal_knitwear_care": "Gefalteter cremefarbener Zopfstrickpullover mit einer Holzkleiderbürste, einer Flasche Wollwaschmittel und Lavendelzweigen auf Leinen",
+      "journal_fabrics": "Nahaufnahme übereinandergelegter cremefarbener Stoffe: Zopfstrick, zerknittertes Leinen, feiner Ripp und glatter Satin",
+      "sample_tank_top": "Buttergelbes Baumwoll-Tanktop, flach auf hellgrauem Hintergrund",
+      "sample_jeans": "Mittelblaue Jeans mit geradem Bein, flach auf warmgrauem Hintergrund",
+      "sample_jacket": "Schwarze Lederjacke mit Reißverschluss, flach auf hellem Steinhintergrund",
+      "sample_tee": "Weißes Baumwoll-T-Shirt mit Rundhalsausschnitt, flach auf warmbeigem Hintergrund"
+    },
+    "sample_products": {
+      "tank_top": "Geripptes Tanktop in Butter",
+      "jeans": "Klassische Straight Jeans",
+      "jacket": "Bikerjacke aus Leder",
+      "tee": "Essential T-Shirt aus Baumwolle"
+    },
+    "default_journal": {
+      "capsule_title": "Eine Capsule Wardrobe aufbauen",
+      "capsule_intro": "Wenige gut gemachte Teile, die zusammenpassen, und wie man sie auswählt.",
+      "knitwear_care_title": "So pflegst du deine Strickwaren",
+      "knitwear_care_intro": "Wolle waschen, trocknen und aufbewahren, damit sie jahrelang weich bleibt.",
+      "fabrics_title": "Unsere Stoffe",
+      "fabrics_intro": "Warum wir Leinen, Baumwolle und Wolle wählen und woher sie kommen."
+    }
+  },
+  "pagination": {
+    "label": "Seiten",
+    "previous": "Zurück",
+    "next": "Weiter",
+    "page": "Seite {{ number }}"
+  },
+  "password": {
+    "title": "Bald eröffnen wir",
+    "signup_button": "Benachrichtige mich",
+    "signup_success": "Danke. Wir melden uns, wenn wir eröffnen.",
+    "entry_toggle": "Du hast ein Passwort? Shop betreten",
+    "password": "Shop-Passwort",
+    "enter": "Betreten"
+  },
+  "product": {
+    "add_to_cart": "In den Warenkorb",
+    "sold_out": "Ausverkauft",
+    "unavailable": "Nicht verfügbar",
+    "sale_price": "Angebotspreis",
+    "regular_price": "Regulärer Preis",
+    "gallery": "Produktbilder",
+    "show_image": "Bild {{ index }} anzeigen",
+    "rating": "Bewertet mit {{ rating }} von 5 Sternen",
+    "review_count": {
+      "one": "{{ count }} Bewertung",
+      "other": "{{ count }} Bewertungen"
+    },
+    "tax_included": "Preise inkl. MwSt.",
+    "market_label": "Land/Region",
+    "market_update": "Aktualisieren",
+    "market_editor_note": "Die Länderauswahl erscheint hier, sobald du in mehr als ein Land oder eine Region verkaufst. Kund*innen sehen diesen Hinweis nicht.",
+    "quantity": "Menge",
+    "quantity_decrease": "Menge verringern",
+    "quantity_increase": "Menge erhöhen",
+    "sticky_bar": "Schnell in den Warenkorb",
+    "size_guide": "Größentabelle",
+    "size_guide_close": "Größentabelle schließen",
+    "size_guide_selected": "deine gewählte Größe",
+    "size_chart_default": "alle anderen Länder (Standardtabelle)",
+    "size_chart_editor_note": "Größentabelle „{{ title }}“ wird angezeigt für: {{ countries }}.",
+    "size_chart_active": "Wird gerade angezeigt.",
+    "size_chart_preview": "Tabelle ansehen",
+    "size_finder": {
+      "title": "Finde deine Größe",
+      "intro": "Gib deine Maße ein, und wir markieren die passendste Größe und wählen sie für dich aus.",
+      "result": "Passendste Größe: {{ size }}. Wir haben sie für dich ausgewählt.",
+      "best_match": "Beste Übereinstimmung",
+      "cell_label": "{{ measurement }} für Größe {{ size }}",
+      "edit_hint": "Du kannst jeden Wert in der Tabelle ändern, zum Beispiel um mit Kleidung zu vergleichen, die du schon besitzt. Änderungen gelten nur für diesen Besuch."
+    }
+  },
+  "product_reviews": {
+    "out_of": "von 5",
+    "based_on": {
+      "one": "Basierend auf {{ count }} Bewertung",
+      "other": "Basierend auf {{ count }} Bewertungen"
+    },
+    "stars": {
+      "one": "{{ count }} Stern",
+      "other": "{{ count }} Sterne"
+    },
+    "write_review": "Bewertung schreiben",
+    "sort_label": "Sortieren nach",
+    "sort_recent": "Neueste",
+    "sort_highest": "Beste Bewertung",
+    "sort_lowest": "Schlechteste Bewertung",
+    "filter_label": "Filtern nach",
+    "filter_all": "Alle Themen",
+    "verified": "Verifizierter Kauf",
+    "helpful": "Hilfreich",
+    "size_bought": "Gekaufte Größe: {{ size }}",
+    "no_results": "Noch keine Bewertungen zu diesem Thema."
+  },
+  "search": {
+    "title": "Suche",
+    "label": "Im Shop suchen",
+    "placeholder": "Suche nach Teilen, Beiträgen oder Seiten",
+    "submit": "Suchen",
+    "prompt": "Wonach suchst du?",
+    "results_count": {
+      "one": "{{ count }} Ergebnis für „{{ terms }}“",
+      "other": "{{ count }} Ergebnisse für „{{ terms }}“"
+    },
+    "no_results": "Nichts gefunden für „{{ terms }}“.",
+    "no_results_hint": "Versuche ein anderes Wort oder prüfe die Schreibweise.",
+    "other_results": "Seiten und Journalbeiträge",
+    "type_article": "Journal",
+    "type_page": "Seite"
+  }
+}

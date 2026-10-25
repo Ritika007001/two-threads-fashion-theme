@@ -79,7 +79,12 @@
     "newsletter_subscribe": "Subscribe",
     "newsletter_success": "Thanks for subscribing.",
     "payment_methods": "Payment methods",
-    "payment_placeholder": "Payment icons appear here once payments are set up in Shopify. Shoppers don't see this note."
+    "payment_placeholder": "Payment icons appear here once payments are set up in Shopify. Shoppers don't see this note.",
+    "language_label": "Language",
+    "country_label": "Country/region",
+    "update_localization": "Update",
+    "localization_editor_note": "Language and country selectors appear here once your store has more than one language or market. Shoppers don’t see this note.",
+    "social_editor_note": "Add your profile links under Theme settings › Social media. Shoppers don’t see this note."
   },
   "header": {
     "skip_to_content": "Skip to content",
