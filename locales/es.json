@@ -1,0 +1,390 @@
+{
+  "404": {
+    "title": "No encontramos esa página.",
+    "home": "Ir a la página de inicio",
+    "suggestions_heading": "Popular ahora"
+  },
+  "blog": {
+    "tags_label": "Filtrar historias por tema",
+    "all_tags": "Todas",
+    "empty": "Aún no hay historias aquí. Vuelve pronto.",
+    "tag_empty": "Aún no hay historias con esta etiqueta.",
+    "see_all": "Ver todas las historias",
+    "back_to_shop": "Volver a la tienda",
+    "by_author": "por {{ author }}",
+    "reading_time": "{{ minutes }} min de lectura",
+    "copy_link": "Copiar enlace",
+    "link_copied": "Enlace copiado",
+    "post_navigation": "Más publicaciones",
+    "previous_post": "Publicación anterior",
+    "next_post": "Publicación siguiente",
+    "more_heading": "Más del diario",
+    "comments_count": {
+      "one": "{{ count }} comentario",
+      "other": "{{ count }} comentarios"
+    },
+    "no_comments": "Aún no hay comentarios. Sé la primera persona en compartir tu opinión.",
+    "comment_form_title": "Deja un comentario",
+    "comment_name": "Nombre",
+    "comment_email": "Correo electrónico",
+    "comment_body": "Comentario",
+    "comment_submit": "Publicar comentario",
+    "comment_moderation_note": "Los comentarios se revisan antes de publicarse. Tu correo electrónico no se mostrará.",
+    "comment_moderated": "¡Gracias! Tu comentario aparecerá cuando sea aprobado.",
+    "comment_posted": "¡Gracias! Tu comentario se ha publicado."
+  },
+  "cart": {
+    "title": "Tu carrito",
+    "item_count": {
+      "one": "{{ count }} artículo",
+      "other": "{{ count }} artículos"
+    },
+    "quantity_for": "Cantidad de {{ title }}",
+    "decrease": "Una unidad menos de {{ title }}",
+    "increase": "Una unidad más de {{ title }}",
+    "remove": "Eliminar",
+    "line_total": "Total de este artículo",
+    "update": "Actualizar carrito",
+    "continue": "Seguir comprando",
+    "summary": "Resumen del pedido",
+    "subtotal": "Subtotal",
+    "taxes_note": "El envío y los impuestos se calculan al finalizar la compra.",
+    "note_label": "¿Algo que debamos saber sobre tu pedido?",
+    "checkout": "Finalizar compra",
+    "shipping": "Envío",
+    "shipping_at_checkout": "Se calcula al finalizar la compra",
+    "total": "Total",
+    "option_colour": "Color: {{ value }}",
+    "option_size": "Talla: {{ value }}",
+    "sample_note": "Artículo de ejemplo, visible solo en el editor de temas mientras el carrito está vacío. Los clientes siempre ven su propio carrito.",
+    "empty_heading": "Tu carrito está vacío por ahora.",
+    "suggestions_heading": "Te puede gustar"
+  },
+  "facets": {
+    "filter": "Filtrar",
+    "sort_by": "Ordenar por",
+    "apply": "Aplicar",
+    "clear_all": "Borrar todo",
+    "remove_filter": "Quitar filtro",
+    "close": "Cerrar filtros",
+    "price_from": "Desde",
+    "price_to": "Hasta",
+    "sort_newest": "Novedades",
+    "sort_price_low": "Precio, de menor a mayor",
+    "sort_price_high": "Precio, de mayor a menor"
+  },
+  "footer": {
+    "copyright": "© {{ year }} {{ shop_name }}",
+    "newsletter_email": "Correo electrónico",
+    "newsletter_subscribe": "Suscribirse",
+    "newsletter_success": "Gracias por suscribirte.",
+    "payment_methods": "Métodos de pago",
+    "payment_placeholder": "Los iconos de pago aparecerán aquí cuando los pagos estén configurados en Shopify. Los clientes no ven esta nota.",
+    "language_label": "Idioma",
+    "country_label": "País/región",
+    "update_localization": "Actualizar",
+    "localization_editor_note": "Los selectores de idioma y país aparecerán aquí cuando tu tienda tenga más de un idioma o mercado. Los clientes no ven esta nota.",
+    "social_editor_note": "Añade los enlaces a tus perfiles en Configuración del tema › Redes sociales. Los clientes no ven esta nota."
+  },
+  "header": {
+    "skip_to_content": "Saltar al contenido",
+    "menu": "Menú",
+    "main_menu": "Menú principal",
+    "search": "Buscar",
+    "account": "Cuenta",
+    "cart": "Carrito",
+    "cart_count": {
+      "one": "{{ count }} artículo",
+      "other": "{{ count }} artículos"
+    }
+  },
+  "contact": {
+    "heading": "Envíanos un mensaje",
+    "name": "Nombre",
+    "email": "Correo electrónico",
+    "phone": "Número de teléfono",
+    "body": "Mensaje",
+    "optional": "opcional",
+    "required": "obligatorio",
+    "send": "Enviar mensaje",
+    "success": "Gracias por escribirnos. Te responderemos lo antes posible."
+  },
+  "customers": {
+    "login": {
+      "title": "Iniciar sesión",
+      "email": "Correo electrónico",
+      "password": "Contraseña",
+      "submit": "Iniciar sesión",
+      "forgot_password": "¿Olvidaste tu contraseña?",
+      "new_customer": "¿Eres nuevo?",
+      "create_account": "Crear una cuenta",
+      "guest_title": "¿Solo estás mirando?",
+      "guest_continue": "Continuar como invitado"
+    },
+    "recover": {
+      "title": "Restablecer tu contraseña",
+      "intro": "Introduce tu correo electrónico y te enviaremos un enlace para elegir una nueva contraseña.",
+      "submit": "Enviar enlace",
+      "cancel": "Volver a iniciar sesión",
+      "success": "Si ese correo electrónico está registrado con nosotros, el enlace de restablecimiento está en camino."
+    },
+    "register": {
+      "title": "Crear una cuenta",
+      "intro": "Guarda tus datos, sigue tus pedidos y compra más rápido la próxima vez.",
+      "first_name": "Nombre",
+      "last_name": "Apellidos",
+      "email": "Correo electrónico",
+      "password": "Contraseña",
+      "submit": "Crear cuenta",
+      "have_account": "¿Ya tienes una cuenta?",
+      "sign_in": "Iniciar sesión"
+    },
+    "account": {
+      "title": "Mi cuenta",
+      "welcome": "Hola, {{ name }}.",
+      "log_out": "Cerrar sesión",
+      "orders": "Historial de pedidos",
+      "no_orders": "Todavía no has realizado ningún pedido.",
+      "start_shopping": "Empezar a comprar",
+      "details": "Datos de la cuenta",
+      "default_address": "Dirección predeterminada",
+      "no_address": "Aún no hay ninguna dirección guardada.",
+      "manage_addresses": {
+        "one": "Gestionar dirección ({{ count }})",
+        "other": "Gestionar direcciones ({{ count }})"
+      }
+    },
+    "orders": {
+      "order": "Pedido",
+      "date": "Fecha",
+      "payment_status": "Pago",
+      "fulfillment_status": "Entrega",
+      "total": "Total",
+      "view_order": "Ver el pedido {{ name }}"
+    },
+    "order": {
+      "title": "Pedido {{ name }}",
+      "date": "Realizado el {{ date }}",
+      "cancelled": "Cancelado el {{ date }}",
+      "cancelled_reason": "Motivo: {{ reason }}",
+      "back": "Volver a mi cuenta",
+      "items": "Artículos",
+      "product": "Producto",
+      "sku": "SKU",
+      "price": "Precio",
+      "quantity": "Cantidad",
+      "total": "Total",
+      "fulfilled_at": "Enviado el {{ date }}",
+      "track_shipment": "Seguir el envío",
+      "subtotal": "Subtotal",
+      "discount": "Descuento",
+      "shipping": "Envío",
+      "tax": "Impuestos",
+      "duties": "Aranceles",
+      "refunded": "Reembolsado",
+      "addresses": "Direcciones",
+      "billing_address": "Dirección de facturación",
+      "shipping_address": "Dirección de envío",
+      "payment_status": "Pago",
+      "fulfillment_status": "Entrega"
+    },
+    "addresses": {
+      "title": "Direcciones",
+      "back": "Volver a mi cuenta",
+      "add_new": "Añadir una dirección",
+      "add": "Guardar dirección",
+      "cancel": "Cancelar",
+      "saved": {
+        "one": "{{ count }} dirección guardada",
+        "other": "{{ count }} direcciones guardadas"
+      },
+      "none": "Aún no hay direcciones guardadas.",
+      "default": "Predeterminada",
+      "edit": "Editar",
+      "edit_address": "Editar dirección",
+      "update": "Guardar cambios",
+      "delete": "Eliminar",
+      "delete_confirm": "¿Eliminar esta dirección?",
+      "first_name": "Nombre",
+      "last_name": "Apellidos",
+      "company": "Empresa (opcional)",
+      "address1": "Dirección",
+      "address2": "Piso, puerta, etc. (opcional)",
+      "city": "Ciudad",
+      "zip": "Código postal",
+      "country": "País/región",
+      "province": "Provincia/estado",
+      "phone": "Teléfono (opcional)",
+      "set_default": "Establecer como dirección predeterminada"
+    },
+    "activate": {
+      "title": "Activa tu cuenta",
+      "intro": "Elige una contraseña para terminar de configurar tu cuenta.",
+      "password": "Contraseña",
+      "password_confirm": "Confirmar contraseña",
+      "submit": "Activar cuenta",
+      "decline": "Rechazar invitación"
+    },
+    "reset": {
+      "title": "Elige una nueva contraseña",
+      "intro": "Para {{ email }}",
+      "password": "Nueva contraseña",
+      "password_confirm": "Confirmar nueva contraseña",
+      "submit": "Guardar contraseña"
+    }
+  },
+  "collection": {
+    "product_count": {
+      "one": "{{ count }} producto",
+      "other": "{{ count }} productos"
+    },
+    "empty_title": "Todavía no hay nada aquí.",
+    "empty_text": "Nuevas prendas están en camino.",
+    "browse_all": "Ver todos los productos",
+    "no_matches": "Ninguna prenda coincide con estos filtros.",
+    "clear_filters": "Borrar todos los filtros",
+    "sample_note": "Filtros y productos de ejemplo, visibles solo en el editor de temas mientras esta colección está vacía. Los clientes siempre ven la colección real.",
+    "sample_size": "Talla",
+    "sample_colour": "Color",
+    "sample_price": "Precio"
+  },
+  "collections": {
+    "title": "Colecciones",
+    "empty": "Aún no hay colecciones para mostrar."
+  },
+  "gift_card": {
+    "add_to_apple_wallet": "Añadir a Apple Wallet",
+    "card": "Tarjeta regalo",
+    "expired": "Esta tarjeta regalo ha caducado",
+    "expires_on": "Caduca el {{ expires_on }}",
+    "use_at_checkout": "Usa esta tarjeta regalo al finalizar la compra"
+  },
+  "home": {
+    "view_all": "Ver todo",
+    "view_journal": "Visitar el diario",
+    "from_price": "Desde {{ price }}",
+    "placeholder_product": "Nombre del producto",
+    "placeholder_category": "Categoría",
+    "placeholder_article": "Título de la publicación",
+    "placeholder_excerpt": "Aquí aparecerá una breve introducción a la publicación.",
+    "placeholder_tag": "Etiqueta",
+    "default_images": {
+      "hero": "Bolso tote de cuero canela, pañuelo de seda con estampado de cachemira, jersey de punto crema, falda plisada azul marino y pantalón beige sobre lino arrugado",
+      "tops": "Top blanco de canalé sin mangas sobre un fondo gris cálido",
+      "dresses": "Vestido midi crema con pequeñas flores azules y lazo en la cintura, sobre un fondo gris cálido",
+      "bottoms": "Pantalón ancho verde azulado con cordón, sobre un fondo beige cálido",
+      "knitwear": "Jersey de punto de canalé crema doblado sobre un fondo gris cálido",
+      "our_story": "Manos doblando una camisa de lino crema sobre una mesa de madera desgastada junto a una ventana, con telas dobladas, tijeras y un carrete de hilo",
+      "journal_capsule": "Perchero de madera con un jersey crema de ochos, una camisa de lino, una gabardina beige y una camiseta blanca sin mangas, junto a una cesta de mimbre y sandalias",
+      "journal_knitwear_care": "Jersey crema de ochos doblado con un cepillo de madera para ropa, un frasco de jabón para lana y ramitas de lavanda sobre lino",
+      "journal_fabrics": "Primer plano de telas crema superpuestas: punto de ochos, lino arrugado, canalé fino y satén liso",
+      "sample_tank_top": "Top de algodón amarillo mantequilla sin mangas sobre un fondo gris claro",
+      "sample_jeans": "Vaqueros rectos azul medio sobre un fondo gris cálido",
+      "sample_jacket": "Chaqueta de cuero negra con cremallera sobre un fondo piedra claro",
+      "sample_tee": "Camiseta blanca de algodón con cuello redondo sobre un fondo beige cálido"
+    },
+    "sample_products": {
+      "tank_top": "Top de canalé en amarillo mantequilla",
+      "jeans": "Vaqueros rectos clásicos",
+      "jacket": "Chaqueta biker de cuero",
+      "tee": "Camiseta esencial de algodón"
+    },
+    "default_journal": {
+      "capsule_title": "Cómo crear un armario cápsula",
+      "capsule_intro": "Unas pocas prendas bien hechas que combinan entre sí, y cómo elegirlas.",
+      "knitwear_care_title": "Cómo cuidar tus prendas de punto",
+      "knitwear_care_intro": "Lavar, secar y guardar la lana para que siga suave durante años.",
+      "fabrics_title": "Detrás de los tejidos",
+      "fabrics_intro": "Por qué elegimos lino, algodón y lana, y de dónde vienen."
+    }
+  },
+  "pagination": {
+    "label": "Páginas",
+    "previous": "Anterior",
+    "next": "Siguiente",
+    "page": "Página {{ number }}"
+  },
+  "password": {
+    "title": "Abrimos pronto",
+    "signup_button": "Avísame",
+    "signup_success": "Gracias. Te avisaremos cuando abramos.",
+    "entry_toggle": "¿Tienes contraseña? Entrar en la tienda",
+    "password": "Contraseña de la tienda",
+    "enter": "Entrar"
+  },
+  "product": {
+    "add_to_cart": "Añadir al carrito",
+    "sold_out": "Agotado",
+    "unavailable": "No disponible",
+    "sale_price": "Precio de oferta",
+    "regular_price": "Precio habitual",
+    "gallery": "Imágenes del producto",
+    "show_image": "Mostrar imagen {{ index }}",
+    "rating": "Valorado con {{ rating }} de 5 estrellas",
+    "review_count": {
+      "one": "{{ count }} reseña",
+      "other": "{{ count }} reseñas"
+    },
+    "tax_included": "IVA incluido",
+    "market_label": "País/región",
+    "market_update": "Actualizar",
+    "market_editor_note": "El selector de mercado aparecerá aquí cuando vendas en más de un país o región. Los clientes no ven esta nota.",
+    "quantity": "Cantidad",
+    "quantity_decrease": "Reducir cantidad",
+    "quantity_increase": "Aumentar cantidad",
+    "sticky_bar": "Añadir rápido al carrito",
+    "size_guide": "Guía de tallas",
+    "size_guide_close": "Cerrar guía de tallas",
+    "size_guide_selected": "tu talla seleccionada",
+    "size_chart_default": "todos los demás países (tabla predeterminada)",
+    "size_chart_editor_note": "La tabla de tallas «{{ title }}» se muestra para: {{ countries }}.",
+    "size_chart_active": "Mostrándose ahora.",
+    "size_chart_preview": "Vista previa de la tabla",
+    "size_finder": {
+      "title": "Encuentra tu talla",
+      "intro": "Introduce tus medidas y resaltaremos la talla más cercana y la seleccionaremos por ti.",
+      "result": "Talla más cercana: {{ size }}. La hemos seleccionado por ti.",
+      "best_match": "Mejor coincidencia",
+      "cell_label": "{{ measurement }} para la talla {{ size }}",
+      "edit_hint": "Puedes cambiar cualquier valor de la tabla, por ejemplo para compararlo con ropa que ya tienes. Los cambios solo se aplican a esta visita."
+    }
+  },
+  "product_reviews": {
+    "out_of": "de 5",
+    "based_on": {
+      "one": "Basado en {{ count }} reseña",
+      "other": "Basado en {{ count }} reseñas"
+    },
+    "stars": {
+      "one": "{{ count }} estrella",
+      "other": "{{ count }} estrellas"
+    },
+    "write_review": "Escribir una reseña",
+    "sort_label": "Ordenar por",
+    "sort_recent": "Más recientes",
+    "sort_highest": "Mejor valoradas",
+    "sort_lowest": "Peor valoradas",
+    "filter_label": "Filtrar por",
+    "filter_all": "Todos los temas",
+    "verified": "Compra verificada",
+    "helpful": "Útil",
+    "size_bought": "Talla comprada: {{ size }}",
+    "no_results": "Aún no hay reseñas sobre este tema."
+  },
+  "search": {
+    "title": "Buscar",
+    "label": "Buscar en la tienda",
+    "placeholder": "Busca prendas, historias o páginas",
+    "submit": "Buscar",
+    "prompt": "¿Qué estás buscando?",
+    "results_count": {
+      "one": "{{ count }} resultado para «{{ terms }}»",
+      "other": "{{ count }} resultados para «{{ terms }}»"
+    },
+    "no_results": "No se encontró nada para «{{ terms }}».",
+    "no_results_hint": "Prueba con otra palabra o revisa la ortografía.",
+    "other_results": "Páginas y publicaciones del diario",
+    "type_article": "Diario",
+    "type_page": "Página"
+  }
+}

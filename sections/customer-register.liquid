@@ -1,0 +1,91 @@
+{% comment %}
+  Create-account page for stores on classic customer accounts: first name,
+  last name, email and password. Shopify sends the confirmation email.
+
+  https://shopify.dev/docs/storefronts/themes/architecture/templates/customers-register
+{% endcomment %}
+
+{% render 'account-styles' %}
+
+<div class="account">
+  <h1 class="account__title account__title--center">{{ 'customers.register.title' | t }}</h1>
+  <p class="account__intro">{{ 'customers.register.intro' | t }}</p>
+
+  {% form 'create_customer', id: 'CustomerRegister', class: 'account__form account__form--narrow', novalidate: 'novalidate' %}
+    {% if form.errors %}
+      <div class="account__message" role="alert">{{ form.errors | default_errors }}</div>
+    {% endif %}
+
+    <div class="account__fields">
+      <div class="account__field">
+        <label for="CustomerRegister-first-name">{{ 'customers.register.first_name' | t }}</label>
+        <input
+          id="CustomerRegister-first-name"
+          type="text"
+          name="customer[first_name]"
+          value="{{ form.first_name | escape }}"
+          autocomplete="given-name"
+        >
+      </div>
+
+      <div class="account__field">
+        <label for="CustomerRegister-last-name">{{ 'customers.register.last_name' | t }}</label>
+        <input
+          id="CustomerRegister-last-name"
+          type="text"
+          name="customer[last_name]"
+          value="{{ form.last_name | escape }}"
+          autocomplete="family-name"
+        >
+      </div>
+
+      <div class="account__field account__field--full">
+        <label for="CustomerRegister-email">{{ 'customers.register.email' | t }}</label>
+        <input
+          id="CustomerRegister-email"
+          type="email"
+          name="customer[email]"
+          value="{{ form.email | escape }}"
+          autocomplete="email"
+          autocorrect="off"
+          autocapitalize="off"
+          required
+          {% if form.errors contains 'email' %}
+            aria-invalid="true"
+          {% endif %}
+        >
+      </div>
+
+      <div class="account__field account__field--full">
+        <label for="CustomerRegister-password">{{ 'customers.register.password' | t }}</label>
+        <input
+          id="CustomerRegister-password"
+          type="password"
+          name="customer[password]"
+          autocomplete="new-password"
+          required
+          {% if form.errors contains 'password' %}
+            aria-invalid="true"
+          {% endif %}
+        >
+      </div>
+    </div>
+
+    <button type="submit" class="button">{{ 'customers.register.submit' | t }}</button>
+
+    <div class="account__links">
+      <span>{{ 'customers.register.have_account' | t }}</span>
+      <a href="{{ routes.account_login_url }}">{{ 'customers.register.sign_in' | t }}</a>
+    </div>
+  {% endform %}
+</div>
+
+{% schema %}
+{
+  "name": "t:general.customer_register",
+  "settings": [],
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  }
+}
+{% endschema %}

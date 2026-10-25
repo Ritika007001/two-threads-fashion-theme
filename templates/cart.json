@@ -35,9 +35,9 @@
     "related_products": {
       "type": "related-products",
       "blocks": {
-        "product_1": { "type": "product", "settings": { "name": "Cotton poplin shirt", "price": "£58.00" } },
-        "product_2": { "type": "product", "settings": { "name": "Wool blend cardigan", "price": "£79.00" } },
-        "product_3": { "type": "product", "settings": { "name": "Soft knit scarf", "price": "£35.00" } }
+        "product_1": { "type": "product", "settings": { "name": "Cotton poplin shirt", "price": "€58.00" } },
+        "product_2": { "type": "product", "settings": { "name": "Wool blend cardigan", "price": "€79.00" } },
+        "product_3": { "type": "product", "settings": { "name": "Soft knit scarf", "price": "€35.00" } }
       },
       "block_order": ["product_1", "product_2", "product_3"],
       "settings": {

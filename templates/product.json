@@ -21,7 +21,7 @@
         "shipping_notes": {
           "type": "text",
           "settings": {
-            "text": "<ul><li>Free standard delivery on orders over £75</li><li>Dispatched within 2 working days</li><li>Free returns within 30 days</li></ul>"
+            "text": "<ul><li>Free standard delivery on orders over €75</li><li>Dispatched within 2 working days</li><li>Free returns within 30 days</li></ul>"
           }
         },
         "description": { "type": "description", "settings": {} },
@@ -147,10 +147,10 @@
     "related_products": {
       "type": "related-products",
       "blocks": {
-        "product_1": { "type": "product", "settings": { "name": "Cotton poplin shirt", "price": "£58.00" } },
-        "product_2": { "type": "product", "settings": { "name": "Wool blend cardigan", "price": "£79.00" } },
-        "product_3": { "type": "product", "settings": { "name": "Wide leg linen trousers", "price": "£65.00" } },
-        "product_4": { "type": "product", "settings": { "name": "Soft knit scarf", "price": "£35.00" } }
+        "product_1": { "type": "product", "settings": { "name": "Cotton poplin shirt", "price": "€58.00" } },
+        "product_2": { "type": "product", "settings": { "name": "Wool blend cardigan", "price": "€79.00" } },
+        "product_3": { "type": "product", "settings": { "name": "Wide leg linen trousers", "price": "€65.00" } },
+        "product_4": { "type": "product", "settings": { "name": "Soft knit scarf", "price": "€35.00" } }
       },
       "block_order": ["product_1", "product_2", "product_3", "product_4"],
       "settings": {

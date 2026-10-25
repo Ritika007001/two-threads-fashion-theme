@@ -2,8 +2,9 @@
   Store footer, shared across all pages through the footer section group.
 
   Content comes from blocks the merchant can add, remove and reorder:
-  link columns, a newsletter sign up and store details. The bottom row shows
-  payment icons and the copyright line.
+  link columns, a newsletter sign up, store details and social links. The
+  bottom row shows the copyright line, the language and country selectors
+  (only once the store has more than one of either) and payment icons.
 {% endcomment %}
 
 <footer class="site-footer full-width">
@@ -104,6 +105,15 @@
                   <div class="site-footer__text">{{ block.settings.details }}</div>
                 {% endif %}
               </div>
+
+            {% when 'social' %}
+              <div class="site-footer__block" {{ block.shopify_attributes }}>
+                {% if block.settings.heading != blank %}
+                  <h2 class="site-footer__heading">{{ block.settings.heading | escape }}</h2>
+                {% endif %}
+
+                {% render 'social-links' %}
+              </div>
           {% endcase %}
         {% endfor %}
       </div>
@@ -114,6 +124,85 @@
       <p class="site-footer__copyright">
         {{ 'footer.copyright' | t: year: current_year, shop_name: shop.name }}
       </p>
+
+      {% liquid
+        assign show_language = false
+        assign show_country = false
+        if section.settings.show_language_selector and localization.available_languages.size > 1
+          assign show_language = true
+        endif
+        if section.settings.show_country_selector and localization.available_countries.size > 1
+          assign show_country = true
+        endif
+      %}
+
+      {% if show_language or show_country %}
+        {% form 'localization', id: 'FooterLocalization', class: 'localization' %}
+          {% if show_language %}
+            <div class="localization__field">
+              <label class="visually-hidden" for="FooterLocalization-language">
+                {{- 'footer.language_label' | t -}}
+              </label>
+              <select
+                id="FooterLocalization-language"
+                class="localization__select"
+                name="locale_code"
+                aria-label="{{ 'footer.language_label' | t }}"
+                data-localization-auto
+              >
+                {% for language in localization.available_languages %}
+                  <option
+                    value="{{ language.iso_code }}"
+                    lang="{{ language.iso_code }}"
+                    {% if language.iso_code == localization.language.iso_code %}
+                      selected
+                    {% endif %}
+                  >
+                    {{- language.endonym_name | capitalize -}}
+                  </option>
+                {% endfor %}
+              </select>
+            </div>
+          {% endif %}
+
+          {% if show_country %}
+            <div class="localization__field">
+              <label class="visually-hidden" for="FooterLocalization-country">
+                {{- 'footer.country_label' | t -}}
+              </label>
+              <select
+                id="FooterLocalization-country"
+                class="localization__select"
+                name="country_code"
+                aria-label="{{ 'footer.country_label' | t }}"
+                data-localization-auto
+              >
+                {% for country in localization.available_countries %}
+                  <option
+                    value="{{ country.iso_code }}"
+                    {% if country.iso_code == localization.country.iso_code %}
+                      selected
+                    {% endif %}
+                  >
+                    {{ country.name }} ({{ country.currency.iso_code }}
+                    {{ country.currency.symbol }})
+                  </option>
+                {% endfor %}
+              </select>
+            </div>
+          {% endif %}
+
+          {% # Shown only when JavaScript is off; with JavaScript the form submits on change. %}
+          <button type="submit" class="button button--secondary localization__submit" data-localization-submit>
+            {{- 'footer.update_localization' | t -}}
+          </button>
+        {% endform %}
+      {% elsif request.design_mode %}
+        {% if section.settings.show_language_selector or section.settings.show_country_selector %}
+          {% # Editor-only note until the store has a second language or market. %}
+          <p class="site-footer__localization-note">{{ 'footer.localization_editor_note' | t }}</p>
+        {% endif %}
+      {% endif %}
 
       {% if section.settings.show_payment_icons %}
         {% if shop.enabled_payment_types.size > 0 %}
@@ -249,6 +338,37 @@
     color: var(--color-text-subdued);
   }
 
+  .localization {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .localization__select {
+    min-height: 2.5rem;
+    max-width: 16rem;
+    padding: 0 0.75rem;
+    border: 1px solid var(--color-border);
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font: inherit;
+  }
+
+  .localization__submit {
+    min-height: 2.5rem;
+    padding: 0 var(--space-4);
+  }
+
+  .localization--auto .localization__submit {
+    display: none;
+  }
+
+  .site-footer__localization-note {
+    max-width: 22rem;
+    opacity: 0.7;
+  }
+
   .site-footer__payment {
     display: flex;
     flex-wrap: wrap;
@@ -294,6 +414,17 @@
   }
 {% endstylesheet %}
 
+{% javascript %}
+  // Submit the language / country form as soon as a choice changes, and hide
+  // the Update button, which is only needed when JavaScript is off.
+  document.querySelectorAll('.localization').forEach((form) => {
+    form.classList.add('localization--auto');
+    form.querySelectorAll('[data-localization-auto]').forEach((select) => {
+      select.addEventListener('change', () => form.submit());
+    });
+  });
+{% endjavascript %}
+
 {% schema %}
 {
   "name": "t:general.footer",
@@ -303,6 +434,26 @@
       "id": "show_payment_icons",
       "label": "t:labels.show_payment_icons",
       "info": "t:info.payment_icons",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "t:labels.language_and_country"
+    },
+    {
+      "type": "paragraph",
+      "content": "t:info.localization"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_language_selector",
+      "label": "t:labels.show_language_selector",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_country_selector",
+      "label": "t:labels.show_country_selector",
       "default": true
     }
   ],
@@ -427,6 +578,23 @@
           "id": "details",
           "label": "t:labels.store_details",
           "default": "<p>Add your store address, opening hours and contact email here.</p>"
+        }
+      ]
+    },
+    {
+      "type": "social",
+      "name": "t:general.social_links",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "t:labels.heading",
+          "default": "Follow us"
+        },
+        {
+          "type": "paragraph",
+          "content": "t:info.social_block"
         }
       ]
     }

@@ -1,0 +1,390 @@
+{
+  "404": {
+    "title": "We kunnen die pagina niet vinden.",
+    "home": "Naar de homepage",
+    "suggestions_heading": "Nu populair"
+  },
+  "blog": {
+    "tags_label": "Verhalen filteren op onderwerp",
+    "all_tags": "Alle",
+    "empty": "Hier zijn nog geen verhalen. Kom snel terug.",
+    "tag_empty": "Nog geen verhalen met deze tag.",
+    "see_all": "Alle verhalen bekijken",
+    "back_to_shop": "Terug naar de winkel",
+    "by_author": "door {{ author }}",
+    "reading_time": "{{ minutes }} min leestijd",
+    "copy_link": "Link kopiëren",
+    "link_copied": "Link gekopieerd",
+    "post_navigation": "Meer berichten",
+    "previous_post": "Vorig bericht",
+    "next_post": "Volgend bericht",
+    "more_heading": "Meer uit het journal",
+    "comments_count": {
+      "one": "{{ count }} reactie",
+      "other": "{{ count }} reacties"
+    },
+    "no_comments": "Nog geen reacties. Deel als eerste je gedachten.",
+    "comment_form_title": "Laat een reactie achter",
+    "comment_name": "Naam",
+    "comment_email": "E-mail",
+    "comment_body": "Reactie",
+    "comment_submit": "Reactie plaatsen",
+    "comment_moderation_note": "Reacties worden gelezen voordat ze verschijnen. Je e-mailadres wordt niet getoond.",
+    "comment_moderated": "Bedankt! Je reactie verschijnt zodra die is goedgekeurd.",
+    "comment_posted": "Bedankt! Je reactie is geplaatst."
+  },
+  "cart": {
+    "title": "Je winkelwagen",
+    "item_count": {
+      "one": "{{ count }} artikel",
+      "other": "{{ count }} artikelen"
+    },
+    "quantity_for": "Aantal voor {{ title }}",
+    "decrease": "Eén {{ title }} minder",
+    "increase": "Eén {{ title }} meer",
+    "remove": "Verwijderen",
+    "line_total": "Totaal voor dit artikel",
+    "update": "Winkelwagen bijwerken",
+    "continue": "Verder winkelen",
+    "summary": "Besteloverzicht",
+    "subtotal": "Subtotaal",
+    "taxes_note": "Verzendkosten en belastingen worden bij het afrekenen berekend.",
+    "note_label": "Is er iets wat we over je bestelling moeten weten?",
+    "checkout": "Afrekenen",
+    "shipping": "Verzending",
+    "shipping_at_checkout": "Berekend bij het afrekenen",
+    "total": "Totaal",
+    "option_colour": "Kleur: {{ value }}",
+    "option_size": "Maat: {{ value }}",
+    "sample_note": "Voorbeeldartikel, alleen zichtbaar in de thema-editor zolang de winkelwagen leeg is. Klanten zien altijd hun eigen winkelwagen.",
+    "empty_heading": "Je winkelwagen is nog leeg.",
+    "suggestions_heading": "Misschien vind je dit ook mooi"
+  },
+  "facets": {
+    "filter": "Filteren",
+    "sort_by": "Sorteren op",
+    "apply": "Toepassen",
+    "clear_all": "Alles wissen",
+    "remove_filter": "Filter verwijderen",
+    "close": "Filters sluiten",
+    "price_from": "Van",
+    "price_to": "Tot",
+    "sort_newest": "Nieuwste",
+    "sort_price_low": "Prijs, laag naar hoog",
+    "sort_price_high": "Prijs, hoog naar laag"
+  },
+  "footer": {
+    "copyright": "© {{ year }} {{ shop_name }}",
+    "newsletter_email": "E-mailadres",
+    "newsletter_subscribe": "Aanmelden",
+    "newsletter_success": "Bedankt voor je aanmelding.",
+    "payment_methods": "Betaalmethoden",
+    "payment_placeholder": "Betaalpictogrammen verschijnen hier zodra betalingen in Shopify zijn ingesteld. Klanten zien deze notitie niet.",
+    "language_label": "Taal",
+    "country_label": "Land/regio",
+    "update_localization": "Bijwerken",
+    "localization_editor_note": "De taal- en landkiezers verschijnen hier zodra je winkel meer dan één taal of markt heeft. Klanten zien deze notitie niet.",
+    "social_editor_note": "Voeg je profiellinks toe onder Thema-instellingen › Social media. Klanten zien deze notitie niet."
+  },
+  "header": {
+    "skip_to_content": "Naar de inhoud",
+    "menu": "Menu",
+    "main_menu": "Hoofdmenu",
+    "search": "Zoeken",
+    "account": "Account",
+    "cart": "Winkelwagen",
+    "cart_count": {
+      "one": "{{ count }} artikel",
+      "other": "{{ count }} artikelen"
+    }
+  },
+  "contact": {
+    "heading": "Stuur ons een bericht",
+    "name": "Naam",
+    "email": "E-mail",
+    "phone": "Telefoonnummer",
+    "body": "Bericht",
+    "optional": "optioneel",
+    "required": "verplicht",
+    "send": "Bericht versturen",
+    "success": "Bedankt voor je bericht. We reageren zo snel mogelijk."
+  },
+  "customers": {
+    "login": {
+      "title": "Inloggen",
+      "email": "E-mail",
+      "password": "Wachtwoord",
+      "submit": "Inloggen",
+      "forgot_password": "Wachtwoord vergeten?",
+      "new_customer": "Nieuw hier?",
+      "create_account": "Account aanmaken",
+      "guest_title": "Alleen aan het rondkijken?",
+      "guest_continue": "Doorgaan als gast"
+    },
+    "recover": {
+      "title": "Wachtwoord opnieuw instellen",
+      "intro": "Vul je e-mailadres in en we sturen je een link om een nieuw wachtwoord te kiezen.",
+      "submit": "Link versturen",
+      "cancel": "Terug naar inloggen",
+      "success": "Als dit e-mailadres bij ons bekend is, is er een link onderweg."
+    },
+    "register": {
+      "title": "Account aanmaken",
+      "intro": "Bewaar je gegevens, volg je bestellingen en reken de volgende keer sneller af.",
+      "first_name": "Voornaam",
+      "last_name": "Achternaam",
+      "email": "E-mail",
+      "password": "Wachtwoord",
+      "submit": "Account aanmaken",
+      "have_account": "Heb je al een account?",
+      "sign_in": "Inloggen"
+    },
+    "account": {
+      "title": "Mijn account",
+      "welcome": "Hallo, {{ name }}.",
+      "log_out": "Uitloggen",
+      "orders": "Bestelgeschiedenis",
+      "no_orders": "Je hebt nog geen bestellingen geplaatst.",
+      "start_shopping": "Begin met winkelen",
+      "details": "Accountgegevens",
+      "default_address": "Standaardadres",
+      "no_address": "Nog geen adres opgeslagen.",
+      "manage_addresses": {
+        "one": "Adres beheren ({{ count }})",
+        "other": "Adressen beheren ({{ count }})"
+      }
+    },
+    "orders": {
+      "order": "Bestelling",
+      "date": "Datum",
+      "payment_status": "Betaling",
+      "fulfillment_status": "Levering",
+      "total": "Totaal",
+      "view_order": "Bestelling {{ name }} bekijken"
+    },
+    "order": {
+      "title": "Bestelling {{ name }}",
+      "date": "Geplaatst op {{ date }}",
+      "cancelled": "Geannuleerd op {{ date }}",
+      "cancelled_reason": "Reden: {{ reason }}",
+      "back": "Terug naar mijn account",
+      "items": "Artikelen",
+      "product": "Product",
+      "sku": "Artikelnummer",
+      "price": "Prijs",
+      "quantity": "Aantal",
+      "total": "Totaal",
+      "fulfilled_at": "Verzonden op {{ date }}",
+      "track_shipment": "Zending volgen",
+      "subtotal": "Subtotaal",
+      "discount": "Korting",
+      "shipping": "Verzending",
+      "tax": "Belasting",
+      "duties": "Invoerrechten",
+      "refunded": "Terugbetaald",
+      "addresses": "Adressen",
+      "billing_address": "Factuuradres",
+      "shipping_address": "Verzendadres",
+      "payment_status": "Betaling",
+      "fulfillment_status": "Levering"
+    },
+    "addresses": {
+      "title": "Adressen",
+      "back": "Terug naar mijn account",
+      "add_new": "Nieuw adres toevoegen",
+      "add": "Adres opslaan",
+      "cancel": "Annuleren",
+      "saved": {
+        "one": "{{ count }} opgeslagen adres",
+        "other": "{{ count }} opgeslagen adressen"
+      },
+      "none": "Nog geen adressen opgeslagen.",
+      "default": "Standaard",
+      "edit": "Bewerken",
+      "edit_address": "Adres bewerken",
+      "update": "Wijzigingen opslaan",
+      "delete": "Verwijderen",
+      "delete_confirm": "Dit adres verwijderen?",
+      "first_name": "Voornaam",
+      "last_name": "Achternaam",
+      "company": "Bedrijf (optioneel)",
+      "address1": "Adres",
+      "address2": "Appartement, verdieping, enz. (optioneel)",
+      "city": "Plaats",
+      "zip": "Postcode",
+      "country": "Land/regio",
+      "province": "Provincie/staat",
+      "phone": "Telefoon (optioneel)",
+      "set_default": "Instellen als standaardadres"
+    },
+    "activate": {
+      "title": "Activeer je account",
+      "intro": "Kies een wachtwoord om je account af te ronden.",
+      "password": "Wachtwoord",
+      "password_confirm": "Wachtwoord bevestigen",
+      "submit": "Account activeren",
+      "decline": "Uitnodiging afwijzen"
+    },
+    "reset": {
+      "title": "Kies een nieuw wachtwoord",
+      "intro": "Voor {{ email }}",
+      "password": "Nieuw wachtwoord",
+      "password_confirm": "Nieuw wachtwoord bevestigen",
+      "submit": "Wachtwoord opslaan"
+    }
+  },
+  "collection": {
+    "product_count": {
+      "one": "{{ count }} product",
+      "other": "{{ count }} producten"
+    },
+    "empty_title": "Hier is nog niets.",
+    "empty_text": "Nieuwe items zijn onderweg.",
+    "browse_all": "Alle producten bekijken",
+    "no_matches": "Geen items passen bij deze filters.",
+    "clear_filters": "Alle filters wissen",
+    "sample_note": "Voorbeeldfilters en -producten, alleen zichtbaar in de thema-editor zolang deze collectie leeg is. Klanten zien altijd de echte collectie.",
+    "sample_size": "Maat",
+    "sample_colour": "Kleur",
+    "sample_price": "Prijs"
+  },
+  "collections": {
+    "title": "Collecties",
+    "empty": "Er zijn nog geen collecties om te tonen."
+  },
+  "gift_card": {
+    "add_to_apple_wallet": "Toevoegen aan Apple Wallet",
+    "card": "Cadeaubon",
+    "expired": "Deze cadeaubon is verlopen",
+    "expires_on": "Geldig tot {{ expires_on }}",
+    "use_at_checkout": "Gebruik deze cadeaubon bij het afrekenen"
+  },
+  "home": {
+    "view_all": "Alles bekijken",
+    "view_journal": "Naar het journal",
+    "from_price": "Vanaf {{ price }}",
+    "placeholder_product": "Productnaam",
+    "placeholder_category": "Categorie",
+    "placeholder_article": "Titel van het journalbericht",
+    "placeholder_excerpt": "Hier verschijnt een korte inleiding op het bericht.",
+    "placeholder_tag": "Tag",
+    "default_images": {
+      "hero": "Cognackleurige leren shopper, zijden sjaal met paisleyprint, crèmekleurige gebreide trui, geplooide marineblauwe rok en beige broek uitgelegd op gekreukt linnen",
+      "tops": "Wit geribd hemdje plat neergelegd op een warmgrijze achtergrond",
+      "dresses": "Crèmekleurige midi-jurk met kleine blauwe bloemenprint en strikceintuur, plat neergelegd op een warmgrijze achtergrond",
+      "bottoms": "Petrolkleurige wijde broek met trekkoord, plat neergelegd op een warmbeige achtergrond",
+      "knitwear": "Opgevouwen crèmekleurige geribde gebreide trui op een warmgrijze achtergrond",
+      "our_story": "Handen die een crèmekleurig linnen overhemd vouwen op een verweerde houten tafel naast een raam, met gevouwen stoffen, een schaar en een klosje garen",
+      "journal_capsule": "Houten kledingrek met een crèmekleurige kabeltrui, een linnen overhemd, een beige trenchcoat en een wit hemdje, met een gevlochten mand en sandalen",
+      "journal_knitwear_care": "Opgevouwen crèmekleurige kabeltrui met een houten kledingborstel, een fles wolwasmiddel en takjes lavendel op linnen",
+      "journal_fabrics": "Close-up van gelaagde crèmekleurige stoffen: kabelbreisel, gekreukt linnen, fijne rib en glad satijn",
+      "sample_tank_top": "Botergeel katoenen hemdje plat neergelegd op een lichtgrijze achtergrond",
+      "sample_jeans": "Middenblauwe jeans met rechte pijp plat neergelegd op een warmgrijze achtergrond",
+      "sample_jacket": "Zwart leren jack met rits plat neergelegd op een lichte steenkleurige achtergrond",
+      "sample_tee": "Wit katoenen T-shirt met ronde hals plat neergelegd op een warmbeige achtergrond"
+    },
+    "sample_products": {
+      "tank_top": "Geribd hemdje in botergeel",
+      "jeans": "Klassieke rechte jeans",
+      "jacket": "Leren bikerjack",
+      "tee": "Essentieel katoenen T-shirt"
+    },
+    "default_journal": {
+      "capsule_title": "Een capsule wardrobe samenstellen",
+      "capsule_intro": "Een paar goed gemaakte items die bij elkaar passen, en hoe je ze kiest.",
+      "knitwear_care_title": "Zo verzorg je je breisels",
+      "knitwear_care_intro": "Wol wassen, drogen en bewaren zodat die jarenlang zacht blijft.",
+      "fabrics_title": "Over onze stoffen",
+      "fabrics_intro": "Waarom we linnen, katoen en wol kiezen, en waar ze vandaan komen."
+    }
+  },
+  "pagination": {
+    "label": "Pagina's",
+    "previous": "Vorige",
+    "next": "Volgende",
+    "page": "Pagina {{ number }}"
+  },
+  "password": {
+    "title": "Binnenkort open",
+    "signup_button": "Houd me op de hoogte",
+    "signup_success": "Bedankt. We laten het weten zodra we open zijn.",
+    "entry_toggle": "Heb je een wachtwoord? Ga naar de winkel",
+    "password": "Winkelwachtwoord",
+    "enter": "Binnengaan"
+  },
+  "product": {
+    "add_to_cart": "In winkelwagen",
+    "sold_out": "Uitverkocht",
+    "unavailable": "Niet beschikbaar",
+    "sale_price": "Aanbiedingsprijs",
+    "regular_price": "Normale prijs",
+    "gallery": "Productafbeeldingen",
+    "show_image": "Afbeelding {{ index }} tonen",
+    "rating": "Beoordeeld met {{ rating }} van 5 sterren",
+    "review_count": {
+      "one": "{{ count }} beoordeling",
+      "other": "{{ count }} beoordelingen"
+    },
+    "tax_included": "Prijzen inclusief btw",
+    "market_label": "Land/regio",
+    "market_update": "Bijwerken",
+    "market_editor_note": "De landkiezer verschijnt hier zodra je aan meer dan één land of regio verkoopt. Klanten zien deze notitie niet.",
+    "quantity": "Aantal",
+    "quantity_decrease": "Aantal verlagen",
+    "quantity_increase": "Aantal verhogen",
+    "sticky_bar": "Snel in winkelwagen",
+    "size_guide": "Maattabel",
+    "size_guide_close": "Maattabel sluiten",
+    "size_guide_selected": "je gekozen maat",
+    "size_chart_default": "alle andere landen (standaardtabel)",
+    "size_chart_editor_note": "Maattabel \"{{ title }}\" wordt getoond voor: {{ countries }}.",
+    "size_chart_active": "Wordt nu getoond.",
+    "size_chart_preview": "Tabel bekijken",
+    "size_finder": {
+      "title": "Vind je maat",
+      "intro": "Vul je maten in en we markeren de best passende maat en selecteren die voor je.",
+      "result": "Best passende maat: {{ size }}. We hebben die voor je geselecteerd.",
+      "best_match": "Beste match",
+      "cell_label": "{{ measurement }} voor maat {{ size }}",
+      "edit_hint": "Je kunt elke waarde in de tabel aanpassen, bijvoorbeeld om te vergelijken met kleding die je al hebt. Wijzigingen gelden alleen voor dit bezoek."
+    }
+  },
+  "product_reviews": {
+    "out_of": "van 5",
+    "based_on": {
+      "one": "Gebaseerd op {{ count }} beoordeling",
+      "other": "Gebaseerd op {{ count }} beoordelingen"
+    },
+    "stars": {
+      "one": "{{ count }} ster",
+      "other": "{{ count }} sterren"
+    },
+    "write_review": "Schrijf een beoordeling",
+    "sort_label": "Sorteren op",
+    "sort_recent": "Meest recent",
+    "sort_highest": "Hoogste beoordeling",
+    "sort_lowest": "Laagste beoordeling",
+    "filter_label": "Filteren op",
+    "filter_all": "Alle onderwerpen",
+    "verified": "Geverifieerde koper",
+    "helpful": "Nuttig",
+    "size_bought": "Gekochte maat: {{ size }}",
+    "no_results": "Nog geen beoordelingen over dit onderwerp."
+  },
+  "search": {
+    "title": "Zoeken",
+    "label": "Zoeken in de winkel",
+    "placeholder": "Zoek naar items, verhalen of pagina's",
+    "submit": "Zoeken",
+    "prompt": "Waar ben je naar op zoek?",
+    "results_count": {
+      "one": "{{ count }} resultaat voor \"{{ terms }}\"",
+      "other": "{{ count }} resultaten voor \"{{ terms }}\""
+    },
+    "no_results": "Niets gevonden voor \"{{ terms }}\".",
+    "no_results_hint": "Probeer een ander woord of controleer de spelling.",
+    "other_results": "Pagina's en journalberichten",
+    "type_article": "Journal",
+    "type_page": "Pagina"
+  }
+}

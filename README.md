@@ -1,4 +1,4 @@
-# Fashion Store
+# Two Threads
 
 A calm, simple Shopify theme for clothing and accessories shops, in a soft editorial style: four ready-made colour schemes, Playfair Display headings and Work Sans text, generous spacing, and it works well on phones.
 
@@ -13,6 +13,10 @@ A calm, simple Shopify theme for clothing and accessories shops, in a soft edito
 - **Collection pages:** a row of filters (such as Size, Colour and Price), a sort menu and a product grid.
 - **Cart:** items, subtotal, shipping and total lines, a "Checkout" button and "You may also like".
 - **Other pages:** a journal (blog), contact form, content pages, "page not found" and an "Opening soon" password page.
+- **Customer accounts:** sign in, create account, forgot password, account overview with order history, order details, and an address book, all in the same style as the rest of the theme. (Stores on Shopify's newer hosted accounts use Shopify's own pages instead; both work.)
+- **Footer extras:** a Social links block (Instagram, TikTok, Facebook, Pinterest, YouTube — set the addresses under Theme settings → Social media), plus language and country/currency selectors that appear automatically once the store has more than one language or market.
+- **Favicon:** upload yours under Theme settings → Favicon.
+- **Six languages built in:** English, German, French, Spanish, Italian and Dutch. Add a language under **Settings → Languages** in Shopify admin and every button, label and message switches automatically. Your own product names and descriptions are translated separately, with Shopify's free **Translate & Adapt** app.
 
 The star ratings, reviews, shipping notes and "You may also like" products are **sample content**. You can change them in the theme editor.
 
@@ -22,6 +26,8 @@ The star ratings, reviews, shipping notes and "You may also like" products are *
 
 You need a Shopify store to use this theme. A free trial store works.
 
+**Fastest way:** download the latest `two-threads-theme-x.y.z.zip` from the repository's **Releases** page and jump to step 3. The steps below are for building the zip from the source code yourself.
+
 ### 1. Download the code from GitHub
 
 1. Sign in to GitHub and open this repository. It's private, so only people you've invited can see it.
@@ -30,13 +36,13 @@ You need a Shopify store to use this theme. A free trial store works.
    - **Windows:** right-click the file, then choose **Extract All**.
    - **Mac:** double-click the file.
 
-You now have a folder named something like `fashion-store-main`.
+You now have a folder named something like `two-threads-fashion-theme-main`.
 
 ### 2. Make a zip file Shopify can read
 
-Shopify needs the theme folders at the **top level** of the zip. If you zip the whole `fashion-store-main` folder, Shopify can't find them and the upload fails.
+Shopify needs the theme folders at the **top level** of the zip. If you zip the whole `two-threads-fashion-theme-main` folder, Shopify can't find them and the upload fails.
 
-1. Open the `fashion-store-main` folder.
+1. Open the `two-threads-fashion-theme-main` folder.
 2. Select the **files and folders inside it**, not the folder itself. Shopify needs these eight folders:
    `assets`, `blocks`, `config`, `layout`, `locales`, `sections`, `snippets`, `templates`.
    You can include the other files, such as `README.md` and `LICENSE`, or leave them out.
@@ -44,7 +50,7 @@ Shopify needs the theme folders at the **top level** of the zip. If you zip the 
 4. Make the zip:
    - **Windows:** right-click one of the selected items, then choose **Send to → Compressed (zipped) folder**.
    - **Mac:** right-click one of the selected items, then choose **Compress**.
-5. Give the zip a name you'll recognise, such as `fashion-store-theme.zip`.
+5. Give the zip a name you'll recognise, such as `two-threads-theme.zip`.
 
 **Check:** open the zip. You should see `assets`, `config`, `layout` and the other folders straight away, not a single folder containing them.
 
@@ -142,11 +148,11 @@ To show a photo when a shopper picks a colour or size, open the product's **Vari
 - Upload without publishing: `shopify theme push --unpublished --store your-store.myshopify.com`
 - Build a zip for sharing: `powershell -ExecutionPolicy Bypass -File scripts\package-theme.ps1`. It runs `shopify theme package`, drops the developer notes (`AGENTS.md`, `CLAUDE.md`) that the CLI bundles anyway, and adds `LICENSE`, the font licence texts, `README.md` and `INSTALL.md`.
 - Styles and scripts live with each section and snippet, in `{% stylesheet %}` and `{% javascript %}` tags. Styles needed on every page are in `assets/critical.css`.
-- All shopper-facing text is in `locales/en.default.json`, and theme editor labels are in `locales/en.default.schema.json`.
+- All shopper-facing text is in `locales/en.default.json`, with translations in `de.json`, `fr.json`, `es.json`, `it.json` and `nl.json`. Theme editor labels are in `locales/en.default.schema.json`. To add a language, copy `en.default.json` to `<code>.json` and translate the values; keep every `{{ placeholder }}` as it is.
 
 ## Credits and licence
 
 - This theme is built on the **Shopify Skeleton Theme** by Shopify Inc. Shopify's original notice is kept unchanged in `LICENSE`. That notice allows the code to be used to build themes that work with Shopify.
-- New code for the Fashion Store theme is © 2026 Fashion Store Theme contributors, released under the **MIT License**. See `LICENSE`.
+- New code for the Two Threads theme is © 2026 Two Threads Theme contributors, released under the **MIT License**. See `LICENSE`.
 - The **Work Sans** and **Playfair Display** fonts are under the **SIL Open Font License 1.1**. The full texts are in the `licenses` folder.
 - The built-in placeholder photos were generated by the theme author with an AI image tool. They are meant to be replaced with your own photos. No stock photos or other third-party images are included.

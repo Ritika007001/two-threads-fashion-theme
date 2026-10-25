@@ -57,7 +57,17 @@
     "text": "Text",
     "theme": "Theme",
     "typography": "Typography",
-    "variant_picker": "Size and option picker"
+    "variant_picker": "Size and option picker",
+    "favicon": "Favicon",
+    "social": "Social media",
+    "social_links": "Social links",
+    "customer_login": "Login page",
+    "customer_register": "Create account page",
+    "customer_account": "Account page",
+    "customer_order": "Order page",
+    "customer_addresses": "Addresses page",
+    "customer_activate": "Activate account page",
+    "customer_reset": "Reset password page"
   },
   "info": {
     "accent_color": "Used sparingly for decoration and large text, such as journal tag marks and quote rules. Never used for small text.",
@@ -116,7 +126,11 @@
     "text_under_checkout": "Optional. For example, delivery times or how returns work.",
     "tile_image": "Optional. Replaces the collection's own image on this tile. Recommended 1200 × 1500 px for portrait tiles.",
     "sticky_bar": "A bar fixed to the bottom of the screen with the product name, selected size, price and add to cart button.",
-    "variant_picker": "Shows each product option, such as size or colour, as buttons. Option names and values come from the product in Shopify admin."
+    "variant_picker": "Shows each product option, such as size or colour, as buttons. Option names and values come from the product in Shopify admin.",
+    "favicon": "The small icon shown in the browser tab and bookmarks. Use a square PNG of at least 180 × 180 pixels. Leave empty to use Shopify’s default.",
+    "social": "Paste the full web address of each profile. Leave a platform empty to hide it. To show the links, add the Social links block to the footer.",
+    "social_block": "Links come from Theme settings > Social media. They appear as plain text, so they stay readable in every colour scheme.",
+    "localization": "The selectors appear automatically once your store has more than one language (Settings > Languages) or sells to more than one country (Settings > Markets). Until then nothing is shown."
   },
   "labels": {
     "accent": "Accent",
@@ -261,7 +275,16 @@
     "text_style": "Text style",
     "text_width": "Text width",
     "title_alignment": "Title alignment",
-    "text": "Text"
+    "text": "Text",
+    "favicon": "Favicon image",
+    "social_instagram": "Instagram",
+    "social_tiktok": "TikTok",
+    "social_facebook": "Facebook",
+    "social_pinterest": "Pinterest",
+    "social_youtube": "YouTube",
+    "language_and_country": "Language and country selectors",
+    "show_language_selector": "Show language selector",
+    "show_country_selector": "Show country/region selector"
   },
   "options": {
     "text_width": {

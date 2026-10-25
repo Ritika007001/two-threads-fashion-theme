@@ -1,0 +1,139 @@
+{% comment %}
+  Address book for a signed-in customer: the saved addresses as cards, each
+  with edit and delete, and an "add address" form. Add and edit forms open
+  inside <details> elements, so they work without JavaScript; the only script
+  is Shopify's own shopify_common.js, which fills the province dropdown for
+  the chosen country, plus small helpers for Cancel and delete confirmation.
+
+  https://shopify.dev/docs/storefronts/themes/architecture/templates/customers-addresses
+{% endcomment %}
+
+{% render 'account-styles' %}
+
+<div class="account account--wide">
+  <div class="account__header">
+    <h1 class="account__title">{{ 'customers.addresses.title' | t }}</h1>
+    <a href="{{ routes.account_url }}">{{ 'customers.addresses.back' | t }}</a>
+  </div>
+
+  <details class="account__details" id="AddressNewDetails">
+    <summary class="button">{{ 'customers.addresses.add_new' | t }}</summary>
+    <div class="account__details-body">
+      {% form 'customer_address', customer.new_address, id: 'AddressNewForm', class: 'account__form' %}
+        <h2 class="account__heading">{{ 'customers.addresses.add_new' | t }}</h2>
+        {% render 'address-form', form: form, id: 'AddressNew' %}
+        <div class="account__actions">
+          <button type="submit" class="button">{{ 'customers.addresses.add' | t }}</button>
+          <button type="button" class="account__link-button" data-address-cancel>{{ 'customers.addresses.cancel' | t }}</button>
+        </div>
+      {% endform %}
+    </div>
+  </details>
+
+  <section class="account__section" aria-labelledby="AddressesList">
+    <h2 id="AddressesList" class="account__heading">
+      {{ 'customers.addresses.saved' | t: count: customer.addresses_count }}
+    </h2>
+
+    {% paginate customer.addresses by 12 %}
+      {% if customer.addresses.size > 0 %}
+        <div class="account__cards">
+          {% for address in customer.addresses %}
+            <div class="account__card" id="Address-{{ address.id }}">
+              {% if address == customer.default_address %}
+                <p class="account__card-label">{{ 'customers.addresses.default' | t }}</p>
+              {% endif %}
+              <address>{{ address | format_address }}</address>
+
+              <div class="account__card-actions">
+                <details class="account__details account__details--edit" id="AddressEdit-{{ address.id }}">
+                  <summary class="account__link-button">{{ 'customers.addresses.edit' | t }}</summary>
+                  <div class="account__details-body">
+                    {% liquid
+                      assign edit_default = false
+                      if address == customer.default_address
+                        assign edit_default = true
+                      endif
+                      assign edit_id = address.id | prepend: 'Address-'
+                    %}
+                    {% form 'customer_address', address, class: 'account__form' %}
+                      <h3 class="account__heading">{{ 'customers.addresses.edit_address' | t }}</h3>
+                      {% render 'address-form', form: form, id: edit_id, is_default: edit_default %}
+                      <div class="account__actions">
+                        <button type="submit" class="button">{{ 'customers.addresses.update' | t }}</button>
+                        <button type="button" class="account__link-button" data-address-cancel>{{ 'customers.addresses.cancel' | t }}</button>
+                      </div>
+                    {% endform %}
+                  </div>
+                </details>
+
+                <form method="post" action="{{ address.url }}" data-address-delete="{{ 'customers.addresses.delete_confirm' | t | escape }}">
+                  <input type="hidden" name="_method" value="delete">
+                  <button type="submit" class="account__link-button">{{ 'customers.addresses.delete' | t }}</button>
+                </form>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <div class="account__empty">
+          <p>{{ 'customers.addresses.none' | t }}</p>
+        </div>
+      {% endif %}
+
+      {% render 'pagination', paginate: paginate %}
+    {% endpaginate %}
+  </section>
+</div>
+
+{{ 'shopify_common.js' | shopify_asset_url | script_tag }}
+
+{% stylesheet %}
+  /* Closed: "Edit" sits beside "Delete". Open: the form takes a full row below. */
+  .account__details--edit[open] {
+    flex-basis: 100%;
+    order: 1;
+  }
+
+  .account__details--edit[open] > summary {
+    margin-bottom: 1rem;
+  }
+{% endstylesheet %}
+
+{% javascript %}
+  // Country / province dropdowns, filled by Shopify's shopify_common.js.
+  // The province field is hidden for countries that have no provinces.
+  document.querySelectorAll('[data-address-country]').forEach((country) => {
+    if (!window.Shopify || !window.Shopify.CountryProvinceSelector) return;
+    const fields = country.closest('.account__fields');
+    const province = fields.querySelector('[data-address-province]');
+    const wrapper = fields.querySelector('[data-address-province-wrapper]');
+    new Shopify.CountryProvinceSelector(country.id, province.id, { hideElement: wrapper.id });
+  });
+
+  // Cancel buttons close the surrounding add / edit form.
+  document.querySelectorAll('[data-address-cancel]').forEach((button) => {
+    button.addEventListener('click', () => {
+      const details = button.closest('details');
+      if (details) details.open = false;
+    });
+  });
+
+  // Ask before deleting an address. The question comes from the locale file,
+  // through the data attribute on the form.
+  document.querySelectorAll('[data-address-delete]').forEach((form) => {
+    form.addEventListener('submit', (event) => {
+      if (!window.confirm(form.dataset.addressDelete)) event.preventDefault();
+    });
+  });
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "t:general.customer_addresses",
+  "settings": [],
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  }
+}
+{% endschema %}
