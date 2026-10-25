@@ -26,11 +26,11 @@ The star ratings, reviews, shipping notes and "You may also like" products are *
 
 You need a Shopify store to use this theme. A free trial store works.
 
-**Fastest way:** download the latest `two-threads-theme-x.y.z.zip` from the repository's **Releases** page and jump to step 3. The steps below are for building the zip from the source code yourself.
+**Fastest way:** download the latest `two-threads-theme-x.y.z.zip` from the repository's **Releases** page and jump to step 3. **Even easier:** in Shopify admin go to **Online Store → Themes → Add theme → Connect from GitHub**, pick this repository and the `main` branch, and the theme installs itself and receives every future update automatically. The steps below are for building the zip from the source code yourself.
 
 ### 1. Download the code from GitHub
 
-1. Sign in to GitHub and open this repository. It's private, so only people you've invited can see it.
+1. Open this repository on GitHub. It's public, so you don't need a GitHub account.
 2. Click the green **Code** button, then **Download ZIP**.
 3. Find the downloaded file (usually in your **Downloads** folder) and unzip it:
    - **Windows:** right-click the file, then choose **Extract All**.
