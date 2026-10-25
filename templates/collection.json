@@ -26,12 +26,12 @@
         "sample_colours": "Oat, Sage, Charcoal, Navy"
       },
       "blocks": {
-        "sample_1": { "type": "sample_product", "settings": { "name": "Linen wrap dress", "price": "£89.00" } },
-        "sample_2": { "type": "sample_product", "settings": { "name": "Cotton poplin shirt", "price": "£58.00" } },
-        "sample_3": { "type": "sample_product", "settings": { "name": "Wool blend cardigan", "price": "£79.00" } },
-        "sample_4": { "type": "sample_product", "settings": { "name": "Wide leg linen trousers", "price": "£65.00" } },
-        "sample_5": { "type": "sample_product", "settings": { "name": "Soft knit scarf", "price": "£35.00" } },
-        "sample_6": { "type": "sample_product", "settings": { "name": "Relaxed denim jacket", "price": "£95.00" } }
+        "sample_1": { "type": "sample_product", "settings": { "name": "Linen wrap dress", "price": "€89.00" } },
+        "sample_2": { "type": "sample_product", "settings": { "name": "Cotton poplin shirt", "price": "€58.00" } },
+        "sample_3": { "type": "sample_product", "settings": { "name": "Wool blend cardigan", "price": "€79.00" } },
+        "sample_4": { "type": "sample_product", "settings": { "name": "Wide leg linen trousers", "price": "€65.00" } },
+        "sample_5": { "type": "sample_product", "settings": { "name": "Soft knit scarf", "price": "€35.00" } },
+        "sample_6": { "type": "sample_product", "settings": { "name": "Relaxed denim jacket", "price": "€95.00" } }
       },
       "block_order": ["sample_1", "sample_2", "sample_3", "sample_4", "sample_5", "sample_6"]
     }

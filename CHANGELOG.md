@@ -12,4 +12,5 @@ First public release.
 - Customer account pages: sign in, create account, forgot password, account overview, order details and address book.
 - Six languages built in: English, German, French, Spanish, Italian and Dutch.
 - Footer social links block, language and country/currency selectors, and a favicon setting.
+- Sample prices and shipping notes use euros to match the European market.
 - Four colour schemes (Cream, Sage, Ivory, Charcoal) with Playfair Display and Work Sans fonts bundled under the SIL Open Font License.
