@@ -4,7 +4,7 @@ A step-by-step guide for beginners. You need a Shopify store; a free trial store
 
 ## 1. Get the theme zip
 
-You need a file called something like `Two Threads-1.0.0.zip`.
+You need a file called something like `two-threads-theme-1.0.0.zip`. The newest one is always on the repository's **Releases** page on GitHub.
 
 - If someone sent you the zip, you're ready. Don't unzip it.
 - If you only have the code from GitHub, open the repository, click the green **Code** button, then **Download ZIP**. Unzip it, open the folder inside, select the eight theme folders (`assets`, `blocks`, `config`, `layout`, `locales`, `sections`, `snippets`, `templates`) plus `LICENSE` and the `licenses` folder, and zip **those items**, not the folder around them. Shopify needs the folders at the top level of the zip.

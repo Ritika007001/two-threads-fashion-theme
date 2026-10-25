@@ -60,7 +60,14 @@
     "variant_picker": "Size and option picker",
     "favicon": "Favicon",
     "social": "Social media",
-    "social_links": "Social links"
+    "social_links": "Social links",
+    "customer_login": "Login page",
+    "customer_register": "Create account page",
+    "customer_account": "Account page",
+    "customer_order": "Order page",
+    "customer_addresses": "Addresses page",
+    "customer_activate": "Activate account page",
+    "customer_reset": "Reset password page"
   },
   "info": {
     "accent_color": "Used sparingly for decoration and large text, such as journal tag marks and quote rules. Never used for small text.",

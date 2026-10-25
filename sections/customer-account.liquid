@@ -1,0 +1,94 @@
+{% comment %}
+  Account overview for a signed-in customer: a greeting, the order history
+  (20 per page) and the default address with a link to manage addresses.
+
+  https://shopify.dev/docs/storefronts/themes/architecture/templates/customers-account
+{% endcomment %}
+
+{% render 'account-styles' %}
+
+<div class="account account--wide">
+  <div class="account__header">
+    <div>
+      <h1 class="account__title">{{ 'customers.account.title' | t }}</h1>
+      {% if customer.first_name != blank %}
+        <p>{{ 'customers.account.welcome' | t: name: customer.first_name }}</p>
+      {% endif %}
+    </div>
+    <a href="{{ routes.account_logout_url }}">{{ 'customers.account.log_out' | t }}</a>
+  </div>
+
+  <section class="account__section" aria-labelledby="AccountOrders">
+    <h2 id="AccountOrders" class="account__heading">{{ 'customers.account.orders' | t }}</h2>
+
+    {% paginate customer.orders by 20 %}
+      {% if customer.orders.size > 0 %}
+        <div class="account__table-wrapper">
+          <table class="account__table">
+            <thead>
+              <tr>
+                <th scope="col">{{ 'customers.orders.order' | t }}</th>
+                <th scope="col">{{ 'customers.orders.date' | t }}</th>
+                <th scope="col">{{ 'customers.orders.payment_status' | t }}</th>
+                <th scope="col">{{ 'customers.orders.fulfillment_status' | t }}</th>
+                <th scope="col" class="account__table-number">{{ 'customers.orders.total' | t }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for order in customer.orders %}
+                <tr>
+                  <td>
+                    <a href="{{ order.customer_url }}" aria-label="{{ 'customers.orders.view_order' | t: name: order.name }}">
+                      {{- order.name -}}
+                    </a>
+                  </td>
+                  <td>{{ order.created_at | time_tag: format: 'date' }}</td>
+                  <td>{{ order.financial_status_label }}</td>
+                  <td>{{ order.fulfillment_status_label }}</td>
+                  <td class="account__table-number">{{ order.total_price | money_with_currency }}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      {% else %}
+        <div class="account__empty">
+          <p>{{ 'customers.account.no_orders' | t }}</p>
+          <p><a href="{{ routes.all_products_collection_url }}">{{ 'customers.account.start_shopping' | t }}</a></p>
+        </div>
+      {% endif %}
+
+      {% render 'pagination', paginate: paginate %}
+    {% endpaginate %}
+  </section>
+
+  <section class="account__section" aria-labelledby="AccountDetails">
+    <h2 id="AccountDetails" class="account__heading">{{ 'customers.account.details' | t }}</h2>
+
+    <div class="account__cards">
+      <div class="account__card">
+        <p class="account__card-label">{{ 'customers.account.default_address' | t }}</p>
+        {% if customer.default_address %}
+          <address>{{ customer.default_address | format_address }}</address>
+        {% else %}
+          <p>{{ 'customers.account.no_address' | t }}</p>
+        {% endif %}
+        <div class="account__card-actions">
+          <a href="{{ routes.account_addresses_url }}">
+            {{- 'customers.account.manage_addresses' | t: count: customer.addresses_count -}}
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+{% schema %}
+{
+  "name": "t:general.customer_account",
+  "settings": [],
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  }
+}
+{% endschema %}

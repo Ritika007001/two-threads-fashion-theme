@@ -1,0 +1,289 @@
+{% doc %}
+  Shared styles for the customer account pages (login, register, account,
+  order, addresses, activate account and reset password). Rendered once by
+  each customer section so the pages look alike and stay on the colour scheme.
+
+  @example
+  {% render 'account-styles' %}
+{% enddoc %}
+
+{% stylesheet %}
+  .account {
+    max-width: var(--account-width, 44rem);
+    margin-inline: auto;
+    padding-block: 2.5rem 1rem;
+  }
+
+  .account--wide {
+    --account-width: 64rem;
+  }
+
+  .account__header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.75rem 1.5rem;
+    margin-bottom: var(--space-6);
+  }
+
+  .account__title {
+    font-size: var(--text-h1);
+    line-height: var(--leading-tight);
+  }
+
+  .account__title--center {
+    text-align: center;
+  }
+
+  .account__intro {
+    max-width: 36rem;
+    margin: -1rem auto var(--space-6);
+    text-align: center;
+    color: var(--color-text-subdued);
+  }
+
+  .account__section {
+    margin-top: var(--space-7);
+  }
+
+  .account__section + .account__section {
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--color-line);
+  }
+
+  .account__heading {
+    margin-bottom: var(--space-4);
+    font-size: var(--text-h4);
+  }
+
+  .account__form {
+    display: grid;
+    gap: 1.25rem;
+    justify-items: start;
+  }
+
+  .account__form--narrow {
+    max-width: 26rem;
+    margin-inline: auto;
+  }
+
+  .account__fields {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    width: 100%;
+  }
+
+  .account__field {
+    width: 100%;
+  }
+
+  .account__field--full {
+    grid-column: 1 / -1;
+  }
+
+  .account__field label {
+    display: block;
+    margin-bottom: 0.375rem;
+    font-size: 0.875rem;
+  }
+
+  .account__field input,
+  .account__field select {
+    width: 100%;
+    min-height: 2.75rem;
+    padding: 0.625rem 0.875rem;
+    border: 1px solid var(--color-border);
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font: inherit;
+  }
+
+  .account__field input[aria-invalid='true'] {
+    border-color: var(--color-accent);
+  }
+
+  .account__checkbox {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .account__checkbox input {
+    width: 1rem;
+    height: 1rem;
+    accent-color: var(--color-foreground);
+  }
+
+  .account__message {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    border: 1px solid var(--color-border);
+  }
+
+  .account__message--success {
+    background-color: var(--color-surface);
+  }
+
+  .account__message ul {
+    margin: 0;
+    padding-inline-start: 1.25rem;
+  }
+
+  .account__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem 1.5rem;
+  }
+
+  .account__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.5rem;
+    margin-top: 0.5rem;
+    font-size: var(--text-small);
+  }
+
+  .account a:not(.button) {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  .account__empty {
+    padding: var(--space-6);
+    border: 1px dashed var(--color-border);
+    text-align: center;
+    color: var(--color-text-subdued);
+  }
+
+  /* Tables: orders list and order line items */
+  .account__table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  .account__table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-small);
+  }
+
+  .account__table th,
+  .account__table td {
+    padding: 0.875rem 0.75rem;
+    border-bottom: 1px solid var(--color-line);
+    text-align: start;
+    vertical-align: top;
+  }
+
+  .account__table th {
+    font-weight: 500;
+    font-size: var(--text-eyebrow);
+    letter-spacing: var(--tracking-eyebrow);
+    text-transform: uppercase;
+    color: var(--color-text-subdued);
+  }
+
+  .account__table td.account__table-number,
+  .account__table th.account__table-number {
+    text-align: end;
+    white-space: nowrap;
+  }
+
+  .account__table tfoot td {
+    border-bottom: 0;
+  }
+
+  .account__table tfoot tr:last-child td {
+    padding-top: 1rem;
+    font-weight: 500;
+    font-size: var(--text-body);
+  }
+
+  /* Address cards */
+  .account__cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(16rem, 100%), 1fr));
+    gap: var(--space-5);
+  }
+
+  .account__card {
+    padding: var(--space-5);
+    border: 1px solid var(--color-line);
+  }
+
+  .account__card-label {
+    margin-bottom: 0.75rem;
+    font-size: var(--text-eyebrow);
+    font-weight: 500;
+    letter-spacing: var(--tracking-eyebrow);
+    text-transform: uppercase;
+    color: var(--color-text-subdued);
+  }
+
+  .account__card address {
+    font-style: normal;
+    line-height: 1.6;
+  }
+
+  .account__card-actions {
+    display: flex;
+    gap: 1.25rem;
+    margin-top: 1rem;
+    font-size: var(--text-small);
+  }
+
+  .account__card-actions form {
+    display: inline;
+  }
+
+  .account__link-button {
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+    cursor: pointer;
+  }
+
+  /* Collapsible add / edit address forms */
+  .account__details > summary {
+    display: inline-block;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .account__details > summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .account__details[open] > summary {
+    margin-bottom: var(--space-5);
+  }
+
+  .account__details-body {
+    padding: var(--space-5);
+    border: 1px solid var(--color-line);
+    background-color: var(--color-surface);
+  }
+
+  @media (max-width: 749px) {
+    .account {
+      padding-top: 1.5rem;
+    }
+
+    .account__fields {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .account__table th,
+    .account__table td {
+      padding-inline: 0.5rem;
+    }
+  }
+{% endstylesheet %}

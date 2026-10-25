@@ -111,10 +111,126 @@
   },
   "customers": {
     "login": {
+      "title": "Se connecter",
       "email": "E-mail",
       "password": "Mot de passe",
       "submit": "Se connecter",
-      "title": "Connexion"
+      "forgot_password": "Mot de passe oublié ?",
+      "new_customer": "Nouveau ici ?",
+      "create_account": "Créer un compte",
+      "guest_title": "Vous ne faites que passer ?",
+      "guest_continue": "Continuer en tant qu'invité"
+    },
+    "recover": {
+      "title": "Réinitialiser votre mot de passe",
+      "intro": "Saisissez votre adresse e-mail et nous vous enverrons un lien pour choisir un nouveau mot de passe.",
+      "submit": "Envoyer le lien",
+      "cancel": "Retour à la connexion",
+      "success": "Si cette adresse e-mail est enregistrée chez nous, un lien de réinitialisation est en route."
+    },
+    "register": {
+      "title": "Créer un compte",
+      "intro": "Enregistrez vos coordonnées, suivez vos commandes et payez plus vite la prochaine fois.",
+      "first_name": "Prénom",
+      "last_name": "Nom",
+      "email": "E-mail",
+      "password": "Mot de passe",
+      "submit": "Créer mon compte",
+      "have_account": "Vous avez déjà un compte ?",
+      "sign_in": "Se connecter"
+    },
+    "account": {
+      "title": "Mon compte",
+      "welcome": "Bonjour, {{ name }}.",
+      "log_out": "Se déconnecter",
+      "orders": "Historique des commandes",
+      "no_orders": "Vous n'avez pas encore passé de commande.",
+      "start_shopping": "Commencer mes achats",
+      "details": "Informations du compte",
+      "default_address": "Adresse par défaut",
+      "no_address": "Aucune adresse enregistrée pour le moment.",
+      "manage_addresses": {
+        "one": "Gérer l'adresse ({{ count }})",
+        "other": "Gérer les adresses ({{ count }})"
+      }
+    },
+    "orders": {
+      "order": "Commande",
+      "date": "Date",
+      "payment_status": "Paiement",
+      "fulfillment_status": "Livraison",
+      "total": "Total",
+      "view_order": "Voir la commande {{ name }}"
+    },
+    "order": {
+      "title": "Commande {{ name }}",
+      "date": "Passée le {{ date }}",
+      "cancelled": "Annulée le {{ date }}",
+      "cancelled_reason": "Motif : {{ reason }}",
+      "back": "Retour à mon compte",
+      "items": "Articles",
+      "product": "Produit",
+      "sku": "Référence",
+      "price": "Prix",
+      "quantity": "Quantité",
+      "total": "Total",
+      "fulfilled_at": "Expédié le {{ date }}",
+      "track_shipment": "Suivre le colis",
+      "subtotal": "Sous-total",
+      "discount": "Réduction",
+      "shipping": "Livraison",
+      "tax": "Taxes",
+      "duties": "Droits de douane",
+      "refunded": "Remboursé",
+      "addresses": "Adresses",
+      "billing_address": "Adresse de facturation",
+      "shipping_address": "Adresse de livraison",
+      "payment_status": "Paiement",
+      "fulfillment_status": "Livraison"
+    },
+    "addresses": {
+      "title": "Adresses",
+      "back": "Retour à mon compte",
+      "add_new": "Ajouter une adresse",
+      "add": "Enregistrer l'adresse",
+      "cancel": "Annuler",
+      "saved": {
+        "one": "{{ count }} adresse enregistrée",
+        "other": "{{ count }} adresses enregistrées"
+      },
+      "none": "Aucune adresse enregistrée pour le moment.",
+      "default": "Par défaut",
+      "edit": "Modifier",
+      "edit_address": "Modifier l'adresse",
+      "update": "Enregistrer les modifications",
+      "delete": "Supprimer",
+      "delete_confirm": "Supprimer cette adresse ?",
+      "first_name": "Prénom",
+      "last_name": "Nom",
+      "company": "Société (facultatif)",
+      "address1": "Adresse",
+      "address2": "Appartement, étage, etc. (facultatif)",
+      "city": "Ville",
+      "zip": "Code postal",
+      "country": "Pays/région",
+      "province": "Province/État",
+      "phone": "Téléphone (facultatif)",
+      "set_default": "Définir comme adresse par défaut"
+    },
+    "activate": {
+      "title": "Activer votre compte",
+      "intro": "Choisissez un mot de passe pour finaliser la création de votre compte.",
+      "password": "Mot de passe",
+      "password_confirm": "Confirmer le mot de passe",
+      "submit": "Activer le compte",
+      "decline": "Refuser l'invitation"
+    },
+    "reset": {
+      "title": "Choisir un nouveau mot de passe",
+      "intro": "Pour {{ email }}",
+      "password": "Nouveau mot de passe",
+      "password_confirm": "Confirmer le nouveau mot de passe",
+      "submit": "Enregistrer le mot de passe"
     }
   },
   "collection": {

@@ -13,6 +13,7 @@ A calm, simple Shopify theme for clothing and accessories shops, in a soft edito
 - **Collection pages:** a row of filters (such as Size, Colour and Price), a sort menu and a product grid.
 - **Cart:** items, subtotal, shipping and total lines, a "Checkout" button and "You may also like".
 - **Other pages:** a journal (blog), contact form, content pages, "page not found" and an "Opening soon" password page.
+- **Customer accounts:** sign in, create account, forgot password, account overview with order history, order details, and an address book, all in the same style as the rest of the theme. (Stores on Shopify's newer hosted accounts use Shopify's own pages instead; both work.)
 - **Footer extras:** a Social links block (Instagram, TikTok, Facebook, Pinterest, YouTube — set the addresses under Theme settings → Social media), plus language and country/currency selectors that appear automatically once the store has more than one language or market.
 - **Favicon:** upload yours under Theme settings → Favicon.
 - **Six languages built in:** English, German, French, Spanish, Italian and Dutch. Add a language under **Settings → Languages** in Shopify admin and every button, label and message switches automatically. Your own product names and descriptions are translated separately, with Shopify's free **Translate & Adapt** app.
@@ -24,6 +25,8 @@ The star ratings, reviews, shipping notes and "You may also like" products are *
 ## Step-by-step guide for beginners
 
 You need a Shopify store to use this theme. A free trial store works.
+
+**Fastest way:** download the latest `two-threads-theme-x.y.z.zip` from the repository's **Releases** page and jump to step 3. The steps below are for building the zip from the source code yourself.
 
 ### 1. Download the code from GitHub
 

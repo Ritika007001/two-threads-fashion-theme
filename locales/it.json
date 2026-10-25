@@ -111,10 +111,126 @@
   },
   "customers": {
     "login": {
+      "title": "Accedi",
       "email": "E-mail",
       "password": "Password",
       "submit": "Accedi",
-      "title": "Accesso"
+      "forgot_password": "Password dimenticata?",
+      "new_customer": "Sei nuovo?",
+      "create_account": "Crea un account",
+      "guest_title": "Stai solo dando un'occhiata?",
+      "guest_continue": "Continua come ospite"
+    },
+    "recover": {
+      "title": "Reimposta la password",
+      "intro": "Inserisci il tuo indirizzo e-mail e ti invieremo un link per scegliere una nuova password.",
+      "submit": "Invia il link",
+      "cancel": "Torna all'accesso",
+      "success": "Se questo indirizzo e-mail è registrato da noi, il link per reimpostare la password è in arrivo."
+    },
+    "register": {
+      "title": "Crea un account",
+      "intro": "Salva i tuoi dati, segui i tuoi ordini e completa gli acquisti più in fretta la prossima volta.",
+      "first_name": "Nome",
+      "last_name": "Cognome",
+      "email": "E-mail",
+      "password": "Password",
+      "submit": "Crea account",
+      "have_account": "Hai già un account?",
+      "sign_in": "Accedi"
+    },
+    "account": {
+      "title": "Il mio account",
+      "welcome": "Ciao, {{ name }}.",
+      "log_out": "Esci",
+      "orders": "Cronologia ordini",
+      "no_orders": "Non hai ancora effettuato ordini.",
+      "start_shopping": "Inizia a fare acquisti",
+      "details": "Dati dell'account",
+      "default_address": "Indirizzo predefinito",
+      "no_address": "Nessun indirizzo salvato.",
+      "manage_addresses": {
+        "one": "Gestisci indirizzo ({{ count }})",
+        "other": "Gestisci indirizzi ({{ count }})"
+      }
+    },
+    "orders": {
+      "order": "Ordine",
+      "date": "Data",
+      "payment_status": "Pagamento",
+      "fulfillment_status": "Consegna",
+      "total": "Totale",
+      "view_order": "Vedi l'ordine {{ name }}"
+    },
+    "order": {
+      "title": "Ordine {{ name }}",
+      "date": "Effettuato il {{ date }}",
+      "cancelled": "Annullato il {{ date }}",
+      "cancelled_reason": "Motivo: {{ reason }}",
+      "back": "Torna al mio account",
+      "items": "Articoli",
+      "product": "Prodotto",
+      "sku": "Codice",
+      "price": "Prezzo",
+      "quantity": "Quantità",
+      "total": "Totale",
+      "fulfilled_at": "Spedito il {{ date }}",
+      "track_shipment": "Traccia la spedizione",
+      "subtotal": "Subtotale",
+      "discount": "Sconto",
+      "shipping": "Spedizione",
+      "tax": "Imposte",
+      "duties": "Dazi",
+      "refunded": "Rimborsato",
+      "addresses": "Indirizzi",
+      "billing_address": "Indirizzo di fatturazione",
+      "shipping_address": "Indirizzo di spedizione",
+      "payment_status": "Pagamento",
+      "fulfillment_status": "Consegna"
+    },
+    "addresses": {
+      "title": "Indirizzi",
+      "back": "Torna al mio account",
+      "add_new": "Aggiungi un indirizzo",
+      "add": "Salva indirizzo",
+      "cancel": "Annulla",
+      "saved": {
+        "one": "{{ count }} indirizzo salvato",
+        "other": "{{ count }} indirizzi salvati"
+      },
+      "none": "Nessun indirizzo salvato.",
+      "default": "Predefinito",
+      "edit": "Modifica",
+      "edit_address": "Modifica indirizzo",
+      "update": "Salva le modifiche",
+      "delete": "Elimina",
+      "delete_confirm": "Eliminare questo indirizzo?",
+      "first_name": "Nome",
+      "last_name": "Cognome",
+      "company": "Azienda (facoltativo)",
+      "address1": "Indirizzo",
+      "address2": "Interno, scala, ecc. (facoltativo)",
+      "city": "Città",
+      "zip": "CAP",
+      "country": "Paese/area geografica",
+      "province": "Provincia/stato",
+      "phone": "Telefono (facoltativo)",
+      "set_default": "Imposta come indirizzo predefinito"
+    },
+    "activate": {
+      "title": "Attiva il tuo account",
+      "intro": "Scegli una password per completare la configurazione del tuo account.",
+      "password": "Password",
+      "password_confirm": "Conferma password",
+      "submit": "Attiva account",
+      "decline": "Rifiuta l'invito"
+    },
+    "reset": {
+      "title": "Scegli una nuova password",
+      "intro": "Per {{ email }}",
+      "password": "Nuova password",
+      "password_confirm": "Conferma la nuova password",
+      "submit": "Salva password"
     }
   },
   "collection": {

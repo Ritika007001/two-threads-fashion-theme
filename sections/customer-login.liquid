@@ -1,0 +1,155 @@
+{% comment %}
+  Login page for stores on classic customer accounts: the sign-in form, a
+  "forgot your password?" form that slides in below it, a link to create an
+  account and, when the store allows it, a "continue as guest" button.
+
+  Stores on Shopify's new customer accounts never reach this page; Shopify
+  hosts their login itself.
+
+  https://shopify.dev/docs/storefronts/themes/architecture/templates/customers-login
+{% endcomment %}
+
+{% render 'account-styles' %}
+
+<div class="account">
+  <h1 class="account__title account__title--center">{{ 'customers.login.title' | t }}</h1>
+
+  {% form 'customer_login', id: 'CustomerLogin', class: 'account__form account__form--narrow', novalidate: 'novalidate' %}
+    {% if form.errors %}
+      <div class="account__message" role="alert">{{ form.errors | default_errors }}</div>
+    {% endif %}
+
+    <div class="account__field">
+      <label for="CustomerLogin-email">{{ 'customers.login.email' | t }}</label>
+      <input
+        id="CustomerLogin-email"
+        type="email"
+        name="customer[email]"
+        autocomplete="email"
+        autocorrect="off"
+        autocapitalize="off"
+        required
+        {% if form.errors contains 'form' %}
+          aria-invalid="true"
+        {% endif %}
+      >
+    </div>
+
+    {% if form.password_needed %}
+      <div class="account__field">
+        <label for="CustomerLogin-password">{{ 'customers.login.password' | t }}</label>
+        <input
+          id="CustomerLogin-password"
+          type="password"
+          name="customer[password]"
+          autocomplete="current-password"
+          required
+          {% if form.errors contains 'form' %}
+            aria-invalid="true"
+          {% endif %}
+        >
+      </div>
+    {% endif %}
+
+    <div class="account__actions">
+      <button type="submit" class="button">{{ 'customers.login.submit' | t }}</button>
+      {% if form.password_needed %}
+        <a href="#recover" class="account__recover-link">{{ 'customers.login.forgot_password' | t }}</a>
+      {% endif %}
+    </div>
+
+    <div class="account__links">
+      <span>{{ 'customers.login.new_customer' | t }}</span>
+      <a href="{{ routes.account_register_url }}">{{ 'customers.login.create_account' | t }}</a>
+    </div>
+  {% endform %}
+
+  {% comment %} Password recovery. Hidden until "Forgot your password?" is used (CSS :target), or after it has been submitted. {% endcomment %}
+  <div id="recover" class="account__recover account__section">
+    {% form 'recover_customer_password', id: 'CustomerRecover', class: 'account__form account__form--narrow' %}
+      {% assign recover_success = form.posted_successfully? %}
+
+      <h2 class="account__heading">{{ 'customers.recover.title' | t }}</h2>
+
+      {% if recover_success %}
+        <p class="account__message account__message--success" role="status">{{ 'customers.recover.success' | t }}</p>
+      {% else %}
+        <p>{{ 'customers.recover.intro' | t }}</p>
+
+        {% if form.errors %}
+          <div class="account__message" role="alert">{{ form.errors | default_errors }}</div>
+        {% endif %}
+
+        <div class="account__field">
+          <label for="CustomerRecover-email">{{ 'customers.login.email' | t }}</label>
+          <input
+            id="CustomerRecover-email"
+            type="email"
+            name="email"
+            autocomplete="email"
+            autocorrect="off"
+            autocapitalize="off"
+            required
+          >
+        </div>
+
+        <div class="account__actions">
+          <button type="submit" class="button">{{ 'customers.recover.submit' | t }}</button>
+          <a href="#" class="account__recover-cancel">{{ 'customers.recover.cancel' | t }}</a>
+        </div>
+      {% endif %}
+    {% endform %}
+  </div>
+
+  {% if shop.checkout.guest_login %}
+    <div class="account__section account__guest">
+      <h2 class="account__heading">{{ 'customers.login.guest_title' | t }}</h2>
+      {% form 'guest_login', class: 'account__form' %}
+        <button type="submit" class="button button--secondary">{{ 'customers.login.guest_continue' | t }}</button>
+      {% endform %}
+    </div>
+  {% endif %}
+</div>
+
+{% stylesheet %}
+  /* The recovery form only shows when linked to (#recover) or after posting. */
+  .account__recover {
+    display: none;
+    max-width: 26rem;
+    margin-inline: auto;
+  }
+
+  .account__recover:target,
+  .account__recover--open {
+    display: block;
+  }
+
+  .account__guest {
+    max-width: 26rem;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .account__guest .account__form {
+    justify-items: center;
+  }
+{% endstylesheet %}
+
+{% javascript %}
+  // Keep the recovery form visible after it has been submitted (success or
+  // error), since the page reloads without the #recover hash.
+  const recover = document.getElementById('recover');
+  if (recover && recover.querySelector('.account__message')) {
+    recover.classList.add('account__recover--open');
+  }
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "t:general.customer_login",
+  "settings": [],
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  }
+}
+{% endschema %}

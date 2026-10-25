@@ -111,10 +111,126 @@
   },
   "customers": {
     "login": {
+      "title": "Inloggen",
       "email": "E-mail",
       "password": "Wachtwoord",
       "submit": "Inloggen",
-      "title": "Inloggen"
+      "forgot_password": "Wachtwoord vergeten?",
+      "new_customer": "Nieuw hier?",
+      "create_account": "Account aanmaken",
+      "guest_title": "Alleen aan het rondkijken?",
+      "guest_continue": "Doorgaan als gast"
+    },
+    "recover": {
+      "title": "Wachtwoord opnieuw instellen",
+      "intro": "Vul je e-mailadres in en we sturen je een link om een nieuw wachtwoord te kiezen.",
+      "submit": "Link versturen",
+      "cancel": "Terug naar inloggen",
+      "success": "Als dit e-mailadres bij ons bekend is, is er een link onderweg."
+    },
+    "register": {
+      "title": "Account aanmaken",
+      "intro": "Bewaar je gegevens, volg je bestellingen en reken de volgende keer sneller af.",
+      "first_name": "Voornaam",
+      "last_name": "Achternaam",
+      "email": "E-mail",
+      "password": "Wachtwoord",
+      "submit": "Account aanmaken",
+      "have_account": "Heb je al een account?",
+      "sign_in": "Inloggen"
+    },
+    "account": {
+      "title": "Mijn account",
+      "welcome": "Hallo, {{ name }}.",
+      "log_out": "Uitloggen",
+      "orders": "Bestelgeschiedenis",
+      "no_orders": "Je hebt nog geen bestellingen geplaatst.",
+      "start_shopping": "Begin met winkelen",
+      "details": "Accountgegevens",
+      "default_address": "Standaardadres",
+      "no_address": "Nog geen adres opgeslagen.",
+      "manage_addresses": {
+        "one": "Adres beheren ({{ count }})",
+        "other": "Adressen beheren ({{ count }})"
+      }
+    },
+    "orders": {
+      "order": "Bestelling",
+      "date": "Datum",
+      "payment_status": "Betaling",
+      "fulfillment_status": "Levering",
+      "total": "Totaal",
+      "view_order": "Bestelling {{ name }} bekijken"
+    },
+    "order": {
+      "title": "Bestelling {{ name }}",
+      "date": "Geplaatst op {{ date }}",
+      "cancelled": "Geannuleerd op {{ date }}",
+      "cancelled_reason": "Reden: {{ reason }}",
+      "back": "Terug naar mijn account",
+      "items": "Artikelen",
+      "product": "Product",
+      "sku": "Artikelnummer",
+      "price": "Prijs",
+      "quantity": "Aantal",
+      "total": "Totaal",
+      "fulfilled_at": "Verzonden op {{ date }}",
+      "track_shipment": "Zending volgen",
+      "subtotal": "Subtotaal",
+      "discount": "Korting",
+      "shipping": "Verzending",
+      "tax": "Belasting",
+      "duties": "Invoerrechten",
+      "refunded": "Terugbetaald",
+      "addresses": "Adressen",
+      "billing_address": "Factuuradres",
+      "shipping_address": "Verzendadres",
+      "payment_status": "Betaling",
+      "fulfillment_status": "Levering"
+    },
+    "addresses": {
+      "title": "Adressen",
+      "back": "Terug naar mijn account",
+      "add_new": "Nieuw adres toevoegen",
+      "add": "Adres opslaan",
+      "cancel": "Annuleren",
+      "saved": {
+        "one": "{{ count }} opgeslagen adres",
+        "other": "{{ count }} opgeslagen adressen"
+      },
+      "none": "Nog geen adressen opgeslagen.",
+      "default": "Standaard",
+      "edit": "Bewerken",
+      "edit_address": "Adres bewerken",
+      "update": "Wijzigingen opslaan",
+      "delete": "Verwijderen",
+      "delete_confirm": "Dit adres verwijderen?",
+      "first_name": "Voornaam",
+      "last_name": "Achternaam",
+      "company": "Bedrijf (optioneel)",
+      "address1": "Adres",
+      "address2": "Appartement, verdieping, enz. (optioneel)",
+      "city": "Plaats",
+      "zip": "Postcode",
+      "country": "Land/regio",
+      "province": "Provincie/staat",
+      "phone": "Telefoon (optioneel)",
+      "set_default": "Instellen als standaardadres"
+    },
+    "activate": {
+      "title": "Activeer je account",
+      "intro": "Kies een wachtwoord om je account af te ronden.",
+      "password": "Wachtwoord",
+      "password_confirm": "Wachtwoord bevestigen",
+      "submit": "Account activeren",
+      "decline": "Uitnodiging afwijzen"
+    },
+    "reset": {
+      "title": "Kies een nieuw wachtwoord",
+      "intro": "Voor {{ email }}",
+      "password": "Nieuw wachtwoord",
+      "password_confirm": "Nieuw wachtwoord bevestigen",
+      "submit": "Wachtwoord opslaan"
     }
   },
   "collection": {

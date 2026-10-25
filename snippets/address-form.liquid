@@ -1,0 +1,88 @@
+{% doc %}
+  Renders the fields of an address form: name, company, two address lines,
+  city, country and province (linked dropdowns), postal code, phone and a
+  "set as default" checkbox. Used inside {% form 'customer_address' %} on
+  the addresses page, for both new and existing addresses.
+
+  @param {object} form - The form object from the surrounding customer_address form
+  @param {string} id - Unique prefix for the field ids, for example 'AddressNew' or 'Address-123'
+  @param {boolean} [is_default] - Whether this address is currently the default
+
+  @example
+  {% form 'customer_address', customer.new_address %}
+    {% render 'address-form', form: form, id: 'AddressNew' %}
+  {% endform %}
+{% enddoc %}
+
+<div class="account__fields">
+  <div class="account__field">
+    <label for="{{ id }}-first-name">{{ 'customers.addresses.first_name' | t }}</label>
+    <input id="{{ id }}-first-name" type="text" name="address[first_name]" value="{{ form.first_name | escape }}" autocomplete="given-name">
+  </div>
+
+  <div class="account__field">
+    <label for="{{ id }}-last-name">{{ 'customers.addresses.last_name' | t }}</label>
+    <input id="{{ id }}-last-name" type="text" name="address[last_name]" value="{{ form.last_name | escape }}" autocomplete="family-name">
+  </div>
+
+  <div class="account__field account__field--full">
+    <label for="{{ id }}-company">{{ 'customers.addresses.company' | t }}</label>
+    <input id="{{ id }}-company" type="text" name="address[company]" value="{{ form.company | escape }}" autocomplete="organization">
+  </div>
+
+  <div class="account__field account__field--full">
+    <label for="{{ id }}-address1">{{ 'customers.addresses.address1' | t }}</label>
+    <input id="{{ id }}-address1" type="text" name="address[address1]" value="{{ form.address1 | escape }}" autocomplete="address-line1">
+  </div>
+
+  <div class="account__field account__field--full">
+    <label for="{{ id }}-address2">{{ 'customers.addresses.address2' | t }}</label>
+    <input id="{{ id }}-address2" type="text" name="address[address2]" value="{{ form.address2 | escape }}" autocomplete="address-line2">
+  </div>
+
+  <div class="account__field">
+    <label for="{{ id }}-city">{{ 'customers.addresses.city' | t }}</label>
+    <input id="{{ id }}-city" type="text" name="address[city]" value="{{ form.city | escape }}" autocomplete="address-level2">
+  </div>
+
+  <div class="account__field">
+    <label for="{{ id }}-zip">{{ 'customers.addresses.zip' | t }}</label>
+    <input id="{{ id }}-zip" type="text" name="address[zip]" value="{{ form.zip | escape }}" autocomplete="postal-code" autocapitalize="characters">
+  </div>
+
+  <div class="account__field">
+    <label for="{{ id }}-country">{{ 'customers.addresses.country' | t }}</label>
+    <select
+      id="{{ id }}-country"
+      name="address[country]"
+      autocomplete="country"
+      data-address-country
+      data-default="{{ form.country | escape }}"
+    >
+      {{ all_country_option_tags }}
+    </select>
+  </div>
+
+  <div class="account__field" id="{{ id }}-province-wrapper" data-address-province-wrapper>
+    <label for="{{ id }}-province">{{ 'customers.addresses.province' | t }}</label>
+    <select
+      id="{{ id }}-province"
+      name="address[province]"
+      autocomplete="address-level1"
+      data-address-province
+      data-default="{{ form.province | escape }}"
+    ></select>
+  </div>
+
+  <div class="account__field account__field--full">
+    <label for="{{ id }}-phone">{{ 'customers.addresses.phone' | t }}</label>
+    <input id="{{ id }}-phone" type="tel" name="address[phone]" value="{{ form.phone | escape }}" autocomplete="tel">
+  </div>
+
+  <div class="account__field account__field--full">
+    <label class="account__checkbox" for="{{ id }}-default">
+      <input id="{{ id }}-default" type="checkbox" name="address[default]" value="1" {% if is_default %}checked{% endif %}>
+      {{ 'customers.addresses.set_default' | t }}
+    </label>
+  </div>
+</div>

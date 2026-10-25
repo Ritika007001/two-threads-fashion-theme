@@ -111,10 +111,126 @@
   },
   "customers": {
     "login": {
+      "title": "Iniciar sesión",
       "email": "Correo electrónico",
       "password": "Contraseña",
       "submit": "Iniciar sesión",
-      "title": "Iniciar sesión"
+      "forgot_password": "¿Olvidaste tu contraseña?",
+      "new_customer": "¿Eres nuevo?",
+      "create_account": "Crear una cuenta",
+      "guest_title": "¿Solo estás mirando?",
+      "guest_continue": "Continuar como invitado"
+    },
+    "recover": {
+      "title": "Restablecer tu contraseña",
+      "intro": "Introduce tu correo electrónico y te enviaremos un enlace para elegir una nueva contraseña.",
+      "submit": "Enviar enlace",
+      "cancel": "Volver a iniciar sesión",
+      "success": "Si ese correo electrónico está registrado con nosotros, el enlace de restablecimiento está en camino."
+    },
+    "register": {
+      "title": "Crear una cuenta",
+      "intro": "Guarda tus datos, sigue tus pedidos y compra más rápido la próxima vez.",
+      "first_name": "Nombre",
+      "last_name": "Apellidos",
+      "email": "Correo electrónico",
+      "password": "Contraseña",
+      "submit": "Crear cuenta",
+      "have_account": "¿Ya tienes una cuenta?",
+      "sign_in": "Iniciar sesión"
+    },
+    "account": {
+      "title": "Mi cuenta",
+      "welcome": "Hola, {{ name }}.",
+      "log_out": "Cerrar sesión",
+      "orders": "Historial de pedidos",
+      "no_orders": "Todavía no has realizado ningún pedido.",
+      "start_shopping": "Empezar a comprar",
+      "details": "Datos de la cuenta",
+      "default_address": "Dirección predeterminada",
+      "no_address": "Aún no hay ninguna dirección guardada.",
+      "manage_addresses": {
+        "one": "Gestionar dirección ({{ count }})",
+        "other": "Gestionar direcciones ({{ count }})"
+      }
+    },
+    "orders": {
+      "order": "Pedido",
+      "date": "Fecha",
+      "payment_status": "Pago",
+      "fulfillment_status": "Entrega",
+      "total": "Total",
+      "view_order": "Ver el pedido {{ name }}"
+    },
+    "order": {
+      "title": "Pedido {{ name }}",
+      "date": "Realizado el {{ date }}",
+      "cancelled": "Cancelado el {{ date }}",
+      "cancelled_reason": "Motivo: {{ reason }}",
+      "back": "Volver a mi cuenta",
+      "items": "Artículos",
+      "product": "Producto",
+      "sku": "SKU",
+      "price": "Precio",
+      "quantity": "Cantidad",
+      "total": "Total",
+      "fulfilled_at": "Enviado el {{ date }}",
+      "track_shipment": "Seguir el envío",
+      "subtotal": "Subtotal",
+      "discount": "Descuento",
+      "shipping": "Envío",
+      "tax": "Impuestos",
+      "duties": "Aranceles",
+      "refunded": "Reembolsado",
+      "addresses": "Direcciones",
+      "billing_address": "Dirección de facturación",
+      "shipping_address": "Dirección de envío",
+      "payment_status": "Pago",
+      "fulfillment_status": "Entrega"
+    },
+    "addresses": {
+      "title": "Direcciones",
+      "back": "Volver a mi cuenta",
+      "add_new": "Añadir una dirección",
+      "add": "Guardar dirección",
+      "cancel": "Cancelar",
+      "saved": {
+        "one": "{{ count }} dirección guardada",
+        "other": "{{ count }} direcciones guardadas"
+      },
+      "none": "Aún no hay direcciones guardadas.",
+      "default": "Predeterminada",
+      "edit": "Editar",
+      "edit_address": "Editar dirección",
+      "update": "Guardar cambios",
+      "delete": "Eliminar",
+      "delete_confirm": "¿Eliminar esta dirección?",
+      "first_name": "Nombre",
+      "last_name": "Apellidos",
+      "company": "Empresa (opcional)",
+      "address1": "Dirección",
+      "address2": "Piso, puerta, etc. (opcional)",
+      "city": "Ciudad",
+      "zip": "Código postal",
+      "country": "País/región",
+      "province": "Provincia/estado",
+      "phone": "Teléfono (opcional)",
+      "set_default": "Establecer como dirección predeterminada"
+    },
+    "activate": {
+      "title": "Activa tu cuenta",
+      "intro": "Elige una contraseña para terminar de configurar tu cuenta.",
+      "password": "Contraseña",
+      "password_confirm": "Confirmar contraseña",
+      "submit": "Activar cuenta",
+      "decline": "Rechazar invitación"
+    },
+    "reset": {
+      "title": "Elige una nueva contraseña",
+      "intro": "Para {{ email }}",
+      "password": "Nueva contraseña",
+      "password_confirm": "Confirmar nueva contraseña",
+      "submit": "Guardar contraseña"
     }
   },
   "collection": {

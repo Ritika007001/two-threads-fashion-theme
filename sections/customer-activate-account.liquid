@@ -1,0 +1,62 @@
+{% comment %}
+  Page reached from an account invitation email: the customer chooses a
+  password to activate the account, or declines the invitation.
+
+  https://shopify.dev/docs/storefronts/themes/architecture/templates/customers-activate-account
+{% endcomment %}
+
+{% render 'account-styles' %}
+
+<div class="account">
+  <h1 class="account__title account__title--center">{{ 'customers.activate.title' | t }}</h1>
+  <p class="account__intro">{{ 'customers.activate.intro' | t }}</p>
+
+  {% form 'activate_customer_password', id: 'CustomerActivate', class: 'account__form account__form--narrow' %}
+    {% if form.errors %}
+      <div class="account__message" role="alert">{{ form.errors | default_errors }}</div>
+    {% endif %}
+
+    <div class="account__field">
+      <label for="CustomerActivate-password">{{ 'customers.activate.password' | t }}</label>
+      <input
+        id="CustomerActivate-password"
+        type="password"
+        name="customer[password]"
+        autocomplete="new-password"
+        required
+        {% if form.errors contains 'password' %}
+          aria-invalid="true"
+        {% endif %}
+      >
+    </div>
+
+    <div class="account__field">
+      <label for="CustomerActivate-password-confirm">{{ 'customers.activate.password_confirm' | t }}</label>
+      <input
+        id="CustomerActivate-password-confirm"
+        type="password"
+        name="customer[password_confirmation]"
+        autocomplete="new-password"
+        required
+        {% if form.errors contains 'password_confirmation' %}
+          aria-invalid="true"
+        {% endif %}
+      >
+    </div>
+
+    <div class="account__actions">
+      <button type="submit" class="button">{{ 'customers.activate.submit' | t }}</button>
+      <button type="submit" class="button button--secondary" name="decline">{{ 'customers.activate.decline' | t }}</button>
+    </div>
+  {% endform %}
+</div>
+
+{% schema %}
+{
+  "name": "t:general.customer_activate",
+  "settings": [],
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  }
+}
+{% endschema %}
